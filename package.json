@@ -1,0 +1,18 @@
+{
+  "name": "escape-lab-back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js"
+  },
+  "repository": "https://github.com/TimBlanchard/escape-lab-back.git",
+  "author": "valentinsld, TimBlanchard & anorev",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "socket.io": "^4.4.1"
+  }
+}
