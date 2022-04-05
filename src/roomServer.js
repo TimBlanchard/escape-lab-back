@@ -17,7 +17,7 @@ const userConnected = (props) => {
     const room = new Room(idRoom, socketID)
     rooms.push(room)
 
-    return { idRoom, listUsers: room.users, newUser: { type: 'mainScreen', socketID } }
+    return { idRoom, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart }
   }
 }
 const userDisconnected = ({ socketID, idRoom }) => {

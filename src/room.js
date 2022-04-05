@@ -11,29 +11,31 @@ class Room {
       length: 1
     }
     this.isReady = []
-    this.isPlaying = false
+    this.isStart = false
   }
 
   addUser ({ socketID, isMainScreen = false, isPlayer = false }) {
     if (!socketID) return { error: 'No ID room'}
     if (this.users.length >= 3) return { error: 'Room is full'}
 
+    const RETURN = {idRoom: this.id, listUsers: this.users, isStart: this.isStart }
+
     if (!this.users.mainScreen && isMainScreen) {
       this.users.mainScreen = socketID
       this.setLengthUsers()
 
-      return { idRoom: this.id, listUsers: this.users, newUser: { type: 'mainScreen', socketID } }
+      return { ...RETURN, newUser: { type: 'mainScreen', socketID } }
     } else if (isPlayer) {
       if (!this.users.player1) {
         this.users.player1 = socketID
         this.setLengthUsers()
 
-        return { idRoom: this.id, listUsers: this.users, newUser: { type: 'player1', socketID } }
+        return { ...RETURN, newUser: { type: 'player1', socketID } }
       } else if (!this.users.player2) {
         this.users.player2 = socketID
         this.setLengthUsers()
 
-        return { idRoom: this.id, listUsers: this.users, newUser: { type: 'player2', socketID } }
+        return { ...RETURN, newUser: { type: 'player2', socketID } }
       }
 
       return { error: 'Room is full of player'}
@@ -75,10 +77,10 @@ class Room {
       this.isReady.push(socketID)
     }
 
-    const canStart = this.isReady.length >= 3
+    const canStart = this.isReady.length >= 2
 
     if (canStart) {
-      this.isPlaying = true
+      this.isStart = true
       this.isReady = []
     }
 
