@@ -4,19 +4,15 @@ module.exports = {
     node: true,
     es6: true
   },
-  extends: ['plugin:vue/recommended', 'eslint:recommended', '@vue/prettier'],
-  plugins: ['unused-imports', 'simple-import-sort'],
+  extends: ['eslint:recommended'],
+  plugins: ['unused-imports', 'simple-import-sort', 'eslint-plugin-prettier'],
   parserOptions: {
     parser: 'babel-eslint',
     sourceType: 'module',
     ecmaVersion: 11
   },
   rules: {
-    'vue/no-unused-components': 'off',
-    'vue/no-v-html': 'off',
-    'vue/multi-word-component-names': 'off',
     quotes: ['error', 'single'],
-    'prettier/prettier': ['error', { singleQuote: true }],
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
       'warn',
