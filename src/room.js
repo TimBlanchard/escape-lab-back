@@ -79,6 +79,7 @@ class Room {
 
     if (canStart) {
       this.isPlaying = true
+      this.isReady = []
     }
 
     return { isReadyLength : this.isReady.length, canStart }
