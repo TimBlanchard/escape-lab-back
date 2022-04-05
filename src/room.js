@@ -45,7 +45,7 @@ class Room {
   removeUser(socketID) {
     for (const key in this.users) {
       if (this.users[key] === socketID) {
-        this.users[key] === null
+        this.users[key] = null
       }
     }
 
