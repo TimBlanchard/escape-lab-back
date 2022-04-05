@@ -10,6 +10,8 @@ class Room {
       player2: null,
       length: 1
     }
+    this.isReady = []
+    this.isPlaying = false
   }
 
   addUser ({ socketID, isMainScreen = false, isPlayer = false }) {
@@ -65,8 +67,21 @@ class Room {
    }
 
    this.users.length = length
+  }
 
-   console.log(this.users)
+
+  setUserReady(socketID) {
+    if (!this.isReady.includes(socketID)) {
+      this.isReady.push(socketID)
+    }
+
+    const canStart = this.isReady.length >= 3
+
+    if (canStart) {
+      this.isPlaying = true
+    }
+
+    return { isReadyLength : this.isReady.length, canStart }
   }
 }
 

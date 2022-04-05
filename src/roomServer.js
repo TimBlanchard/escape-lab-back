@@ -30,4 +30,13 @@ const userDisconnected = ({ socketID, idRoom }) => {
   return { idRoom: existingRoom.id, listUsers: existingRoom.users }
 }
 
-module.exports = { userConnected, userDisconnected }
+const setUserReady = ({ socketID, idRoom }) => {
+  const existingRoom = rooms.find(roomObj => roomObj.id.trim().toLowerCase() === idRoom?.trim()?.toLowerCase())
+  if (!existingRoom) return { error: 'No Room'}
+
+  const dataIsReady = existingRoom.setUserReady(socketID)
+
+  return dataIsReady
+}
+
+module.exports = { userConnected, userDisconnected, setUserReady }
