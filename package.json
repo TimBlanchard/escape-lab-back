@@ -4,7 +4,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "watch": "nodemon index.js"
+    "watch": "nodemon index.js",
+    "commit": "git-cz",
+    "lint": "vue-cli-service lint",
+    "lint:fix": "vue-cli-service lint --fix --cache && yarn lint:css:fix"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   },
   "repository": "https://github.com/TimBlanchard/escape-lab-back.git",
   "author": "valentinsld, TimBlanchard & anorev",
@@ -14,5 +22,16 @@
     "express": "^4.17.3",
     "nodemon": "^2.0.15",
     "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "15.0.0",
+    "@commitlint/config-conventional": "15.0.0",
+    "@commitlint/cz-commitlint": "^16.2.3",
+    "commitizen": "^4.2.4",
+    "eslint": "6.8.0",
+    "eslint-plugin-prettier": "3.4.1",
+    "eslint-plugin-simple-import-sort": "7.0.0",
+    "eslint-plugin-unused-imports": "1.1.5",
+    "eslint-plugin-vue": "8.2.0"
   }
 }
