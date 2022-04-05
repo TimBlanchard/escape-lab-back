@@ -6,8 +6,8 @@
     "start": "node index.js",
     "watch": "nodemon index.js",
     "commit": "git-cz",
-    "lint": "eslint index.js",
-    "lint:fix": "eslint index.js --fix --cache"
+    "lint": "eslint index.js room.js",
+    "lint:fix": "eslint index.js room.js --fix --cache"
   },
   "config": {
     "commitizen": {
