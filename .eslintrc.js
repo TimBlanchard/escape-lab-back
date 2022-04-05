@@ -19,6 +19,10 @@ module.exports = {
       { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' }
     ],
     'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error'
+    'simple-import-sort/exports': 'error',
+    'no-loss-of-precision': 'off',
+    'no-nonoctal-decimal-escape': 'off',
+    'no-unsafe-optional-chaining': 'off',
+    'no-useless-backreference': 'off'
   }
 }

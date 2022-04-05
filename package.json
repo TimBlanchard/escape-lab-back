@@ -6,8 +6,8 @@
     "start": "node index.js",
     "watch": "nodemon index.js",
     "commit": "git-cz",
-    "lint": "vue-cli-service lint",
-    "lint:fix": "vue-cli-service lint --fix --cache && yarn lint:css:fix"
+    "lint": "eslint index.js",
+    "lint:fix": "eslint index.js --fix --cache"
   },
   "config": {
     "commitizen": {
