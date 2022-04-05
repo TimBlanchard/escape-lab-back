@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client HTML</title>
+</head>
+<body>
+  
+  <h1>Client HTML</h1>
+
+  <input id="idRoom" />
+  <button onclick="connectToRoom()">connectToRoom</button>
+
+  <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+  <script>
+    const socket = io("http://localhost:5050", { transports : ['websocket'] });
+
+    const isPlayer = /iPhone|iPod|Android/i.test(navigator.userAgent)
+
+    const loginData = {
+      isMainScreen: !isPlayer,
+      isPlayer
+    }
+    socket.emit('connection')
+
+    const connectToRoom = () => {
+      const idRoom = document.querySelector('input').value || null
+      socket.emit('connectToRoom', {...loginData, idRoom}, () => {
+        console.log('connectToRoom', socket.id);
+      });
+    }
+
+    socket.on('connect', () => {
+      console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    });
+
+    socket.on('userConnected', (el) => {
+      console.log('userConnected ', el);
+    });
+
+    socket.on('userDisconnected', (el) => {
+      console.log('userDisconnected', el);
+    });
+
+    socket.on('disconnect', () => {
+      console.log(socket.id); // undefined
+    });
+  </script>
+</body>
+</html>
