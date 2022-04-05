@@ -5,32 +5,34 @@ const PORT = process.env.PORT || 5050
 //Initialize new socket.io instance and pass the http server to it
 const io = require('socket.io')(http)
 
-const { userConnected, userDisconnected } = require('./room')
+const { userConnected, userDisconnected } = require('./roomServer')
 
 app.use(cors())
 
 
 io.on('connection', (socket) => {
+
+  //====================//
+  //     Connexions     //
+  //====================//
+
+  // connection user on socket
   socket.on('connection', () => {
     console.log('connection :', socket.id)
   })
 
+  //connexion to Room
   socket.on('connectToRoom', ({idRoom, isMainScreen, isPlayer}) => {
     if (socket.idRoom) return
 
-    // console.log('Connect to room', {idRoom, isMainScreen, isPlayer, socketID: socket.id})
     const dataRoom = userConnected({idRoom, isMainScreen, isPlayer, socketID: socket.id})
-    console.log('idRoom : ', dataRoom)
 
     socket.idRoom = dataRoom.idRoom
     socket.join(dataRoom.idRoom)
     io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
   })
   
-  socket.on('sendMessage', () => {
-  
-  })
-  
+  // on user disconnected
   socket.on('disconnect', () => {
     console.log({ socketID : socket.id, idRoom: socket.idRoom})
     const data = userDisconnected({ socketID : socket.id, idRoom: socket.idRoom})

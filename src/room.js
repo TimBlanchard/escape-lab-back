@@ -1,18 +1,3 @@
-const rooms = []
-
-//
-// Generate UID
-//
-function generateUID() {
-  // I generate the UID from two parts here 
-  // to ensure the random number provide enough bits.
-  var firstPart = (Math.random() * 46656) | 0;
-  var secondPart = (Math.random() * 46656) | 0;
-  firstPart = ('000' + firstPart.toString(36)).slice(-3);
-  secondPart = ('000' + secondPart.toString(36)).slice(-3);
-  return firstPart + secondPart;
-}
-
 //
 // ROOM
 //
@@ -85,30 +70,4 @@ class Room {
   }
 }
 
-const userConnected = (props) => {
-  // {room, isMainScreen, isPlayer}
-  const {idRoom, socketID} = props
-
-  const existingRoom = rooms.find(roomObj => roomObj.id.trim().toLowerCase() === idRoom?.trim()?.toLowerCase())
-
-  if (existingRoom) {
-    return existingRoom.addUser(props)
-  } else {
-    const idRoom = generateUID()
-    const room = new Room(idRoom, socketID)
-    rooms.push(room)
-
-    return { idRoom, listUsers: room.users, newUser: { type: 'mainScreen', socketID } }
-  }
-}
-const userDisconnected = ({ socketID, idRoom }) => {
-  const existingRoom = rooms.find(roomObj => roomObj.id.trim().toLowerCase() === idRoom?.trim()?.toLowerCase())
-
-  if (!existingRoom) return { error: 'No Room'}
-
-  existingRoom.removeUser(socketID)
-
-  return { idRoom: existingRoom.id, listUsers: existingRoom.users }
-}
-
-module.exports = { userConnected, userDisconnected }
+module.exports = { Room }

@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "watch": "nodemon index.js",
+    "start": "node ./src/index.js",
+    "watch": "nodemon ./src/index.js",
     "commit": "git-cz",
-    "lint": "eslint index.js room.js",
-    "lint:fix": "eslint index.js room.js --fix --cache"
+    "lint": "eslint ./src/index.js ./src/room.js",
+    "lint:fix": "eslint ./src/index.js ./src/room.js --fix --cache"
   },
   "config": {
     "commitizen": {
