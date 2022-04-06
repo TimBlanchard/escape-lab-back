@@ -27,6 +27,11 @@ const userDisconnected = ({ socketID, idRoom }) => {
 
   existingRoom.removeUser(socketID)
 
+  if (existingRoom.users.length === 0) {
+    const indexRoom = rooms.findIndex(roomObj => roomObj.id.trim().toLowerCase() === idRoom?.trim()?.toLowerCase())
+    rooms.splice(indexRoom, 1)
+  }
+
   return { idRoom: existingRoom.id, listUsers: existingRoom.users }
 }
 
