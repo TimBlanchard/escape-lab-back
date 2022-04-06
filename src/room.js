@@ -24,18 +24,18 @@ class Room {
       this.users.mainScreen = socketID
       this.setLengthUsers()
 
-      return { ...RETURN, newUser: { type: 'mainScreen', socketID } }
+      return { ...RETURN, newUser: { type: 'MainScreen', socketID } }
     } else if (isPlayer) {
       if (!this.users.player1) {
         this.users.player1 = socketID
         this.setLengthUsers()
 
-        return { ...RETURN, newUser: { type: 'player1', socketID } }
+        return { ...RETURN, newUser: { type: 'Player1', socketID } }
       } else if (!this.users.player2) {
         this.users.player2 = socketID
         this.setLengthUsers()
 
-        return { ...RETURN, newUser: { type: 'player2', socketID } }
+        return { ...RETURN, newUser: { type: 'Player2', socketID } }
       }
 
       return { error: 'Room is full of player'}
