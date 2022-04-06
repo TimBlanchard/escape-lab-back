@@ -13,7 +13,7 @@ const changeData = (data) => {
 
     // parse message
     const textSplit = d.text.split(/: (.+)?/, 2)
-    d.user = textSplit[0].trim()
+    d.user = textSplit[0].replace(/ /g, '')
     d.message = textSplit[1].trim()
     d.isWriting = textSplit[1].includes('[writing]')
 
@@ -29,5 +29,7 @@ const contentOutro = fs.readFileSync('./src/assets/Intro.srt').toString();
 
 var dataIntro = changeData(parser.fromSrt(contentIntro));
 var dataOutro = changeData(parser.fromSrt(contentOutro));
+
+console.log(dataIntro)
 
 module.exports = { dataIntro, dataOutro }
