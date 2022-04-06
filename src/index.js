@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 5050
 //Initialize new socket.io instance and pass the http server to it
 const io = require('socket.io')(http)
 
-const { userConnected, userDisconnected, setUserReady } = require('./roomServer')
+const { userConnected, userDisconnected, setUserReady, setStepGame } = require('./roomServer')
 
 app.use(cors())
 
@@ -49,9 +49,20 @@ io.on('connection', (socket) => {
     console.log(data)
     if (data.canStart) {
       io.to(socket.idRoom).emit('startGame')
+      setStepGame(socket.idRoom, 'Intro')
     } else {
       io.to(socket.idRoom).emit('playerIsReady')
     }
+  })
+
+  // setStepGame
+  socket.on('setStepGame', ({ stepGame }) => {
+    console.log('setStepGame', stepGame, !stepGame || !['Outro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro'].includes(stepGame))
+    if (!stepGame || !['Outro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro'].includes(stepGame)) return
+
+    setStepGame(socket.idRoom, stepGame)
+
+    io.to(socket.idRoom).emit('setStepGame', { stepGame })
   })
 })
 

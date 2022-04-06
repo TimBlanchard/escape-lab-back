@@ -39,4 +39,13 @@ const setUserReady = ({ socketID, idRoom }) => {
   return dataIsReady
 }
 
-module.exports = { userConnected, userDisconnected, setUserReady }
+const setStepGame = (idRoom, step) => {
+  const existingRoom = rooms.find(roomObj => roomObj.id.trim().toLowerCase() === idRoom?.trim()?.toLowerCase())
+  if (!existingRoom) return { error: 'No Room'}
+
+  const data = existingRoom.setStepGame(step)
+
+  return data
+}
+
+module.exports = { userConnected, userDisconnected, setUserReady, setStepGame }

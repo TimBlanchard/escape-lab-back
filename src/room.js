@@ -12,6 +12,7 @@ class Room {
     }
     this.isReady = []
     this.isStart = false
+    this.stepGame = null
   }
 
   addUser ({ socketID, isMainScreen = false, isPlayer = false }) {
@@ -85,6 +86,12 @@ class Room {
     }
 
     return { isReadyLength : this.isReady.length, canStart }
+  }
+
+  setStepGame(stepGame) {
+    this.stepGame = stepGame
+
+    return { stepGame }
   }
 }
 
