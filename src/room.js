@@ -12,8 +12,12 @@ class Room {
     }
     this.isReady = []
     this.isStart = false
+    this.stepGame = null
   }
 
+  // =============== //
+  //    Connexion    //
+  // =============== //
   addUser ({ socketID, isMainScreen = false, isPlayer = false }) {
     if (!socketID) return { error: 'No ID room'}
     if (this.users.length >= 3) return { error: 'Room is full'}
@@ -24,18 +28,18 @@ class Room {
       this.users.mainScreen = socketID
       this.setLengthUsers()
 
-      return { ...RETURN, newUser: { type: 'mainScreen', socketID } }
+      return { ...RETURN, newUser: { type: 'MainScreen', socketID } }
     } else if (isPlayer) {
       if (!this.users.player1) {
         this.users.player1 = socketID
         this.setLengthUsers()
 
-        return { ...RETURN, newUser: { type: 'player1', socketID } }
+        return { ...RETURN, newUser: { type: 'Player1', socketID } }
       } else if (!this.users.player2) {
         this.users.player2 = socketID
         this.setLengthUsers()
 
-        return { ...RETURN, newUser: { type: 'player2', socketID } }
+        return { ...RETURN, newUser: { type: 'Player2', socketID } }
       }
 
       return { error: 'Room is full of player'}
@@ -43,7 +47,6 @@ class Room {
 
     return { error: 'Room has already mainScreen'}
   }
-
   removeUser(socketID) {
     for (const key in this.users) {
       if (this.users[key] === socketID) {
@@ -55,11 +58,6 @@ class Room {
 
     return { idRoom: this.id, listUsers: this.users }
   }
-
-  returnDataRoom() {
-    return // TODO
-  }
-
   setLengthUsers() {
     let length = 0
    for (const key in this.users) {
@@ -71,7 +69,16 @@ class Room {
    this.users.length = length
   }
 
+  // set step game
+  setStepGame(stepGame) {
+    this.stepGame = stepGame
 
+    return { stepGame }
+  }
+
+  // =============== //
+  //      Intro      //
+  // =============== //
   setUserReady(socketID) {
     if (!this.isReady.includes(socketID)) {
       this.isReady.push(socketID)
@@ -86,6 +93,26 @@ class Room {
 
     return { isReadyLength : this.isReady.length, canStart }
   }
+
+  // =============== //
+  //     Enigme1     //
+  // =============== //
+
+  // TODO
+
+
+  // =============== //
+  //     Enigme2     //
+  // =============== //
+
+  // TODO
+
+
+  // =============== //
+  //     Enigme3     //
+  // =============== //
+
+  // TODO
 }
 
 module.exports = { Room }

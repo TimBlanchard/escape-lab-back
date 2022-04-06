@@ -5,55 +5,38 @@ const PORT = process.env.PORT || 5050
 //Initialize new socket.io instance and pass the http server to it
 const io = require('socket.io')(http)
 
-const { userConnected, userDisconnected, setUserReady } = require('./roomServer')
+const { initConnexion } = require('./socketsConnexion')
+
+const { initKeys } = require('./keys')
+const { initSocketsIntro } = require('./socketsIntro')
+const { initSocketsOutro } = require('./socketsOutro')
+const { initSocketsEnigme1 } = require('./socketsEnigme1')
+const { initSocketsEnigme2 } = require('./socketsEnigme2')
+const { initSocketsEnigme3 } = require('./socketsEnigme3')
 
 app.use(cors())
 
-
 io.on('connection', (socket) => {
 
-  //====================//
-  //     Connexions     //
-  //====================//
+  // connexion
+  initConnexion(io, socket)
 
-  // connection user on socket
-  socket.on('connection', () => {
-    console.log('connection :', socket.id)
-  })
+  // intro
+  initSocketsIntro(io, socket)
 
-  //connexion to Room
-  socket.on('connectToRoom', ({idRoom, isMainScreen, isPlayer}) => {
-    if (socket.idRoom) return
+  // Enigme1
+  initSocketsEnigme1(io, socket)
+  // Enigme2
+  initSocketsEnigme2(io, socket)
+  // Enigme3
+  initSocketsEnigme3(io, socket)
 
-    const dataRoom = userConnected({idRoom, isMainScreen, isPlayer, socketID: socket.id})
-
-    socket.idRoom = dataRoom.idRoom
-    socket.join(dataRoom.idRoom)
-    io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
-  })
-  
-  // on user disconnected
-  socket.on('disconnect', () => {
-    console.log({ socketID : socket.id, idRoom: socket.idRoom})
-    const data = userDisconnected({ socketID : socket.id, idRoom: socket.idRoom})
-
-    console.log('userDisconnected', data, socket.idRoom)
-    io.to(socket.idRoom).emit('userDisconnected', data)
-  })
-
-  // on user isReady
-  socket.on('isReady', () => {
-    console.log('isReady')
-    const data = setUserReady({ socketID : socket.id, idRoom: socket.idRoom})
-
-    console.log(data)
-    if (data.canStart) {
-      io.to(socket.idRoom).emit('startGame')
-    } else {
-      io.to(socket.idRoom).emit('playerIsReady')
-    }
-  })
+  // outro
+  initSocketsOutro(io, socket)
 })
+
+
+initKeys()
 
 app.get('/', (req, res) => {
   res.send('Server is up and running')
