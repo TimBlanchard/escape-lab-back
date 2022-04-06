@@ -57,7 +57,6 @@ io.on('connection', (socket) => {
 
   // setStepGame
   socket.on('setStepGame', ({ stepGame }) => {
-    console.log('setStepGame', stepGame, !stepGame || !['Outro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro'].includes(stepGame))
     if (!stepGame || !['Outro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro'].includes(stepGame)) return
 
     setStepGame(socket.idRoom, stepGame)
