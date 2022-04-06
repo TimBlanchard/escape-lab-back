@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 5050
 //Initialize new socket.io instance and pass the http server to it
 const io = require('socket.io')(http)
 
-const { userConnected, userDisconnected, setUserReady, setStepGame } = require('./roomServer')
+const { rooms, userConnected, userDisconnected, setUserReady, setStepGame } = require('./roomServer')
 
 app.use(cors())
 
@@ -64,6 +64,22 @@ io.on('connection', (socket) => {
     io.to(socket.idRoom).emit('setStepGame', { stepGame })
   })
 })
+
+const readline = require('readline');
+readline.emitKeypressEvents(process.stdin);
+if (process.stdin.isTTY) process.stdin.setRawMode(true)
+
+process.stdin.on('keypress', (str, key) => {
+  if (key.ctrl && key.name === 'c') {
+    process.exit();
+  } else if ( key.name === 'r') {
+    console.log('============== ROOMS ==============')
+    console.log(rooms)
+    console.log('===================================')
+  }
+});
+console.log('Press r to see rooms');
+
 
 app.get('/', (req, res) => {
   res.send('Server is up and running')

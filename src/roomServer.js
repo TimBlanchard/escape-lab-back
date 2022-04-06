@@ -48,4 +48,4 @@ const setStepGame = (idRoom, step) => {
   return data
 }
 
-module.exports = { userConnected, userDisconnected, setUserReady, setStepGame }
+module.exports = { rooms, userConnected, userDisconnected, setUserReady, setStepGame }
