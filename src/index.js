@@ -6,16 +6,33 @@ const PORT = process.env.PORT || 5050
 const io = require('socket.io')(http)
 
 const { initConnexion } = require('./socketsConnexion')
+
 const { initKeys } = require('./keys')
+const { initSocketsIntro } = require('./socketsIntro')
+const { initSocketsOutro } = require('./socketsOutro')
+const { initSocketsEnigme1 } = require('./socketsEnigme1')
+const { initSocketsEnigme2 } = require('./socketsEnigme2')
+const { initSocketsEnigme3 } = require('./socketsEnigme3')
 
 app.use(cors())
 
 io.on('connection', (socket) => {
 
-  //====================//
-  //     Connexions     //
-  //====================//
+  // connexion
   initConnexion(io, socket)
+
+  // intro
+  initSocketsIntro(io, socket)
+
+  // Enigme1
+  initSocketsEnigme1(io, socket)
+  // Enigme2
+  initSocketsEnigme2(io, socket)
+  // Enigme3
+  initSocketsEnigme3(io, socket)
+
+  // outro
+  initSocketsOutro(io, socket)
 })
 
 
