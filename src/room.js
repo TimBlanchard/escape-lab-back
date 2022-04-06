@@ -15,6 +15,9 @@ class Room {
     this.stepGame = null
   }
 
+  // =============== //
+  //    Connexion    //
+  // =============== //
   addUser ({ socketID, isMainScreen = false, isPlayer = false }) {
     if (!socketID) return { error: 'No ID room'}
     if (this.users.length >= 3) return { error: 'Room is full'}
@@ -44,7 +47,6 @@ class Room {
 
     return { error: 'Room has already mainScreen'}
   }
-
   removeUser(socketID) {
     for (const key in this.users) {
       if (this.users[key] === socketID) {
@@ -56,11 +58,6 @@ class Room {
 
     return { idRoom: this.id, listUsers: this.users }
   }
-
-  returnDataRoom() {
-    return // TODO
-  }
-
   setLengthUsers() {
     let length = 0
    for (const key in this.users) {
@@ -72,7 +69,16 @@ class Room {
    this.users.length = length
   }
 
+  // set step game
+  setStepGame(stepGame) {
+    this.stepGame = stepGame
 
+    return { stepGame }
+  }
+
+  // =============== //
+  //      Intro      //
+  // =============== //
   setUserReady(socketID) {
     if (!this.isReady.includes(socketID)) {
       this.isReady.push(socketID)
@@ -88,11 +94,25 @@ class Room {
     return { isReadyLength : this.isReady.length, canStart }
   }
 
-  setStepGame(stepGame) {
-    this.stepGame = stepGame
+  // =============== //
+  //     Enigme1     //
+  // =============== //
 
-    return { stepGame }
-  }
+  // TODO
+
+
+  // =============== //
+  //     Enigme2     //
+  // =============== //
+
+  // TODO
+
+
+  // =============== //
+  //     Enigme3     //
+  // =============== //
+
+  // TODO
 }
 
 module.exports = { Room }
