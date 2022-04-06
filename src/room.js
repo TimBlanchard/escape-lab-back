@@ -22,7 +22,7 @@ class Room {
     if (!socketID) return { error: 'No ID room'}
     if (this.users.length >= 3) return { error: 'Room is full'}
 
-    const RETURN = {idRoom: this.id, listUsers: this.users, isStart: this.isStart }
+    const RETURN = {idRoom: this.id, listUsers: this.users, isStart: this.isStart, stepGame: this.stepGame }
 
     if (!this.users.mainScreen && isMainScreen) {
       this.users.mainScreen = socketID
