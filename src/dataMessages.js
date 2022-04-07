@@ -30,6 +30,4 @@ const contentOutro = fs.readFileSync('./src/assets/Intro.srt').toString();
 var dataIntro = changeData(parser.fromSrt(contentIntro));
 var dataOutro = changeData(parser.fromSrt(contentOutro));
 
-console.log(dataIntro)
-
 module.exports = { dataIntro, dataOutro }
