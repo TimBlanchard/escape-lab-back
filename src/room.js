@@ -10,9 +10,13 @@ class Room {
       player2: null,
       length: 1
     }
+    // connexion
     this.isReady = []
     this.isStart = false
     this.stepGame = null
+
+    // intro 
+    this.introIndexMessage = -1
   }
 
   // =============== //
@@ -92,6 +96,21 @@ class Room {
     }
 
     return { isReadyLength : this.isReady.length, canStart }
+  }
+
+  introReady(socketID) {
+    if (!this.isReady.includes(socketID)) {
+      this.isReady.push(socketID)
+    }
+
+    const canSendNextMessage = this.isReady.length >= 2
+
+    if (canSendNextMessage) {
+      this.isReady = []
+      this.introIndexMessage +=1
+    }
+
+    return { canSendNextMessage, indexMessage: this.introIndexMessage }
   }
 
   // =============== //
