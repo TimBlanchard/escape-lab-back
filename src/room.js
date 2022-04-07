@@ -10,9 +10,13 @@ class Room {
       player2: null,
       length: 1
     }
+    // connexion
     this.isReady = []
     this.isStart = false
     this.stepGame = null
+
+    // intro 
+    this.introIndexMessage = -1
   }
 
   // =============== //
@@ -22,7 +26,7 @@ class Room {
     if (!socketID) return { error: 'No ID room'}
     if (this.users.length >= 3) return { error: 'Room is full'}
 
-    const RETURN = {idRoom: this.id, listUsers: this.users, isStart: this.isStart }
+    const RETURN = {idRoom: this.id, listUsers: this.users, isStart: this.isStart, stepGame: this.stepGame }
 
     if (!this.users.mainScreen && isMainScreen) {
       this.users.mainScreen = socketID
@@ -92,6 +96,21 @@ class Room {
     }
 
     return { isReadyLength : this.isReady.length, canStart }
+  }
+
+  introReady(socketID) {
+    if (!this.isReady.includes(socketID)) {
+      this.isReady.push(socketID)
+    }
+
+    const canSendNextMessage = this.isReady.length >= 2
+
+    if (canSendNextMessage) {
+      this.isReady = []
+      this.introIndexMessage +=1
+    }
+
+    return { canSendNextMessage, indexMessage: this.introIndexMessage }
   }
 
   // =============== //
