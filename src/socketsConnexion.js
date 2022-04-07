@@ -8,7 +8,7 @@ const initConnexion = (io, socket) => {
   
   //connexion to Room
   socket.on('connectToRoom', ({idRoom, isMainScreen, isPlayer}) => {
-    if (socket.idRoom) return
+    // if (socket.idRoom) return
 
     const dataRoom = userConnected({idRoom, isMainScreen, isPlayer, socketID: socket.id})
 
