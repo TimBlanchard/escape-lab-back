@@ -1,5 +1,7 @@
 const { userConnected, userDisconnected, setUserReady, setStepGame } = require('./roomServer')
 
+const IS_DEV = process.env.ENV === 'development'
+
 const initConnexion = (io, socket) => {
   // connection user on socket
   socket.on('connection', () => {
@@ -15,6 +17,14 @@ const initConnexion = (io, socket) => {
     socket.idRoom = dataRoom.idRoom
     socket.join(dataRoom.idRoom)
     io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
+
+    if (IS_DEV && dataRoom.listUsers.length === 3) {
+      // CHANGE HERE TO GO
+      setTimeout(() => {
+        io.to(socket.idRoom).emit('startGame')
+        setStepGame(socket.idRoom, 'Intro')
+      }, 500);
+    }
   })
     
   // on user disconnected
@@ -43,7 +53,7 @@ const initConnexion = (io, socket) => {
 
   // setStepGame
   socket.on('setStepGame', ({ stepGame }) => {
-    if (!stepGame || !['Outro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro'].includes(stepGame)) return
+    if (!stepGame || !['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro'].includes(stepGame)) return
 
     setStepGame(socket.idRoom, stepGame)
 
