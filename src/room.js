@@ -2,13 +2,13 @@
 // ROOM
 //
 class Room {
-  constructor(id, mainScreen) {
+  constructor(id, mainScreen = null) {
     this.id = id
     this.users = {
       mainScreen,
       player1: null,
       player2: null,
-      length: 1
+      length: mainScreen ? 1 : 0
     }
     // connexion
     this.isReady = []
