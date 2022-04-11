@@ -39,7 +39,6 @@ const initConnexion = (io, socket) => {
   socket.on('isReady', () => {
     const data = setUserReady({ socketID : socket.id, idRoom: socket.idRoom})
 
-    console.log('playerIsReady')
     io.to(socket.idRoom).emit('playerIsReady', data.isReadyPlayer)
 
     if (data.canStart) {
