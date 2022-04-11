@@ -29,7 +29,6 @@ const initConnexion = (io, socket) => {
     
   // on user disconnected
   socket.on('disconnect', () => {
-    console.log({ socketID : socket.id, idRoom: socket.idRoom})
     const data = userDisconnected({ socketID : socket.id, idRoom: socket.idRoom})
 
     console.log('userDisconnected', data, socket.idRoom)
