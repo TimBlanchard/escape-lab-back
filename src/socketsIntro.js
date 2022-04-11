@@ -24,7 +24,7 @@ const initSocketsIntro = (io, socket) => {
       const lastMessage = dataIntro[data.indexMessage - 1]
       setTimeout(() => {
         io.to(socket.idRoom).emit('intro-startVideo')
-      },  lastMessage.endTimeMilis - lastMessage.startTimeMilis);
+      },  lastMessage?.endTimeMilis - lastMessage?.startTimeMilis);
     }
   })
 

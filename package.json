@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/index.js",
-    "watch": "nodemon ./src/index.js --no-stdin",
+    "watch": "ENV='development' nodemon ./src/index.js --no-stdin",
     "commit": "git-cz",
     "lint": "eslint ./src/index.js ./src/room.js",
     "lint:fix": "eslint ./src/index.js ./src/room.js --fix --cache"
