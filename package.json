@@ -6,8 +6,8 @@
     "start": "node ./src/index.js",
     "watch": "ENV='development' nodemon ./src/index.js --no-stdin",
     "commit": "git-cz",
-    "lint": "eslint ./src/index.js ./src/room.js",
-    "lint:fix": "eslint ./src/index.js ./src/room.js --fix --cache"
+    "lint": "eslint ./src/**/*.js",
+    "lint:fix": "eslint ./src/**/*.js --fix --cache"
   },
   "config": {
     "commitizen": {
