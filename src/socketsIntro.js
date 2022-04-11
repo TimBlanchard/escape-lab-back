@@ -3,7 +3,7 @@ const { rooms } = require('./roomServer')
 
 
 const userReadyIntro = (idRoom, socketID) => {
-  const existingRoom = rooms.find(roomObj => roomObj.id.trim().toLowerCase() === idRoom?.trim()?.toLowerCase())
+  const existingRoom = rooms[idRoom] || null
 
   if (!existingRoom) return { error: 'No Room'}
 
