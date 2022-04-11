@@ -62,6 +62,12 @@ class Room {
       }
     }
 
+    // if use is on isReady
+    if (this.isReady.includes(socketID)) {
+      const indexUser = this.isReady.findIndex((v) => v === socketID)
+      this.isReady.splice(indexUser, 1)
+    }
+
     this.setLengthUsers()
 
     return { idRoom: this.id, listUsers: this.users }
