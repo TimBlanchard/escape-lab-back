@@ -18,7 +18,7 @@ const initConnexion = (io, socket) => {
     socket.join(dataRoom.idRoom)
     io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
 
-    if (IS_DEV && dataRoom.listUsers.length === 3) {
+    if (IS_DEV && dataRoom.listUsers.length === 3 && dataRoom.id === 'DEV001') {
       // CHANGE HERE TO GO
       setTimeout(() => {
         io.to(socket.idRoom).emit('startGame')
@@ -38,15 +38,14 @@ const initConnexion = (io, socket) => {
 
   // on user isReady
   socket.on('isReady', () => {
-    console.log('isReady')
     const data = setUserReady({ socketID : socket.id, idRoom: socket.idRoom})
 
-    console.log(data)
+    console.log('playerIsReady')
+    io.to(socket.idRoom).emit('playerIsReady', data.isReadyPlayer)
+
     if (data.canStart) {
       io.to(socket.idRoom).emit('startGame')
       setStepGame(socket.idRoom, 'Intro')
-    } else {
-      io.to(socket.idRoom).emit('playerIsReady')
     }
   })
 
