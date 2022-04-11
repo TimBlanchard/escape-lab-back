@@ -11,6 +11,8 @@ const convertTimeToMilis = (time = '00:00:00,000') => {
   // add hours
   milis += parseInt(parse2[1], 10) * 60 * 1000
 
+  console.log('aaaa')
+
   return milis
 }
 

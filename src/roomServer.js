@@ -12,26 +12,27 @@ if (IS_DEV) {
 
 const userConnected = (props) => {
   // {room, isMainScreen, isPlayer}
-  const {idRoom, socketID, isMainScreen} = props
+  const { idRoom, socketID, isMainScreen } = props
 
   const existingRoom = rooms[idRoom] || null
 
   if (existingRoom) {
     return existingRoom.addUser(props)
-  } else if (isMainScreen) {
-    const idRoom = generateUID()
-    const room = new Room(idRoom, socketID)
-    rooms[idRoom] = room
+  } if (isMainScreen) {
+    const idNewRoom = generateUID()
+    const room = new Room(idNewRoom, socketID)
+    rooms[idNewRoom] = room
 
-    return { idRoom, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart }
-  } else {
-    return { error: 'Player can\'t create room' }
+    return {
+      idRoom: idRoom || idNewRoom, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
+    }
   }
+  return { error: 'Player can\'t create room' }
 }
 const userDisconnected = ({ socketID, idRoom }) => {
   const existingRoom = rooms[idRoom] || null
 
-  if (!existingRoom) return { error: 'No Room'}
+  if (!existingRoom) return { error: 'No Room' }
 
   existingRoom.removeUser(socketID)
 
@@ -48,7 +49,7 @@ const userDisconnected = ({ socketID, idRoom }) => {
 
 const setUserReady = ({ socketID, idRoom }) => {
   const existingRoom = rooms[idRoom] || null
-  if (!existingRoom) return { error: 'No Room'}
+  if (!existingRoom) return { error: 'No Room' }
 
   const dataIsReady = existingRoom.setUserReady(socketID)
 
@@ -57,11 +58,13 @@ const setUserReady = ({ socketID, idRoom }) => {
 
 const setStepGame = (idRoom, step) => {
   const existingRoom = rooms[idRoom] || null
-  if (!existingRoom) return { error: 'No Room'}
+  if (!existingRoom) return { error: 'No Room' }
 
   const data = existingRoom.setStepGame(step)
 
   return data
 }
 
-module.exports = { rooms, userConnected, userDisconnected, setUserReady, setStepGame }
+module.exports = {
+  rooms, userConnected, userDisconnected, setUserReady, setStepGame,
+}

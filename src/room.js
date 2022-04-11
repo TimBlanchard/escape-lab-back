@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 //
 // ROOM
 //
@@ -8,49 +9,52 @@ class Room {
       mainScreen,
       player1: null,
       player2: null,
-      length: mainScreen ? 1 : 0
+      length: mainScreen ? 1 : 0,
     }
     // connexion
     this.isReady = []
     this.isStart = false
     this.stepGame = null
 
-    // intro 
+    // intro
     this.introIndexMessage = -1
   }
 
   // =============== //
   //    Connexion    //
   // =============== //
-  addUser ({ socketID, isMainScreen = false, isPlayer = false }) {
-    if (!socketID) return { error: 'No ID room'}
-    if (this.users.length >= 3) return { error: 'Room is full'}
+  addUser({ socketID, isMainScreen = false, isPlayer = false }) {
+    if (!socketID) return { error: 'No ID room' }
+    if (this.users.length >= 3) return { error: 'Room is full' }
 
-    const RETURN = {idRoom: this.id, listUsers: this.users, isStart: this.isStart, stepGame: this.stepGame }
+    const RETURN = {
+      idRoom: this.id, listUsers: this.users, isStart: this.isStart, stepGame: this.stepGame,
+    }
 
     if (!this.users.mainScreen && isMainScreen) {
       this.users.mainScreen = socketID
       this.setLengthUsers()
 
       return { ...RETURN, newUser: { type: 'MainScreen', socketID } }
-    } else if (isPlayer) {
+    } if (isPlayer) {
       if (!this.users.player1) {
         this.users.player1 = socketID
         this.setLengthUsers()
 
         return { ...RETURN, newUser: { type: 'Player1', socketID } }
-      } else if (!this.users.player2) {
+      } if (!this.users.player2) {
         this.users.player2 = socketID
         this.setLengthUsers()
 
         return { ...RETURN, newUser: { type: 'Player2', socketID } }
       }
 
-      return { error: 'Room is full of player'}
+      return { error: 'Room is full of player' }
     }
 
-    return { error: 'Room has already mainScreen'}
+    return { error: 'Room has already mainScreen' }
   }
+
   removeUser(socketID) {
     for (const key in this.users) {
       if (this.users[key] === socketID) {
@@ -62,15 +66,16 @@ class Room {
 
     return { idRoom: this.id, listUsers: this.users }
   }
+
   setLengthUsers() {
     let length = 0
-   for (const key in this.users) {
-     if (key !== 'length' && this.users[key]) {
-      length += 1
-     }
-   }
+    for (const key in this.users) {
+      if (key !== 'length' && this.users[key]) {
+        length += 1
+      }
+    }
 
-   this.users.length = length
+    this.users.length = length
   }
 
   // set step game
@@ -95,7 +100,7 @@ class Room {
       this.isReady = []
     }
 
-    return { isReadyLength : this.isReady.length, canStart, isReadyPlayer: this.isReady }
+    return { isReadyLength: this.isReady.length, canStart, isReadyPlayer: this.isReady }
   }
 
   introReady(socketID) {
@@ -107,7 +112,7 @@ class Room {
 
     if (canSendNextMessage) {
       this.isReady = []
-      this.introIndexMessage +=1
+      this.introIndexMessage += 1
     }
 
     return { canSendNextMessage, indexMessage: this.introIndexMessage }
@@ -119,13 +124,11 @@ class Room {
 
   // TODO
 
-
   // =============== //
   //     Enigme2     //
   // =============== //
 
   // TODO
-
 
   // =============== //
   //     Enigme3     //

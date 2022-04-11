@@ -1,11 +1,10 @@
 const { dataIntro } = require('./dataMessages')
 const { rooms } = require('./roomServer')
 
-
 const userReadyIntro = (idRoom, socketID) => {
   const existingRoom = rooms[idRoom] || null
 
-  if (!existingRoom) return { error: 'No Room'}
+  if (!existingRoom) return { error: 'No Room' }
 
   return existingRoom.introReady(socketID)
 }
@@ -19,12 +18,12 @@ const initSocketsIntro = (io, socket) => {
       const infoMessage = dataIntro[data.indexMessage]
       setTimeout(() => {
         io.to(socket.idRoom).emit('intro-message', infoMessage)
-      }, infoMessage.delayLastMilis);
+      }, infoMessage.delayLastMilis)
     } else if (dataIntro.length <= data.indexMessage) {
       const lastMessage = dataIntro[data.indexMessage - 1]
       setTimeout(() => {
         io.to(socket.idRoom).emit('intro-startVideo')
-      },  lastMessage?.endTimeMilis - lastMessage?.startTimeMilis);
+      }, lastMessage?.endTimeMilis - lastMessage?.startTimeMilis)
     }
   })
 

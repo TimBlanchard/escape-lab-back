@@ -1,4 +1,6 @@
-const { userConnected, userDisconnected, setUserReady, setStepGame } = require('./roomServer')
+const {
+  userConnected, userDisconnected, setUserReady, setStepGame,
+} = require('./roomServer')
 
 const IS_DEV = process.env.ENV === 'development'
 
@@ -7,13 +9,16 @@ const initConnexion = (io, socket) => {
   socket.on('connection', () => {
     console.log('connection :', socket.id)
   })
-  
-  //connexion to Room
-  socket.on('connectToRoom', ({idRoom, isMainScreen, isPlayer}) => {
+
+  // connexion to Room
+  socket.on('connectToRoom', ({ idRoom, isMainScreen, isPlayer }) => {
     // if (socket.idRoom) return
 
-    const dataRoom = userConnected({idRoom, isMainScreen, isPlayer, socketID: socket.id})
+    const dataRoom = userConnected({
+      idRoom, isMainScreen, isPlayer, socketID: socket.id,
+    })
 
+    // eslint-disable-next-line no-param-reassign
     socket.idRoom = dataRoom.idRoom
     socket.join(dataRoom.idRoom)
     io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
@@ -23,13 +28,13 @@ const initConnexion = (io, socket) => {
       setTimeout(() => {
         io.to(socket.idRoom).emit('startGame')
         setStepGame(socket.idRoom, 'Intro')
-      }, 500);
+      }, 500)
     }
   })
-    
+
   // on user disconnected
   socket.on('disconnect', () => {
-    const data = userDisconnected({ socketID : socket.id, idRoom: socket.idRoom})
+    const data = userDisconnected({ socketID: socket.id, idRoom: socket.idRoom })
 
     console.log('userDisconnected', data, socket.idRoom)
     io.to(socket.idRoom).emit('userDisconnected', data)
@@ -37,7 +42,7 @@ const initConnexion = (io, socket) => {
 
   // on user isReady
   socket.on('isReady', () => {
-    const data = setUserReady({ socketID : socket.id, idRoom: socket.idRoom})
+    const data = setUserReady({ socketID: socket.id, idRoom: socket.idRoom })
 
     io.to(socket.idRoom).emit('playerIsReady', data.isReadyPlayer)
 
@@ -46,7 +51,6 @@ const initConnexion = (io, socket) => {
       setStepGame(socket.idRoom, 'Intro')
     }
   })
-
 
   // setStepGame
   socket.on('setStepGame', ({ stepGame }) => {
