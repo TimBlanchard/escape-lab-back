@@ -12,18 +12,20 @@ if (IS_DEV) {
 
 const userConnected = (props) => {
   // {room, isMainScreen, isPlayer}
-  const {idRoom, socketID} = props
+  const {idRoom, socketID, isMainScreen} = props
 
   const existingRoom = rooms.find(roomObj => roomObj.id.trim().toLowerCase() === idRoom?.trim()?.toLowerCase())
 
   if (existingRoom) {
     return existingRoom.addUser(props)
-  } else {
+  } else if (isMainScreen) {
     const idRoom = generateUID()
     const room = new Room(idRoom, socketID)
     rooms.push(room)
 
     return { idRoom, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart }
+  } else {
+    return { error: 'Player can\'t create room' }
   }
 }
 const userDisconnected = ({ socketID, idRoom }) => {
