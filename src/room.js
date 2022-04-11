@@ -95,7 +95,7 @@ class Room {
       this.isReady = []
     }
 
-    return { isReadyLength : this.isReady.length, canStart }
+    return { isReadyLength : this.isReady.length, canStart, isReadyPlayer: this.isReady }
   }
 
   introReady(socketID) {
