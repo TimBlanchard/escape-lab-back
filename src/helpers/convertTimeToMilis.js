@@ -5,11 +5,13 @@ const convertTimeToMilis = (time = '00:00:00,000') => {
   const parse2 = parse1[0].split(':')
 
   // add milis
-  milis += parseInt(parse1[1])
+  milis += parseInt(parse1[1], 10)
   // add minutes
-  milis += parseInt(parse2[2]) * 1000
+  milis += parseInt(parse2[2], 10) * 1000
   // add hours
-  milis += parseInt(parse2[1]) * 60 * 1000
+  milis += parseInt(parse2[1], 10) * 60 * 1000
+
+  console.log('aaaa')
 
   return milis
 }

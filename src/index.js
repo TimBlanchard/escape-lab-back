@@ -1,8 +1,9 @@
 const app = require('express')()
 const http = require('http').createServer(app)
 const cors = require('cors')
+
 const PORT = process.env.PORT || 5050
-//Initialize new socket.io instance and pass the http server to it
+// Initialize new socket.io instance and pass the http server to it
 const io = require('socket.io')(http)
 
 const { initConnexion } = require('./socketsConnexion')
@@ -17,7 +18,6 @@ const { initSocketsEnigme3 } = require('./socketsEnigme3')
 app.use(cors())
 
 io.on('connection', (socket) => {
-
   // connexion
   initConnexion(io, socket)
 
@@ -34,7 +34,6 @@ io.on('connection', (socket) => {
   // outro
   initSocketsOutro(io, socket)
 })
-
 
 initKeys()
 
