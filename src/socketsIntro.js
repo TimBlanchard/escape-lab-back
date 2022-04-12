@@ -27,6 +27,10 @@ const initSocketsIntro = (io, socket) => {
     }
   })
 
+  socket.on('intro-darkScene', () => {
+    io.to(socket.idRoom).emit('intro-darkScene')
+  })
+
   socket.on('intro-endVideo', () => {
     io.to(socket.idRoom).emit('setStepGame', { stepGame: 'Enigme1' })
   })
