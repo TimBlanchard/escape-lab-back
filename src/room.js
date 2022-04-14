@@ -13,6 +13,10 @@ class Room {
     this.isReady = []
     this.isStart = false
     this.stepGame = null
+    // this.enigme2 = {
+    //   popups: []
+      
+    // }
   }
 
   // =============== //
