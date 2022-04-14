@@ -28,6 +28,7 @@ const enigme3Data = () => ({
     },
     {
       type: 'vehicle',
+      subType: 'more',
       slug: 'voiture',
       name: 'belle voiture',
       normalImg: 'image normale véhicule',
@@ -38,10 +39,10 @@ const enigme3Data = () => ({
   settings: {
     questionsToDisplay: 6,
     rulesToDetectBot: 3,
-    prices: {
-      clothing: [10, 500],
-      vehicle: [1000, 200000],
-      housing: [40000, 500000],
+    product: {
+      vehicle: ['more', 'less'],
+      housing: ['more', 'less'],
+      clothing: ['adidos', 'ralphLaurus', 'h&n'],
     },
   },
 })

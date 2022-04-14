@@ -14,8 +14,10 @@ function generateConfig() {
   const product = enigme3Data().products[Math.floor(Math.random() * enigme3Data().products.length)]
   // check if has normal or bot image
   const image = trueRules.some((obj) => obj.slug === 'stock') ? product.botImg : product.normalImg
-  // check rules to see
-  const productGenerated = { name: product.name, description: product.description, img: image, type: product.type }
+  // generate mainCriteria (subtype)
+  const mainCriteria = enigme3Data().settings.product[product.type][Math.floor(Math.random() * enigme3Data().products.length)]
+
+  const productGenerated = { name: product.name, description: product.description, img: image, mainCriteria, type: product.type }
 
   return { trueRules, sellerType, product: productGenerated, settings: enigme3Data().settings }
 }
