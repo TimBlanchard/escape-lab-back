@@ -20,6 +20,9 @@ class Room {
     this.introIndexMessage = -1
     // this.enigme2 = {
     //   popups: []
+    // this.enigme2 = {
+    //   popups: []
+
     // }
   }
 
