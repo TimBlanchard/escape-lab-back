@@ -29,7 +29,6 @@ const initSocketsEnigme2 = (io, socket) => {
 
     socket.on('sendPopups', () => {
         io.to(socket.idRoom).emit('sendPopups', dataPopups)
-        // console.log('sendPopups', socket)
     })
 
     socket.on('popupIsReady', () => {

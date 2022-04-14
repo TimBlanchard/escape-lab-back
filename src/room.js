@@ -18,6 +18,9 @@ class Room {
 
     // intro
     this.introIndexMessage = -1
+    // this.enigme2 = {
+    //   popups: []
+    // }
   }
 
   // =============== //
