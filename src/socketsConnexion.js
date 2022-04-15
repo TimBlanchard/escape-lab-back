@@ -1,5 +1,5 @@
 const {
-  userConnected, userDisconnected, setUserReady, setStepGame,
+  userConnected, userDisconnected, setUserReady, setUserReadyEnigme, setStepGame,
 } = require('./roomServer')
 
 const IS_DEV = process.env.ENV === 'development'
@@ -48,6 +48,16 @@ const initConnexion = (io, socket) => {
 
     if (data.canStart) {
       io.to(socket.idRoom).emit('startGame')
+      setStepGame(socket.idRoom, 'Intro')
+    }
+  })
+
+  // is Ready new enigme
+  socket.on('readyEnigme', () => {
+    const data = setUserReadyEnigme({ socketID: socket.id, idRoom: socket.idRoom })
+
+    if (data.canStart) {
+      io.to(socket.idRoom).emit('startEnigme')
       setStepGame(socket.idRoom, 'Intro')
     }
   })
