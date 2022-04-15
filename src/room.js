@@ -91,7 +91,7 @@ class Room {
   setStepGame(stepGame) {
     this.stepGame = stepGame
 
-    return { stepGame }
+    return { stepGame: STEPS_GAME[this.stepGame] }
   }
 
   // =============== //
