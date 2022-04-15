@@ -89,9 +89,14 @@ class Room {
 
   // set step game
   setStepGame(stepGame) {
-    this.stepGame = stepGame
+    // eslint-disable-next-line no-restricted-globals
+    this.stepGame = isNaN(stepGame) ? this.stepGame + 1 : stepGame
 
     return { stepGame: STEPS_GAME[this.stepGame] }
+  }
+
+  getStepGame() {
+    return STEPS_GAME[this.stepGame]
   }
 
   // =============== //
