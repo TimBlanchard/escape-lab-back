@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars, unused-imports/no-unused-vars
 
-const { enigme3Data } = require('./data/enigme3')
+const { enigme3Data, pricesData } = require('./data/enigme3')
 
 function generateConfig() {
   // CHOOSE SELLER WILL BE BOT OR NOT
@@ -12,13 +12,32 @@ function generateConfig() {
 
   // CHOOSE RANDOM PRODUCT
   const product = enigme3Data().products[Math.floor(Math.random() * enigme3Data().products.length)]
+
   // check if has normal or bot image
   const image = trueRules.some((obj) => obj.slug === 'stock') ? product.botImg : product.normalImg
-  // generate mainCriteria (subtype)
-  const mainCriteria = enigme3Data().settings.product[product.type][Math.floor(Math.random() * enigme3Data().products.length)]
 
-  const productGenerated = { name: product.name, description: product.description, img: image, mainCriteria, type: product.type }
+  // generate product subtype
+  const subtype = enigme3Data().settings.product[product.type]
+  let subtypeText
+  let subtypeInterval
+  if (product.type === 'housing' || product.type === 'vehicle') {
+    if(Math.random() < 0.5) {
+      // more than baseValue
+      subtypeText = subtype.name + subtype.value.toString() + subtype.unit
+      subtypeInterval = pricesData[product.type].more
+    } else {
+      // less than baseValue
+      subtypeText = subtype.name + subtype.value.toString() + subtype.unit
+      subtypeInterval = pricesData[product.type].less
+    }
+  } else {
+    const val = subtype.value[Math.floor(Math.random() * subtype.value.length)]
+    subtypeText = subtype.name + val
+    subtypeInterval = pricesData[product.type][val]
+  }
+  const productGenerated = { name: product.name, description: product.description, img: image, type: product.type, subtype: { text: subtypeText, interval: subtypeInterval } }
 
+  //data pass as sockets
   return { trueRules, sellerType, product: productGenerated, settings: enigme3Data().settings }
 }
 

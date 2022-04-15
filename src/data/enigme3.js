@@ -28,7 +28,6 @@ const enigme3Data = () => ({
     },
     {
       type: 'vehicle',
-      subType: 'more',
       slug: 'voiture',
       name: 'belle voiture',
       normalImg: 'image normale véhicule',
@@ -40,13 +39,62 @@ const enigme3Data = () => ({
     questionsToDisplay: 6,
     rulesToDetectBot: 3,
     product: {
-      vehicle: ['more', 'less'],
-      housing: ['more', 'less'],
-      clothing: ['adidos', 'ralphLaurus', 'h&n'],
+      vehicle: {
+        name: 'kilometrage : ',
+        value: 50000,
+        unit: 'km',
+      },
+      housing: {
+        name: 'surface : ',
+        value: 50, // m2
+        unit: 'm2',
+      },
+      clothing: {
+        name: 'marque : ',
+        value: ['adidos', 'ralphLaurus', 'h&n'],
+      },
     },
   },
 })
 
+const pricesData = {
+  clothing: {
+    'h&n': {
+      min: 10,
+      max: 100,
+    },
+    adidos: {
+      min: 20,
+      max: 300,
+    },
+    ralphLaurus: {
+      min: 80,
+      max: 700,
+    },
+  },
+  vehicle: {
+    more: {
+      min: 800,
+      max: 50000,
+    },
+    less: {
+      min: 1000,
+      max: 70000,
+    },
+  },
+  housing: {
+    more: {
+      min: 50000,
+      max: 300000,
+    },
+    less: {
+      min: 20000,
+      max: 200000,
+    },
+  },
+}
+
 module.exports = {
   enigme3Data,
+  pricesData,
 }
