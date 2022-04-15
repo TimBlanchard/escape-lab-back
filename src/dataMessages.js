@@ -1,6 +1,7 @@
-var { default: srtParser2 } = require('srt-parser-2')
-const fs = require('fs');
-const { convertTimeToMilis } = require('./helpers/convertTimeToMilis');
+/* eslint-disable no-param-reassign */
+const { default: srtParser2 } = require('srt-parser-2')
+const fs = require('fs')
+const { convertTimeToMilis } = require('./helpers/convertTimeToMilis')
 
 const changeData = (data) => {
   let lastTime = 0
@@ -8,7 +9,7 @@ const changeData = (data) => {
     // parse time
     d.startTimeMilis = convertTimeToMilis(d.startTime)
     d.endTimeMilis = convertTimeToMilis(d.endTime)
-    d.delayLastMilis = d.startTimeMilis  - lastTime
+    d.delayLastMilis = d.startTimeMilis - lastTime
     lastTime = d.startTimeMilis
 
     // parse message
@@ -23,11 +24,12 @@ const changeData = (data) => {
   return data
 }
 
-var parser = new srtParser2()
-const contentIntro = fs.readFileSync('./src/assets/Intro.srt').toString();
-const contentOutro = fs.readFileSync('./src/assets/Intro.srt').toString();
+// eslint-disable-next-line new-cap
+const parser = new srtParser2()
+const contentIntro = fs.readFileSync('./src/assets/Intro.srt').toString()
+const contentOutro = fs.readFileSync('./src/assets/Intro.srt').toString()
 
-var dataIntro = changeData(parser.fromSrt(contentIntro));
-var dataOutro = changeData(parser.fromSrt(contentOutro));
+const dataIntro = changeData(parser.fromSrt(contentIntro))
+const dataOutro = changeData(parser.fromSrt(contentOutro))
 
 module.exports = { dataIntro, dataOutro }

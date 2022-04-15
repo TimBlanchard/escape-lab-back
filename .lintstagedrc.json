@@ -1,0 +1,4 @@
+{
+  "package.json": "sort-package-json",
+  "*.{js}": "yarn lint:fix"
+}
