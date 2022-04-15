@@ -15,6 +15,7 @@ class Room {
     this.isReady = []
     this.isStart = false
     this.stepGame = null
+    this.isReadyEnigme = []
 
     // intro
     this.introIndexMessage = -1
@@ -107,6 +108,24 @@ class Room {
     }
 
     return { isReadyLength: this.isReady.length, canStart, isReadyPlayer: this.isReady }
+  }
+
+  setUserReadyEnigme(socketID) {
+    if (!this.isReadyEnigme.includes(socketID)) {
+      this.isReadyEnigme.push(socketID)
+    }
+
+    const canStart = this.isReadyEnigme.length >= 3
+
+    if (canStart) {
+      this.isReadyEnigme = []
+    }
+
+    return {
+      isReadyEnigmeLength: this.isReadyEnigme.length,
+      canStart,
+      isReadyEnigmePlayer: this.isReadyEnigme,
+    }
   }
 
   introReady(socketID) {
