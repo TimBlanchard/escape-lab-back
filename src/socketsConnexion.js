@@ -65,11 +65,11 @@ const initConnexion = (io, socket) => {
 
   // setStepGame
   socket.on('setStepGame', ({ stepGame }) => {
-    if (!stepGame || !STEPS_GAME.includes(stepGame)) return
+    if (!stepGame || stepGame > STEPS_GAME.length) return
 
-    setStepGame(socket.idRoom, stepGame)
+    const data = setStepGame(socket.idRoom, stepGame)
 
-    io.to(socket.idRoom).emit('setStepGame', { stepGame })
+    io.to(socket.idRoom).emit('setStepGame', { stepGame: data.stepGame })
   })
 }
 
