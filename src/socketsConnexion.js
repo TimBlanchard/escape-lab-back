@@ -1,3 +1,4 @@
+const { STEPS_GAME } = require('./room')
 const {
   userConnected, userDisconnected, setUserReady, setUserReadyEnigme, setStepGame,
 } = require('./roomServer')
@@ -64,7 +65,7 @@ const initConnexion = (io, socket) => {
 
   // setStepGame
   socket.on('setStepGame', ({ stepGame }) => {
-    if (!stepGame || !['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro'].includes(stepGame)) return
+    if (!stepGame || !STEPS_GAME.includes(stepGame)) return
 
     setStepGame(socket.idRoom, stepGame)
 

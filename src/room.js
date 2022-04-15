@@ -2,6 +2,8 @@
 //
 // ROOM
 //
+const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
+
 class Room {
   constructor(id, mainScreen = null) {
     this.id = id
@@ -162,4 +164,4 @@ class Room {
   // TODO
 }
 
-module.exports = { Room }
+module.exports = { Room, STEPS_GAME }
