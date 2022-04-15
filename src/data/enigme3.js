@@ -60,7 +60,7 @@ const enigme3Data = () => ({
 const pricesData = {
   clothing: {
     'h&n': {
-      min: 10,
+      min: 5,
       max: 100,
     },
     adidos: {
