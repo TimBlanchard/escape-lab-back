@@ -56,6 +56,15 @@ const setUserReady = ({ socketID, idRoom }) => {
   return dataIsReady
 }
 
+const setUserReadyEnigme = ({ socketID, idRoom }) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const dataIsReady = existingRoom.setUserReadyEnigme(socketID)
+
+  return dataIsReady
+}
+
 const setStepGame = (idRoom, step) => {
   const existingRoom = rooms[idRoom] || null
   if (!existingRoom) return { error: 'No Room' }
@@ -66,5 +75,5 @@ const setStepGame = (idRoom, step) => {
 }
 
 module.exports = {
-  rooms, userConnected, userDisconnected, setUserReady, setStepGame,
+  rooms, userConnected, userDisconnected, setUserReady, setUserReadyEnigme, setStepGame,
 }
