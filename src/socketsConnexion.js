@@ -1,6 +1,6 @@
 const { STEPS_GAME } = require('./room')
 const {
-  userConnected, userDisconnected, setUserReady, setUserReadyEnigme, setStepGame,
+  userConnected, userDisconnected, setUserReady, setUserReadyEnigme, getStepGame, setStepGame,
 } = require('./roomServer')
 
 const IS_DEV = process.env.ENV === 'development'
@@ -28,7 +28,7 @@ const initConnexion = (io, socket) => {
       // CHANGE HERE TO GO
       setTimeout(() => {
         io.to(socket.idRoom).emit('startGame')
-        setStepGame(socket.idRoom, 'Intro')
+        setStepGame(socket.idRoom, 0)
       }, 500)
     }
   })
@@ -49,8 +49,26 @@ const initConnexion = (io, socket) => {
 
     if (data.canStart) {
       io.to(socket.idRoom).emit('startGame')
-      setStepGame(socket.idRoom, 'Intro')
+      setStepGame(socket.idRoom, 0)
     }
+  })
+
+  //
+  // Enigmes
+  //
+
+  // next Enigme
+  socket.on('endEnigme', () => {
+    const stepGame = getStepGame(socket.idRoom)
+
+    io.to(socket.idRoom).emit('endEnigme', { stepGame })
+  })
+
+  // next Enigme
+  socket.on('nextEnigme', () => {
+    const data = setStepGame(socket.idRoom)
+
+    io.to(socket.idRoom).emit('buildEnigme', { stepGame: data.stepGame })
   })
 
   // is Ready new enigme
@@ -59,7 +77,6 @@ const initConnexion = (io, socket) => {
 
     if (data.canStart) {
       io.to(socket.idRoom).emit('startEnigme')
-      setStepGame(socket.idRoom, 'Intro')
     }
   })
 
