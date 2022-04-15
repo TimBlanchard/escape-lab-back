@@ -32,7 +32,7 @@ const initSocketsIntro = (io, socket) => {
   })
 
   socket.on('intro-endVideo', () => {
-    io.to(socket.idRoom).emit('setStepGame', { stepGame: 'Enigme1' })
+    io.to(socket.idRoom).emit('buildEnigme', { stepGame: 'Enigme1' })
   })
 }
 

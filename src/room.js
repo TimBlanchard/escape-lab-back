@@ -2,6 +2,8 @@
 //
 // ROOM
 //
+const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
+
 class Room {
   constructor(id, mainScreen = null) {
     this.id = id
@@ -15,6 +17,7 @@ class Room {
     this.isReady = []
     this.isStart = false
     this.stepGame = null
+    this.isReadyEnigme = []
 
     // intro
     this.introIndexMessage = -1
@@ -86,9 +89,14 @@ class Room {
 
   // set step game
   setStepGame(stepGame) {
-    this.stepGame = stepGame
+    // eslint-disable-next-line no-restricted-globals
+    this.stepGame = isNaN(stepGame) ? this.stepGame + 1 : stepGame
 
-    return { stepGame }
+    return { stepGame: STEPS_GAME[this.stepGame] }
+  }
+
+  getStepGame() {
+    return STEPS_GAME[this.stepGame]
   }
 
   // =============== //
@@ -107,6 +115,24 @@ class Room {
     }
 
     return { isReadyLength: this.isReady.length, canStart, isReadyPlayer: this.isReady }
+  }
+
+  setUserReadyEnigme(socketID) {
+    if (!this.isReadyEnigme.includes(socketID)) {
+      this.isReadyEnigme.push(socketID)
+    }
+
+    const canStart = this.isReadyEnigme.length >= 3
+
+    if (canStart) {
+      this.isReadyEnigme = []
+    }
+
+    return {
+      isReadyEnigmeLength: this.isReadyEnigme.length,
+      canStart,
+      isReadyEnigmePlayer: this.isReadyEnigme,
+    }
   }
 
   introReady(socketID) {
@@ -143,4 +169,4 @@ class Room {
   // TODO
 }
 
-module.exports = { Room }
+module.exports = { Room, STEPS_GAME }
