@@ -18,12 +18,34 @@ class Room {
 
     // intro
     this.introIndexMessage = -1
-    // this.enigme2 = {
-    //   popups: []
-    // this.enigme2 = {
-    //   popups: []
-
-    // }
+    this.enigme2 = {
+      popups: [
+        {
+          id: 1,
+          text: `popup n°${this.id}`,
+        },
+        {
+          id: 2,
+          text: `popup n°${this.id}`,
+        },
+        {
+          id: 3,
+          text: `popup n°${this.id}`,
+        },
+        {
+          id: 4,
+          text: `popup n°${this.id}`,
+        },
+        {
+          id: 5,
+          text: `popup n°${this.id}`,
+        },
+        {
+          id: 6,
+          text: `popup n°${this.id}`,
+        },
+      ],
+    }
   }
 
   // =============== //
