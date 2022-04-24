@@ -24,7 +24,7 @@ const initConnexion = (io, socket) => {
     socket.join(dataRoom.idRoom)
     io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
 
-    if (IS_DEV && dataRoom.listUsers?.length === 3 && dataRoom.idRoom === 'DEV001') {
+    if (IS_DEV && dataRoom.listUsers?.length === 3 && dataRoom.idRoom === 'DEV001' && !dataRoom.stepGame) {
       // CHANGE HERE TO GO
       setTimeout(() => {
         io.to(socket.idRoom).emit('startGame')
