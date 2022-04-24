@@ -94,6 +94,7 @@ class Room {
   setStepGame(stepGame) {
     // eslint-disable-next-line no-restricted-globals
     this.stepGame = isNaN(stepGame) ? this.stepGame + 1 : stepGame
+    this.isStart = true
 
     return { stepGame: STEPS_GAME[this.stepGame], stepGameNumber: this.stepGame }
   }
