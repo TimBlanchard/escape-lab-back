@@ -86,7 +86,7 @@ const initConnexion = (io, socket) => {
 
     const data = setStepGame(socket.idRoom, stepGame)
 
-    io.to(socket.idRoom).emit('setStepGame', { stepGame: data.stepGame })
+    io.to(socket.idRoom).emit('setStepGame', { stepGame: data.stepGame, stepGameNumber: data.stepGameNumber })
   })
 }
 
