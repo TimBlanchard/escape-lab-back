@@ -3,14 +3,42 @@
 Player1: [writing]
 
 2
-00:00:01,040 --> 00:00:03,520
-Player1 : Hello ! Je suis le joueur 1
+00:00:00,800 --> 00:00:01,560
+Player1 : Hey, téma ce que je viens de trouver, il serait pas parfait pour l’appart ?
 
 3
-00:00:03,600 --> 00:00:04,640
-Player2 : [writing]
+00:00:01,560 --> 00:00:04,640
+Player1 : [lien]
 
 4
-00:00:04,760 --> 00:00:10,800
-Player2 : Hello je suis le joueur superbe joueur 2
+00:00:04,720 --> 00:00:05,560
+Player2 : [writing]
+
+5
+00:00:05,560 --> 00:00:09,280
+Player2 : Ah mais de ouf ! T’as contacté le vendeur ? Faut pas le louper il est niquel !
+
+6
+00:00:09,520 --> 00:00:10,320
+Player1: [writing]
+
+7
+00:00:10,320 --> 00:00:11,080
+Player1 : Yes grave !! Il propose un rendez vous chez lui à 16h
+
+8
+00:00:11,080 --> 00:00:14,160
+Player1 : t’es dispo ?
+
+9
+00:00:14,280 --> 00:00:15,080
+Player2 : [writing]
+
+10
+00:00:15,080 --> 00:00:15,880
+Player2 : Carrément !!
+
+11
+00:00:15,880 --> 00:00:20,000
+Player2 : On se retrouve là bas !
 
