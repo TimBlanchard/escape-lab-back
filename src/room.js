@@ -31,7 +31,10 @@ class Room {
     if (this.users.length >= 3) return { error: 'Room is full' }
 
     const RETURN = {
-      idRoom: this.id, listUsers: this.users, isStart: this.isStart, stepGame: this.stepGame,
+      idRoom: this.id,
+      listUsers: this.users,
+      isStart: this.isStart,
+      stepGame: STEPS_GAME[this.stepGame],
     }
 
     if (!this.users.mainScreen && isMainScreen) {
@@ -91,8 +94,9 @@ class Room {
   setStepGame(stepGame) {
     // eslint-disable-next-line no-restricted-globals
     this.stepGame = isNaN(stepGame) ? this.stepGame + 1 : stepGame
+    this.isStart = true
 
-    return { stepGame: STEPS_GAME[this.stepGame] }
+    return { stepGame: STEPS_GAME[this.stepGame], stepGameNumber: this.stepGame }
   }
 
   getStepGame() {
