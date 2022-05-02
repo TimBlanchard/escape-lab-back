@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
 initKeys()
 
 app.get('/', (req, res) => {
-  res.send('Server is up and running')
+  res.send('Server is up and running cool !')
 })
 
 http.listen(PORT, () => {
