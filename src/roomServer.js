@@ -24,7 +24,7 @@ const userConnected = (props) => {
     rooms[idNewRoom] = room
 
     return {
-      idRoom: idRoom || idNewRoom, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
+      idRoom: room.id, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
     }
   }
   return { error: 'Player can\'t create room' }
