@@ -13,26 +13,35 @@ const enigme3Data = () => ({
     {
       type: 'clothing',
       slug: 'pull',
-      name: 'Pull en laine',
+      name: 'A vendre pull en laine',
       normalImg: 'vetement-base',
       botImg: 'vetement-base-stock',
-      description: 'description vêtement',
+      description: 'Pull en laine TRÈS BON ÉTAT<br/>'
+        + 'Porté très rarement<br/>',
     },
     {
       type: 'housing',
       slug: 'appartement',
-      name: 'appartement',
+      name: 'A vendre appartement très ensoleillé',
       normalImg: 'appartement-base',
       botImg: 'appartement-base-stock',
-      description: 'description appartement',
+      description: 'VEND BEL APPARTEMENT<br/>'
+        + 'Quartier calme et tranquille<br/>'
+        + 'proche de commerces<br/>'
+        + 'rénové récemment<br/>'
+        + 'Prix à débattre',
     },
     {
       type: 'vehicle',
       slug: 'voiture',
-      name: 'belle voiture',
+      name: 'A vendre Renault Clio',
       normalImg: 'voiture-base',
       botImg: 'voiture-base-stock',
-      description: 'description véhicule',
+      description: 'VEND CLIO IV TRÈS BON ÉTAT<br/>'
+        + 'Contrôle technique du 27/12/2021 ok<br/>'
+        + '5 portes<br/>'
+        + '70 cv<br/>'
+        + 'Prix à débattre',
     },
   ],
   settings: {
