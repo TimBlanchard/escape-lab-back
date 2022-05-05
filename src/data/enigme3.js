@@ -66,6 +66,22 @@ const enigme3Data = () => ({
   },
 })
 
+const criteriaData = {
+  clothing: {
+    size: ['taille S', 'taille M', 'taille L', 'taille XL'],
+    condition: ['très bon état', 'bon état'],
+    material: ['laine', 'cachemir', 'jean'],
+
+  },
+  vehicle: {
+    size: ['taille S', 'taille M', 'taille L', 'taille XL'],
+  },
+  housing: {
+    size: ['taille S', 'taille M', 'taille L', 'taille XL'],
+  },
+
+}
+
 const pricesData = {
   clothing: {
     'h&n': {
