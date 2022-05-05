@@ -82,6 +82,15 @@ const setStepGame = (idRoom, step) => {
   return data
 }
 
+const enigme1EnteredNumber = (idRoom, v) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.setNumber(v)
+
+  return data
+}
+
 module.exports = {
   rooms,
   userConnected,
@@ -90,4 +99,5 @@ module.exports = {
   setUserReadyEnigme,
   getStepGame,
   setStepGame,
+  enigme1EnteredNumber,
 }
