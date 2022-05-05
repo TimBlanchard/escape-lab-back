@@ -1,4 +1,6 @@
-const { rooms, enigme1EnteredNumber } = require('./roomServer')
+const {
+  rooms, enigme1EnteredNumber, enigme1End, getStepGame,
+} = require('./roomServer')
 
 const initSocketsEnigme1 = (io, socket) => {
   // on recall
@@ -17,6 +19,18 @@ const initSocketsEnigme1 = (io, socket) => {
     if (!data.send) return
 
     io.to(socket.idRoom).emit('enigme1-action', data)
+  })
+
+  socket.on('enigme1-end', () => {
+    const data = enigme1End(socket.idRoom)
+
+    io.to(socket.idRoom).emit('enigme1-end', data)
+
+    setTimeout(() => {
+      const stepGame = getStepGame(socket.idRoom)
+
+      io.to(socket.idRoom).emit('endEnigme', { stepGame })
+    }, 4000)
   })
 }
 
