@@ -3,7 +3,9 @@
 // ROOM
 //
 
-const { ENIGME1_RESPONSES, MESSAGE_NAME, MESSAGES_LIST } = require('./data/enigme1')
+const {
+  ENIGME1_RESPONSES, MESSAGE_NAME, MESSAGE_NAME_FACTURE, MESSAGES_LIST,
+} = require('./data/enigme1')
 
 const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
 
@@ -276,6 +278,17 @@ class Room {
     this.enigme1.numbersEntered = []
 
     return { send: true, step: this.enigme1.step, messages: this.enigme1.messages }
+  }
+
+  enigme1End() {
+    const messages = [
+      {
+        contact: MESSAGE_NAME_FACTURE,
+        messages: [MESSAGES_LIST[3]],
+      },
+      this.enigme1.messages,
+    ]
+    return { messages }
   }
 
   // =============== //
