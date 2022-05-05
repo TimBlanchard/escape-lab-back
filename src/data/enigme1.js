@@ -11,6 +11,7 @@ const ENIGME1_RESPONSES = [
   null, // 2-2-end
 ]
 const MESSAGE_NAME = 'La Porte Service'
+const MESSAGE_NAME_FACTURE = 'Service telephonique'
 const MESSAGES_LIST = [
   {
     isReceived: true,
@@ -26,7 +27,7 @@ const MESSAGES_LIST = [
   },
   {
     isReceived: true,
-    content: 'Le code de la porte est 1234',
+    content: 'Votre facture téléphone a été débitée de 25€. Appel surtaxé 40€/minute.',
   },
 ]
 
@@ -34,4 +35,5 @@ module.exports = {
   ENIGME1_RESPONSES,
   MESSAGE_NAME,
   MESSAGES_LIST,
+  MESSAGE_NAME_FACTURE,
 }
