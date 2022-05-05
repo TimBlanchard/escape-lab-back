@@ -178,7 +178,6 @@ class Room {
 
   setNumber(num) {
     this.enigme1.numbersEntered.push(num)
-    console.log('new number', num, this.enigme1.numbersEntered, this.enigme1.step)
 
     // s'il n'y a pas de message
     const CURRENT_RESPONSE = ENIGME1_RESPONSES[this.enigme1.step]
@@ -186,9 +185,6 @@ class Room {
 
     // s'il n'y a pas de
     if (CURRENT_RESPONSE.length !== this.enigme1.numbersEntered.length) return { send: false }
-
-    // TODO if
-    console.log('number IF ', CURRENT_RESPONSE, this.enigme1.numbersEntered.join(''), CURRENT_RESPONSE === this.enigme1.numbersEntered.join(''))
 
     if (CURRENT_RESPONSE === this.enigme1.numbersEntered.join('')) {
       switch (this.enigme1.step) {
@@ -236,7 +232,6 @@ class Room {
 
       this.enigme1.numbersEntered = []
 
-      console.log('send TRUE', { send: true, step: this.enigme1.step, messages: this.enigme1.messages })
       return { send: true, step: this.enigme1.step, messages: this.enigme1.messages }
     }
 
@@ -280,7 +275,6 @@ class Room {
 
     this.enigme1.numbersEntered = []
 
-    console.log('send false', { send: true, step: this.enigme1.step, messages: this.enigme1.messages })
     return { send: true, step: this.enigme1.step, messages: this.enigme1.messages }
   }
 
