@@ -18,6 +18,20 @@ const enigme3Data = () => ({
       botImg: 'vetement-base-stock',
       description: 'Pull en laine TRÈS BON ÉTAT<br/>'
         + 'Porté très rarement<br/>',
+      criteria: {
+        good: {
+          size: 'taille S',
+          condition: 'très bon état',
+          material: 'laine',
+          color: 'noir',
+        },
+        wrong: {
+          size: 'taille XL',
+          condition: 'très bon état',
+          material: 'laine',
+          color: 'noir',
+        },
+      },
     },
     {
       type: 'housing',
@@ -30,6 +44,20 @@ const enigme3Data = () => ({
         + 'proche de commerces<br/>'
         + 'rénové récemment<br/>'
         + 'Prix à débattre',
+      criteria: {
+        good: {
+          size: 'taille S',
+          condition: 'très bon état',
+          material: 'laine',
+          color: 'noir',
+        },
+        wrong: {
+          size: 'taille XL',
+          condition: 'très bon état',
+          material: 'laine',
+          color: 'noir',
+        },
+      },
     },
     {
       type: 'vehicle',
@@ -42,6 +70,20 @@ const enigme3Data = () => ({
         + '5 portes<br/>'
         + '70 cv<br/>'
         + 'Prix à débattre',
+      criteria: {
+        good: {
+          size: 'taille S',
+          condition: 'très bon état',
+          material: 'laine',
+          color: 'noir',
+        },
+        wrong: {
+          size: 'taille XL',
+          condition: 'très bon état',
+          material: 'laine',
+          color: 'noir',
+        },
+      },
     },
   ],
   settings: {
@@ -65,22 +107,6 @@ const enigme3Data = () => ({
     },
   },
 })
-
-const criteriaData = {
-  clothing: {
-    size: ['taille S', 'taille M', 'taille L', 'taille XL'],
-    condition: ['très bon état', 'bon état'],
-    material: ['laine', 'cachemir', 'jean'],
-
-  },
-  vehicle: {
-    size: ['taille S', 'taille M', 'taille L', 'taille XL'],
-  },
-  housing: {
-    size: ['taille S', 'taille M', 'taille L', 'taille XL'],
-  },
-
-}
 
 const pricesData = {
   clothing: {
