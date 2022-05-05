@@ -216,7 +216,7 @@ class Room {
           break
         case 7: // 2-0
           this.enigme1.step = 8
-          this.enigme1.messages.messages.push(MESSAGES_LIST[3])
+          // this.enigme1.messages.messages.push(MESSAGES_LIST[3])
           break
         case 8: // 2-1
           this.enigme1.step = 9
