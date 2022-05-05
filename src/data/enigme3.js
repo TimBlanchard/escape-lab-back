@@ -20,13 +20,13 @@ const enigme3Data = () => ({
         + 'Porté très rarement<br/>',
       criteria: {
         good: {
-          size: 'taille S',
+          size: 'S',
           condition: 'très bon état',
           material: 'laine',
           color: 'noir',
         },
         wrong: {
-          size: 'taille XL',
+          size: 'XL',
           condition: 'très bon état',
           material: 'laine',
           color: 'noir',
@@ -47,12 +47,12 @@ const enigme3Data = () => ({
       criteria: {
         good: {
           furnished: 'meublé',
-          energyClass: 'B',
+          energyClass: 'E',
           piecesNumber: '3',
           location: 'Paris',
         },
         wrong: {
-          furnished: 'meublé',
+          furnished: 'non meublé',
           energyClass: 'E',
           piecesNumber: '1',
           location: 'Paris',
