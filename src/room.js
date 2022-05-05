@@ -9,6 +9,16 @@ const {
 
 const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
 
+const INIT_ENIGME_1 = {
+  recalled: false,
+  step: 0,
+  numbersEntered: [],
+  messages: {
+    contact: MESSAGE_NAME,
+    messages: [],
+  },
+}
+
 class Room {
   constructor(id, mainScreen = null) {
     this.id = id
@@ -29,13 +39,7 @@ class Room {
 
     // enigme 1
     this.enigme1 = {
-      recalled: false,
-      step: 0,
-      numbersEntered: [],
-      messages: {
-        contact: MESSAGE_NAME,
-        messages: [],
-      },
+      ...INIT_ENIGME_1,
     }
   }
 
@@ -175,7 +179,10 @@ class Room {
   // =============== //
 
   setRecall() {
-    this.enigme1.recalled = true
+    this.enigme1 = {
+      ...INIT_ENIGME_1,
+      recalled: true,
+    }
   }
 
   setNumber(num) {
