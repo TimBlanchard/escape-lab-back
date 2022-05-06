@@ -2,11 +2,13 @@ const ENIGME1_RESPONSES = [
   '2', // 0-intro
   '2', // 0-wrong
   '12345', // 1-0 -> code client
+  '12345', // '1-wrongCode' -> same before
   '1234', // 1-1 -> code double auth
   '1234', // '1-wrongCode -> same before
   '1', // 1-2
   '1', // '1-3-wrong'
   '12345', // 2-0 -> code porte
+  '12345', // 1-wrongCode
   '1234', // 2-1 -> code triple auth
   null, // 2-2-end
 ]

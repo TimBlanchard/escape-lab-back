@@ -207,31 +207,39 @@ class Room {
           this.enigme1.messages.messages.push(MESSAGES_LIST[0])
           break
         case 2: // 1-0
-          this.enigme1.step = 3
+          this.enigme1.step = 4
           this.enigme1.messages.messages.push(MESSAGES_LIST[1])
           break
-        case 3: // 1-1
-          this.enigme1.step = 5
+        case 3: // 1-0 wrongCode
+          this.enigme1.step = 4
+          this.enigme1.messages.messages.push(MESSAGES_LIST[1])
           break
-        case 4: // '1-wrongCode
-          this.enigme1.step = 5
+        case 4: // 1-1
+          this.enigme1.step = 6
           break
-        case 5: // 1-2
-          this.enigme1.step = 7
-          this.enigme1.messages.messages.push(MESSAGES_LIST[2])
+        case 5: // '1-wrongCode
+          this.enigme1.step = 6
           break
-        case 6: // '1-3-wrong'
-          this.enigme1.step = 7
-          this.enigme1.messages.messages.push(MESSAGES_LIST[2])
-          break
-        case 7: // 2-0
+        case 6: // 1-2
           this.enigme1.step = 8
+          this.enigme1.messages.messages.push(MESSAGES_LIST[2])
+          break
+        case 7: // '1-3-wrong'
+          this.enigme1.step = 8
+          this.enigme1.messages.messages.push(MESSAGES_LIST[2])
+          break
+        case 8: // 2-0
+          this.enigme1.step = 9
           // this.enigme1.messages.messages.push(MESSAGES_LIST[3])
           break
-        case 8: // 2-1
-          this.enigme1.step = 9
+        case 9: // 2-0
+          this.enigme1.step = 10
+          // this.enigme1.messages.messages.push(MESSAGES_LIST[3])
           break
-        case 9: // 2-2-end
+        case 10: // 2-1
+          this.enigme1.step = 11
+          break
+        case 11: // 2-2-end
           break
 
         default:
@@ -254,27 +262,34 @@ class Room {
         this.enigme1.step = 1
         break
       case 2: // 1-0
-        this.enigme1.step = 2
+        this.enigme1.step = 3
         break
-      case 3: // 1-1
-        this.enigme1.step = 4
+      case 3: // 1 wrongcode
+        this.enigme1.step = 3
         break
-      case 4: // '1-wrongCode
-        this.enigme1.step = 1
+      case 4: // 1-1
+        this.enigme1.step = 5
         break
-      case 5: // 1-2
-        this.enigme1.step = 6
+      case 5: // '1-wrongCode
+        this.enigme1.step = 5
         break
-      case 6: // '1-3-wrong'
+      case 6: // 1-2
         this.enigme1.step = 7
         break
-      case 7: // 2-0
-        this.enigme1.step = 7
-        break
-      case 8: // 2-1
+      case 7: // '1-3-wrong'
         this.enigme1.step = 8
+        this.enigme1.messages.messages.push(MESSAGES_LIST[2])
         break
-      case 9: // 2-2-end
+      case 8: // 2-0
+        this.enigme1.step = 9
+        break
+      case 9: // 2-1
+        this.enigme1.step = 9
+        break
+      case 10: // 2-1
+        this.enigme1.step = 11
+        break
+      case 11: // 2-2-end
         break
 
       default:
