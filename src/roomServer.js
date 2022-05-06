@@ -24,7 +24,7 @@ const userConnected = (props) => {
     rooms[idNewRoom] = room
 
     return {
-      idRoom: idRoom || idNewRoom, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
+      idRoom: room.id, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
     }
   }
   return { error: 'Player can\'t create room' }
@@ -82,6 +82,24 @@ const setStepGame = (idRoom, step) => {
   return data
 }
 
+const enigme1EnteredNumber = (idRoom, v) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.setNumber(v)
+
+  return data
+}
+
+const enigme1End = (idRoom, v) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.enigme1End(v)
+
+  return data
+}
+
 module.exports = {
   rooms,
   userConnected,
@@ -90,4 +108,6 @@ module.exports = {
   setUserReadyEnigme,
   getStepGame,
   setStepGame,
+  enigme1EnteredNumber,
+  enigme1End,
 }
