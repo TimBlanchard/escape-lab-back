@@ -1,3 +1,4 @@
+const { MESSAGE_NOT_RECALL } = require('./data/enigme1')
 const {
   rooms, enigme1EnteredNumber, enigme1End, getStepGame,
 } = require('./roomServer')
@@ -31,6 +32,10 @@ const initSocketsEnigme1 = (io, socket) => {
 
       io.to(socket.idRoom).emit('endEnigme', { stepGame })
     }, 4000)
+  })
+
+  socket.on('enigme1-endNotRecall', () => {
+    io.to(socket.idRoom).emit('enigme1-endNotRecall', MESSAGE_NOT_RECALL)
   })
 }
 
