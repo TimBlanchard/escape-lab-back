@@ -36,6 +36,12 @@ const initSocketsEnigme1 = (io, socket) => {
 
   socket.on('enigme1-endNotRecall', () => {
     io.to(socket.idRoom).emit('enigme1-endNotRecall', MESSAGE_NOT_RECALL)
+
+    setTimeout(() => {
+      const stepGame = getStepGame(socket.idRoom)
+
+      io.to(socket.idRoom).emit('endEnigme', { stepGame })
+    }, 2000)
   })
 }
 
