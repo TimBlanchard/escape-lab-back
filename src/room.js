@@ -15,6 +15,7 @@ const INIT_ENIGME_1 = {
   numbersEntered: [],
   messages: {
     contact: MESSAGE_NAME,
+    id: 1,
     messages: [],
   },
 }
@@ -291,6 +292,7 @@ class Room {
     const messages = [
       {
         contact: MESSAGE_NAME_FACTURE,
+        id: 2,
         messages: [MESSAGES_LIST[3]],
       },
       this.enigme1.messages,
