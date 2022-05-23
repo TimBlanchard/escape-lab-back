@@ -74,6 +74,21 @@ const getDataEnigme2 = (idRoom) => {
   return data
 }
 
+const getNewOwnerDataEnigme2 = (idRoom, direction, id) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.setOwnerData(direction, id)
+
+  return data
+}
+
 module.exports = {
-  rooms, userConnected, userDisconnected, setUserReady, setStepGame, getDataEnigme2,
+  rooms,
+  userConnected,
+  userDisconnected,
+  setUserReady,
+  setStepGame,
+  getDataEnigme2,
+  getNewOwnerDataEnigme2,
 }

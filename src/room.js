@@ -22,27 +22,45 @@ class Room {
       popups: [
         {
           id: 1,
-          text: `popup n°${this.id}`,
+          text: 'popup 1',
+          owner: 'MainScreen',
+          incomingDirection: null,
+          exitDirection: null,
         },
         {
           id: 2,
-          text: `popup n°${this.id}`,
+          text: 'popup 2',
+          owner: null,
+          incomingDirection: null,
+          exitDirection: null,
         },
         {
           id: 3,
-          text: `popup n°${this.id}`,
+          text: 'popup 3',
+          owner: null,
+          incomingDirection: null,
+          exitDirection: null,
         },
         {
           id: 4,
-          text: `popup n°${this.id}`,
+          text: 'popup 4',
+          owner: null,
+          incomingDirection: null,
+          exitDirection: null,
         },
         {
           id: 5,
-          text: `popup n°${this.id}`,
+          text: 'popup 5',
+          owner: null,
+          incomingDirection: null,
+          exitDirection: null,
         },
         {
           id: 6,
-          text: `popup n°${this.id}`,
+          text: 'popup 6',
+          owner: null,
+          incomingDirection: null,
+          exitDirection: null,
         },
       ],
     }
@@ -162,7 +180,42 @@ class Room {
   //     Enigme2     //
   // =============== //
 
-  // TODO
+  setOwnerData(direction, id) {
+    const rng = Math.floor(Math.random() * 2)
+    console.log('RNG VAUT :: ', rng)
+    // const index = id
+    const currentPopup = this.enigme2.popups.filter((el) => el.id === id)[0]
+    currentPopup.exitDirection = direction
+    console.log('CURRENT POPUP VAUT :: ', currentPopup)
+
+    switch (currentPopup.exitDirection) {
+      case 'bottom':
+        currentPopup.owner = rng ? 'Player1' : 'Player2'
+        currentPopup.incomingDirection = 'top'
+        break
+      case 'left':
+        if (currentPopup.owner === 'Player1') {
+          currentPopup.owner = 'Player2'
+        } else {
+          currentPopup.owner = 'Player1'
+        }
+        currentPopup.incomingDirection = 'right'
+
+        break
+      case 'right':
+        if (currentPopup.owner === 'Player1') {
+          currentPopup.owner = 'Player2'
+        } else {
+          currentPopup.owner = 'Player1'
+        }
+        currentPopup.incomingDirection = 'left'
+        break
+      default:
+        break
+    }
+    console.log(this.enigme2.popups, direction, id)
+    return this.enigme2.popups
+  }
 
   // =============== //
   //     Enigme3     //
