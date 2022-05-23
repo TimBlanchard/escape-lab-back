@@ -1,5 +1,6 @@
+const { STEPS_GAME } = require('./room')
 const {
-  userConnected, userDisconnected, setUserReady, setStepGame,
+  userConnected, userDisconnected, setUserReady, setUserReadyEnigme, getStepGame, setStepGame,
 } = require('./roomServer')
 
 const IS_DEV = process.env.ENV === 'development'
@@ -23,11 +24,11 @@ const initConnexion = (io, socket) => {
     socket.join(dataRoom.idRoom)
     io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
 
-    if (IS_DEV && dataRoom.listUsers?.length === 3 && dataRoom.idRoom === 'DEV001') {
+    if (IS_DEV && dataRoom.listUsers?.length === 3 && dataRoom.idRoom === 'DEV001' && !dataRoom.stepGame) {
       // CHANGE HERE TO GO
       setTimeout(() => {
         io.to(socket.idRoom).emit('startGame')
-        setStepGame(socket.idRoom, 'Intro')
+        setStepGame(socket.idRoom, 0)
       }, 500)
     }
   })
@@ -48,17 +49,44 @@ const initConnexion = (io, socket) => {
 
     if (data.canStart) {
       io.to(socket.idRoom).emit('startGame')
-      setStepGame(socket.idRoom, 'Intro')
+      setStepGame(socket.idRoom, 0)
+    }
+  })
+
+  //
+  // Enigmes
+  //
+
+  // next Enigme
+  socket.on('endEnigme', () => {
+    const stepGame = getStepGame(socket.idRoom)
+
+    io.to(socket.idRoom).emit('endEnigme', { stepGame })
+  })
+
+  // next Enigme
+  socket.on('nextEnigme', () => {
+    const data = setStepGame(socket.idRoom)
+
+    io.to(socket.idRoom).emit('buildEnigme', { stepGame: data.stepGame })
+  })
+
+  // is Ready new enigme
+  socket.on('readyEnigme', () => {
+    const data = setUserReadyEnigme({ socketID: socket.id, idRoom: socket.idRoom })
+
+    if (data.canStart) {
+      io.to(socket.idRoom).emit('startEnigme')
     }
   })
 
   // setStepGame
   socket.on('setStepGame', ({ stepGame }) => {
-    if (!stepGame || !['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro'].includes(stepGame)) return
+    if (!stepGame || stepGame > STEPS_GAME.length) return
 
-    setStepGame(socket.idRoom, stepGame)
+    const data = setStepGame(socket.idRoom, stepGame)
 
-    io.to(socket.idRoom).emit('setStepGame', { stepGame })
+    io.to(socket.idRoom).emit('setStepGame', { stepGame: data.stepGame, stepGameNumber: data.stepGameNumber })
   })
 }
 

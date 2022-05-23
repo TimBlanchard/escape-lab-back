@@ -2,6 +2,24 @@
 //
 // ROOM
 //
+
+const {
+  ENIGME1_RESPONSES, MESSAGE_NAME, MESSAGE_NAME_FACTURE, MESSAGES_LIST,
+} = require('./data/enigme1')
+
+const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
+
+const INIT_ENIGME_1 = {
+  recalled: false,
+  step: 0,
+  numbersEntered: [],
+  messages: {
+    contact: MESSAGE_NAME,
+    id: 1,
+    messages: [],
+  },
+}
+
 class Room {
   constructor(id, mainScreen = null) {
     this.id = id
@@ -15,9 +33,11 @@ class Room {
     this.isReady = []
     this.isStart = false
     this.stepGame = null
+    this.isReadyEnigme = []
 
     // intro
     this.introIndexMessage = -1
+
     this.enigme2 = {
       popups: [
         {
@@ -63,6 +83,7 @@ class Room {
           exitDirection: null,
         },
       ],
+
     }
   }
 
@@ -74,7 +95,10 @@ class Room {
     if (this.users.length >= 3) return { error: 'Room is full' }
 
     const RETURN = {
-      idRoom: this.id, listUsers: this.users, isStart: this.isStart, stepGame: this.stepGame,
+      idRoom: this.id,
+      listUsers: this.users,
+      isStart: this.isStart,
+      stepGame: STEPS_GAME[this.stepGame],
     }
 
     if (!this.users.mainScreen && isMainScreen) {
@@ -132,9 +156,15 @@ class Room {
 
   // set step game
   setStepGame(stepGame) {
-    this.stepGame = stepGame
+    // eslint-disable-next-line no-restricted-globals
+    this.stepGame = isNaN(stepGame) ? this.stepGame + 1 : stepGame
+    this.isStart = true
 
-    return { stepGame }
+    return { stepGame: STEPS_GAME[this.stepGame], stepGameNumber: this.stepGame }
+  }
+
+  getStepGame() {
+    return STEPS_GAME[this.stepGame]
   }
 
   // =============== //
@@ -153,6 +183,24 @@ class Room {
     }
 
     return { isReadyLength: this.isReady.length, canStart, isReadyPlayer: this.isReady }
+  }
+
+  setUserReadyEnigme(socketID) {
+    if (!this.isReadyEnigme.includes(socketID)) {
+      this.isReadyEnigme.push(socketID)
+    }
+
+    const canStart = this.isReadyEnigme.length >= 3
+
+    if (canStart) {
+      this.isReadyEnigme = []
+    }
+
+    return {
+      isReadyEnigmeLength: this.isReadyEnigme.length,
+      canStart,
+      isReadyEnigmePlayer: this.isReadyEnigme,
+    }
   }
 
   introReady(socketID) {
@@ -174,7 +222,141 @@ class Room {
   //     Enigme1     //
   // =============== //
 
-  // TODO
+  setRecall() {
+    this.enigme1 = {
+      ...INIT_ENIGME_1,
+      recalled: true,
+    }
+  }
+
+  setNumber(num) {
+    this.enigme1.numbersEntered.push(num)
+
+    // s'il n'y a pas de message
+    const CURRENT_RESPONSE = ENIGME1_RESPONSES[this.enigme1.step]
+    if (!CURRENT_RESPONSE) return { send: false }
+
+    // s'il n'y a pas de
+    if (CURRENT_RESPONSE.length !== this.enigme1.numbersEntered.length) return { send: false }
+
+    if (CURRENT_RESPONSE === this.enigme1.numbersEntered.join('')) {
+      switch (this.enigme1.step) {
+        case 0: // 0-intro
+          this.enigme1.step = 2
+          this.enigme1.messages.messages.push(MESSAGES_LIST[0])
+          break
+        case 1: // 0-wrong
+          this.enigme1.step = 2
+          this.enigme1.messages.messages.push(MESSAGES_LIST[0])
+          break
+        case 2: // 1-0
+          this.enigme1.step = 4
+          this.enigme1.messages.messages.push(MESSAGES_LIST[1])
+          break
+        case 3: // 1-0 wrongCode
+          this.enigme1.step = 4
+          this.enigme1.messages.messages.push(MESSAGES_LIST[1])
+          break
+        case 4: // 1-1
+          this.enigme1.step = 6
+          break
+        case 5: // '1-wrongCode
+          this.enigme1.step = 6
+          break
+        case 6: // 1-2
+          this.enigme1.step = 8
+          this.enigme1.messages.messages.push(MESSAGES_LIST[2])
+          break
+        case 7: // '1-3-wrong'
+          this.enigme1.step = 8
+          this.enigme1.messages.messages.push(MESSAGES_LIST[2])
+          break
+        case 8: // 2-0
+          this.enigme1.step = 9
+          // this.enigme1.messages.messages.push(MESSAGES_LIST[3])
+          break
+        case 9: // 2-0
+          this.enigme1.step = 10
+          // this.enigme1.messages.messages.push(MESSAGES_LIST[3])
+          break
+        case 10: // 2-1
+          this.enigme1.step = 11
+          break
+        case 11: // 2-2-end
+          break
+
+        default:
+          console.error('ERROR 1 set number')
+          this.enigme1.step += 1
+          break
+      }
+
+      this.enigme1.numbersEntered = []
+
+      return { send: true, step: this.enigme1.step, messages: this.enigme1.messages }
+    }
+
+    switch (this.enigme1.step) {
+      case 0: // 0-intro
+        this.enigme1.step = 1
+        // this.enigme1.messages.messages.push(MESSAGES_LIST[0])
+        break
+      case 1: // 0-wrong
+        this.enigme1.step = 1
+        break
+      case 2: // 1-0
+        this.enigme1.step = 3
+        break
+      case 3: // 1 wrongcode
+        this.enigme1.step = 3
+        break
+      case 4: // 1-1
+        this.enigme1.step = 5
+        break
+      case 5: // '1-wrongCode
+        this.enigme1.step = 5
+        break
+      case 6: // 1-2
+        this.enigme1.step = 7
+        break
+      case 7: // '1-3-wrong'
+        this.enigme1.step = 8
+        this.enigme1.messages.messages.push(MESSAGES_LIST[2])
+        break
+      case 8: // 2-0
+        this.enigme1.step = 9
+        break
+      case 9: // 2-1
+        this.enigme1.step = 9
+        break
+      case 10: // 2-1
+        this.enigme1.step = 11
+        break
+      case 11: // 2-2-end
+        break
+
+      default:
+        console.error('ERROR 2 : set Number')
+        this.enigme1.step += 1
+        break
+    }
+
+    this.enigme1.numbersEntered = []
+
+    return { send: true, step: this.enigme1.step, messages: this.enigme1.messages }
+  }
+
+  enigme1End() {
+    const messages = [
+      {
+        contact: MESSAGE_NAME_FACTURE,
+        id: 2,
+        messages: [MESSAGES_LIST[3]],
+      },
+      this.enigme1.messages,
+    ]
+    return { messages }
+  }
 
   // =============== //
   //     Enigme2     //
@@ -224,4 +406,4 @@ class Room {
   // TODO
 }
 
-module.exports = { Room }
+module.exports = { Room, STEPS_GAME }

@@ -16,7 +16,12 @@ __________
 | C | `isReady`                           | utilisateur est prêt        ||
 | S | `playerIsReady`                     | utilisateur de la room est prêt ||
 | S | `startGame`                         | départ du jeu               ||
-| S | `setStepGame`                       | change step game : Outro, Enigme1, ...||
+| S | `setStepGame`                       | change step game            ||
+| S & C | `endEnigme`                     | on end enigme               ||
+| S | `buildEnigme`                       | build enigme for            ||
+| C | `readyEnigme`                       | on user build enigme        ||
+| S | `startEnigme`                       | start enigme                ||
+| S | `nextEnigme`                        | next Enigme                 ||
 
 
 ## 1 - Intro

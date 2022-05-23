@@ -24,7 +24,7 @@ const userConnected = (props) => {
     rooms[idNewRoom] = room
 
     return {
-      idRoom: idRoom || idNewRoom, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
+      idRoom: room.id, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
     }
   }
   return { error: 'Player can\'t create room' }
@@ -56,6 +56,23 @@ const setUserReady = ({ socketID, idRoom }) => {
   return dataIsReady
 }
 
+const setUserReadyEnigme = ({ socketID, idRoom }) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const dataIsReady = existingRoom.setUserReadyEnigme(socketID)
+
+  return dataIsReady
+}
+const getStepGame = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.getStepGame()
+
+  return data
+}
+
 const setStepGame = (idRoom, step) => {
   const existingRoom = rooms[idRoom] || null
   if (!existingRoom) return { error: 'No Room' }
@@ -70,6 +87,15 @@ const getDataEnigme2 = (idRoom) => {
   if (!existingRoom) return { error: 'No Room' }
 
   const data = existingRoom.enigme2
+  
+  return data
+}
+
+const enigme1EnteredNumber = (idRoom, v) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.setNumber(v)
 
   return data
 }
@@ -79,6 +105,14 @@ const getNewOwnerDataEnigme2 = (idRoom, direction, id) => {
   if (!existingRoom) return { error: 'No Room' }
 
   const data = existingRoom.setOwnerData(direction, id)
+  return data
+}
+
+const enigme1End = (idRoom, v) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.enigme1End(v)
 
   return data
 }
@@ -91,4 +125,9 @@ module.exports = {
   setStepGame,
   getDataEnigme2,
   getNewOwnerDataEnigme2,
+  setUserReadyEnigme,
+  getStepGame,
+  setStepGame,
+  enigme1EnteredNumber,
+  enigme1End,
 }
