@@ -127,7 +127,6 @@ module.exports = {
   getNewOwnerDataEnigme2,
   setUserReadyEnigme,
   getStepGame,
-  setStepGame,
   enigme1EnteredNumber,
   enigme1End,
 }
