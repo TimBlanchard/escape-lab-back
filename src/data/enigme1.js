@@ -1,15 +1,15 @@
 const ENIGME1_RESPONSES = [
   '2', // 0-intro
   '2', // 0-wrong
-  '12345', // 1-0 -> code client
-  '12345', // '1-wrongCode' -> same before
-  '1234', // 1-1 -> code double auth
-  '1234', // '1-wrongCode -> same before
+  '12563', // 1-0 -> code client
+  '12563', // '1-wrongCode' -> same before
+  '3568', // 1-1 -> code double auth
+  '3568', // '1-wrongCode -> same before
   '1', // 1-2
   '1', // '1-3-wrong'
-  '12345', // 2-0 -> code porte
-  '12345', // 1-wrongCode
-  '1234', // 2-1 -> code triple auth
+  '36743', // 2-0 -> code porte
+  '36743', // 1-wrongCode
+  '4788', // 2-1 -> code triple auth
   null, // 2-2-end
 ]
 const MESSAGE_NAME = 'La Porte Service'
@@ -17,15 +17,15 @@ const MESSAGE_NAME_FACTURE = 'Service telephonique'
 const MESSAGES_LIST = [
   {
     isReceived: true,
-    content: 'Votre code client est 12345',
+    content: 'Votre code client est 12563',
   },
   {
     isReceived: true,
-    content: 'Votre code de double auth est 1234',
+    content: 'Votre code de double auth est 3568',
   },
   {
     isReceived: true,
-    content: 'Votre code de triple auth est 12345',
+    content: 'Votre code de triple auth est 36743',
   },
   {
     isReceived: true,
