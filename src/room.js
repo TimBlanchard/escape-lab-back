@@ -6,6 +6,7 @@
 const {
   ENIGME1_RESPONSES, MESSAGE_NAME, MESSAGE_NAME_FACTURE, MESSAGES_LIST,
 } = require('./data/enigme1')
+const { POPUPS } = require('./data/enigme2')
 
 const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
 
@@ -46,62 +47,7 @@ class Room {
     //   popups: []
     // }
     this.enigme2 = {
-      popups: [
-        {
-          id: 1,
-          from: 'De : Caf de Paris (noreply@emailing.caf.fr)',
-          subject: 'Objet : Déclarez vos revenus trimestriels',
-          text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre…',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 2,
-          from: 'De : mail@e.cudo.com.au',
-          subject: 'Objet : ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
-          text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
-          owner: 'MainScreen',
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 3,
-          from: 'De : Caf de Paris (noreply@emailing.caf.fr)',
-          subject: 'Objet : Déclarez vos revenus trimestriels',
-          text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre…',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 4,
-          from: 'De : mail@e.cudo.com.au',
-          subject: 'Objet : ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
-          text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 5,
-          from: 'De : Caf de Paris (noreply@emailing.caf.fr)',
-          subject: 'Objet : Déclarez vos revenus trimestriels',
-          text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre…',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 6,
-          from: 'De : mail@e.cudo.com.au',
-          subject: 'Objet : ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
-          text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-      ],
+      popups: POPUPS,
       lastSend: 0,
     }
   }
