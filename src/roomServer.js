@@ -87,7 +87,7 @@ const getDataEnigme2 = (idRoom) => {
   if (!existingRoom) return { error: 'No Room' }
 
   const data = existingRoom.enigme2
-  
+
   return data
 }
 
