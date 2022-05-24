@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars, unused-imports/no-unused-vars
 const {
-  getDataEnigme2, getNewOwnerDataEnigme2, newPopupEnigme2,
+  getDataEnigme2, getNewOwnerDataEnigme2, newPopupEnigme2, getStepGame,
 } = require('./roomServer')
 
 const TIME_BETWEEN_POPUPS = 2500
@@ -33,6 +33,11 @@ const initSocketsEnigme2 = (io, socket) => {
     // send end
     setTimeout(() => {
       io.to(socket.idRoom).emit('enigme2-endSort', getDataEnigme2(socket.idRoom).popups)
+
+      // next enigme
+      const stepGame = getStepGame(socket.idRoom)
+
+      io.to(socket.idRoom).emit('endEnigme', { stepGame })
     }, TIME_BETWEEN_POPUPS * (dataPopups.length + 1) + TIME_AFTER_POPUPS)
   })
 
