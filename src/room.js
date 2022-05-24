@@ -6,6 +6,7 @@
 const {
   ENIGME1_RESPONSES, MESSAGE_NAME, MESSAGE_NAME_FACTURE, MESSAGES_LIST,
 } = require('./data/enigme1')
+const { POPUPS } = require('./data/enigme2')
 
 const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
 
@@ -41,6 +42,14 @@ class Room {
     // enigme 1
     this.enigme1 = {
       ...INIT_ENIGME_1,
+    }
+    // this.enigme2 = {
+    //   popups: []
+    // }
+    this.enigme2 = {
+      popups: POPUPS,
+      lastSend: -1,
+      lastOrder: 0,
     }
   }
 
@@ -229,7 +238,7 @@ class Room {
           this.enigme1.messages.messages.push(MESSAGES_LIST[2])
           break
         case 8: // 2-0
-          this.enigme1.step = 9
+          this.enigme1.step = 10
           // this.enigme1.messages.messages.push(MESSAGES_LIST[3])
           break
         case 9: // 2-0
@@ -319,7 +328,58 @@ class Room {
   //     Enigme2     //
   // =============== //
 
-  // TODO
+  setOwnerData(direction, id) {
+    this.enigme2.lastOrder += 1
+
+    const rng = Math.floor(Math.random() * 2)
+    // console.log('RNG VAUT :: ', rng)
+    // const index = id
+    const currentPopup = this.enigme2.popups.filter((el) => el.id === id)[0]
+    if (!currentPopup) return this.enigme2.popups
+    currentPopup.exitDirection = direction
+    currentPopup.order = -this.enigme2.lastOrder
+    // console.log('CURRENT POPUP VAUT :: ', currentPopup)
+
+    switch (currentPopup.exitDirection) {
+      case 'bottom':
+        currentPopup.owner = rng ? 'Player1' : 'Player2'
+        currentPopup.incomingDirection = 'top'
+        break
+      case 'left':
+        if (currentPopup.owner === 'Player1') {
+          currentPopup.owner = 'Player2'
+        } else {
+          currentPopup.owner = 'Player1'
+        }
+        currentPopup.incomingDirection = 'right'
+
+        break
+      case 'right':
+        if (currentPopup.owner === 'Player1') {
+          currentPopup.owner = 'Player2'
+        } else {
+          currentPopup.owner = 'Player1'
+        }
+        currentPopup.incomingDirection = 'left'
+        break
+      default:
+        break
+    }
+    // console.log(this.enigme2.popups, direction, id)
+    return this.enigme2.popups
+  }
+
+  newPopup() {
+    if (this.enigme2.lastSend >= this.enigme2.popups.length) return this.enigme2.popups
+    this.enigme2.lastSend += 1
+
+    const newPopup = this.enigme2.popups[this.enigme2.lastSend]
+    if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
+    newPopup.owner = 'MainScreen'
+
+    // console.log('send popups', this.enigme2.popups)
+    return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
+  }
 
   // =============== //
   //     Enigme3     //

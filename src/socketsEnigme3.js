@@ -40,7 +40,7 @@ function generateConfig() {
       subtypeInterval = pricesData[product.type].less
     }
   }
-  const productGenerated = { name: product.name, description: product.description, img: image, type: product.type, subtype: { text: subtypeText, interval: subtypeInterval } }
+  const productGenerated = { name: product.name, description: product.description, img: image, type: product.type, subtype: { text: subtypeText, interval: subtypeInterval }, criteria: product.criteria }
 
   //data pass as sockets
   return { trueRules, sellerType, product: productGenerated, settings: enigme3Data().settings }

@@ -82,12 +82,37 @@ const setStepGame = (idRoom, step) => {
   return data
 }
 
+const getDataEnigme2 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.enigme2
+
+  return data
+}
+
 const enigme1EnteredNumber = (idRoom, v) => {
   const existingRoom = rooms[idRoom] || null
   if (!existingRoom) return { error: 'No Room' }
 
   const data = existingRoom.setNumber(v)
 
+  return data
+}
+
+const getNewOwnerDataEnigme2 = (idRoom, direction, id) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.setOwnerData(direction, id)
+  return data
+}
+
+const newPopupEnigme2 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.newPopup()
   return data
 }
 
@@ -105,9 +130,12 @@ module.exports = {
   userConnected,
   userDisconnected,
   setUserReady,
+  setStepGame,
+  getDataEnigme2,
+  getNewOwnerDataEnigme2,
+  newPopupEnigme2,
   setUserReadyEnigme,
   getStepGame,
-  setStepGame,
   enigme1EnteredNumber,
   enigme1End,
 }
