@@ -38,52 +38,70 @@ class Room {
     // intro
     this.introIndexMessage = -1
 
+    // enigme 1
+    this.enigme1 = {
+      ...INIT_ENIGME_1,
+    }
+    // this.enigme2 = {
+    //   popups: []
+    // }
     this.enigme2 = {
       popups: [
         {
           id: 1,
-          text: 'popup 1',
+          from: 'De : mail@e.cudo.com.au',
+          subject: 'Objet : ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
+          text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
           owner: 'MainScreen',
           incomingDirection: null,
           exitDirection: null,
         },
         {
           id: 2,
-          text: 'popup 2',
+          from: 'De : Caf de Paris (noreply@emailing.caf.fr)',
+          subject: 'Objet : Déclarez vos revenus trimestriels',
+          text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre…',
           owner: null,
           incomingDirection: null,
           exitDirection: null,
         },
         {
           id: 3,
-          text: 'popup 3',
+          from: 'De : Caf de Paris (noreply@emailing.caf.fr)',
+          subject: 'Objet : Déclarez vos revenus trimestriels',
+          text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre…',
           owner: null,
           incomingDirection: null,
           exitDirection: null,
         },
         {
           id: 4,
-          text: 'popup 4',
+          from: 'De : Caf de Paris (noreply@emailing.caf.fr)',
+          subject: 'Objet : Déclarez vos revenus trimestriels',
+          text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre…',
           owner: null,
           incomingDirection: null,
           exitDirection: null,
         },
         {
           id: 5,
-          text: 'popup 5',
+          from: 'De : mail@e.cudo.com.au',
+          subject: 'Objet : ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
+          text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
           owner: null,
           incomingDirection: null,
           exitDirection: null,
         },
         {
           id: 6,
-          text: 'popup 6',
+          from: 'De : mail@e.cudo.com.au',
+          subject: 'Objet : ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
+          text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
           owner: null,
           incomingDirection: null,
           exitDirection: null,
         },
       ],
-
     }
   }
 

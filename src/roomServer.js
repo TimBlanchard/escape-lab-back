@@ -87,7 +87,7 @@ const getDataEnigme2 = (idRoom) => {
   if (!existingRoom) return { error: 'No Room' }
 
   const data = existingRoom.enigme2
-  
+
   return data
 }
 
@@ -127,7 +127,6 @@ module.exports = {
   getNewOwnerDataEnigme2,
   setUserReadyEnigme,
   getStepGame,
-  setStepGame,
   enigme1EnteredNumber,
   enigme1End,
 }
