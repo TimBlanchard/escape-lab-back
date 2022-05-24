@@ -3,6 +3,9 @@ const {
   getDataEnigme2, getNewOwnerDataEnigme2, newPopupEnigme2,
 } = require('./roomServer')
 
+const TIME_BETWEEN_POPUPS = 2500
+const TIME_AFTER_POPUPS = 10000
+
 const initSocketsEnigme2 = (io, socket) => {
   socket.on('sendPopups', () => {
     const dataPopups = getDataEnigme2(socket.idRoom).popups
@@ -15,6 +18,7 @@ const initSocketsEnigme2 = (io, socket) => {
       return newPopups
     }
 
+    // send new popup each 2500ms
     for (let index = 0; index < dataPopups.length; index += 1) {
       setTimeout(() => {
         const data = newPopup()
@@ -22,9 +26,14 @@ const initSocketsEnigme2 = (io, socket) => {
         setTimeout(() => {
           const data2 = getNewOwnerDataEnigme2(socket.idRoom, 'bottom', data.idNewPopup)
           io.to(socket.idRoom).emit('sendPopups', data2)
-        }, 3000)
-      }, 2500 * (index + 1))
+        }, TIME_BETWEEN_POPUPS + 500)
+      }, TIME_BETWEEN_POPUPS * (index + 1))
     }
+
+    // send end
+    setTimeout(() => {
+      io.to(socket.idRoom).emit('enigme2-endSort', getDataEnigme2(socket.idRoom).popups)
+    }, TIME_BETWEEN_POPUPS * (dataPopups.length + 1) + TIME_AFTER_POPUPS)
   })
 
   // socket.on('popupIsReady', () => {
