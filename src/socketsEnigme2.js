@@ -3,8 +3,8 @@ const {
   getDataEnigme2, getNewOwnerDataEnigme2, newPopupEnigme2, getStepGame,
 } = require('./roomServer')
 
-const TIME_BETWEEN_POPUPS = 2500
-const TIME_AFTER_POPUPS = 10000
+const TIME_BETWEEN_POPUPS = 6000
+const TIME_AFTER_POPUPS = 12000
 
 const initSocketsEnigme2 = (io, socket) => {
   socket.on('sendPopups', () => {
