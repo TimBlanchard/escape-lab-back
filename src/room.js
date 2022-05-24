@@ -6,6 +6,7 @@
 const {
   ENIGME1_RESPONSES, MESSAGE_NAME, MESSAGE_NAME_FACTURE, MESSAGES_LIST,
 } = require('./data/enigme1')
+const { POPUPS } = require('./data/enigme2')
 
 const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
 
@@ -46,62 +47,9 @@ class Room {
     //   popups: []
     // }
     this.enigme2 = {
-      popups: [
-        {
-          id: 1,
-          from: 'De : mail@e.cudo.com.au',
-          subject: 'Objet : ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
-          text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
-          owner: 'MainScreen',
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 2,
-          from: 'De : Caf de Paris (noreply@emailing.caf.fr)',
-          subject: 'Objet : Déclarez vos revenus trimestriels',
-          text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre…',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 3,
-          from: 'De : Caf de Paris (noreply@emailing.caf.fr)',
-          subject: 'Objet : Déclarez vos revenus trimestriels',
-          text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre…',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 4,
-          from: 'De : Caf de Paris (noreply@emailing.caf.fr)',
-          subject: 'Objet : Déclarez vos revenus trimestriels',
-          text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre…',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 5,
-          from: 'De : mail@e.cudo.com.au',
-          subject: 'Objet : ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
-          text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-        {
-          id: 6,
-          from: 'De : mail@e.cudo.com.au',
-          subject: 'Objet : ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
-          text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
-          owner: null,
-          incomingDirection: null,
-          exitDirection: null,
-        },
-      ],
+      popups: POPUPS,
+      lastSend: -1,
+      lastOrder: 0,
     }
   }
 
@@ -381,12 +329,16 @@ class Room {
   // =============== //
 
   setOwnerData(direction, id) {
+    this.enigme2.lastOrder += 1
+
     const rng = Math.floor(Math.random() * 2)
-    console.log('RNG VAUT :: ', rng)
+    // console.log('RNG VAUT :: ', rng)
     // const index = id
     const currentPopup = this.enigme2.popups.filter((el) => el.id === id)[0]
+    if (!currentPopup) return this.enigme2.popups
     currentPopup.exitDirection = direction
-    console.log('CURRENT POPUP VAUT :: ', currentPopup)
+    currentPopup.order = -this.enigme2.lastOrder
+    // console.log('CURRENT POPUP VAUT :: ', currentPopup)
 
     switch (currentPopup.exitDirection) {
       case 'bottom':
@@ -413,8 +365,20 @@ class Room {
       default:
         break
     }
-    console.log(this.enigme2.popups, direction, id)
+    // console.log(this.enigme2.popups, direction, id)
     return this.enigme2.popups
+  }
+
+  newPopup() {
+    if (this.enigme2.lastSend >= this.enigme2.popups.length) return this.enigme2.popups
+    this.enigme2.lastSend += 1
+
+    const newPopup = this.enigme2.popups[this.enigme2.lastSend]
+    if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
+    newPopup.owner = 'MainScreen'
+
+    // console.log('send popups', this.enigme2.popups)
+    return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
   }
 
   // =============== //
