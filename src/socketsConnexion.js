@@ -97,6 +97,10 @@ const initConnexion = (io, socket) => {
 
     io.to(socket.idRoom).emit('setStepGame', { stepGame: data.stepGame, stepGameNumber: data.stepGameNumber })
   })
+
+  socket.on('endVideo', () => {
+    io.to(socket.idRoom).emit('endVideo')
+  })
 }
 
 module.exports = { initConnexion }
