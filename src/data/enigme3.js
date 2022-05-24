@@ -1,16 +1,15 @@
 const enigme3Data = () => ({
   rules: [
-    { slug: 'price' },
-    { slug: 'stock' },
-    { slug: 'payment' },
-    { slug: 'criteria' },
-    { slug: 'availability' },
-    { slug: 'profile' },
-    { slug: 'special-characters' },
-    { slug: 'sending' },
+    { slug: 'price', name: 'le prix du produit' },
+    { slug: 'stock', name: 'l\'image du produit' },
+    { slug: 'payment', name: 'le moyen de paiment' },
+    { slug: 'criteria', name: 'la différence entre les caractéristiques annoncées par le vendeur et celles de l\'annonce' },
+    { slug: 'availability', name: 'l\'impatience du vendeur' },
+    { slug: 'profile', name: 'le profil du vendeur' },
+    { slug: 'special-characters', name: 'les caractères spéciaux affichés sur l\'annonce' },
+    { slug: 'sending', name: 'la provenance UPS du produit' },
   ],
-  products: [
-    {
+  products: [/*{
       type: 'clothing',
       slug: 'pull',
       name: 'A vendre pull en laine',
@@ -58,18 +57,14 @@ const enigme3Data = () => ({
           location: 'Paris',
         },
       },
-    },
+    },*/
     {
       type: 'vehicle',
       slug: 'voiture',
       name: 'A vendre Renault Clio',
       normalImg: 'voiture-base',
       botImg: 'voiture-base-stock',
-      description: 'VEND CLIO IV TRÈS BON ÉTAT<br/>'
-        + 'Contrôle technique du 27/12/2021 ok<br/>'
-        + '5 portes<br/>'
-        + '70 cv<br/>'
-        + 'Prix à débattre',
+      description: ['VEND CLIO IV TRÈS BON ÉTAT', 'Contrôle technique du 27/12/2021 ok', '5 portes', '70 cv', 'Prix à débattre'],
       criteria: {
         good: {
           seatsNumber: '4',
