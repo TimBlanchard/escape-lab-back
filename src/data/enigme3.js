@@ -9,8 +9,7 @@ const enigme3Data = () => ({
     { slug: 'special-characters' },
     { slug: 'sending' },
   ],
-  products: [
-    {
+  products: [/*{
       type: 'clothing',
       slug: 'pull',
       name: 'A vendre pull en laine',
@@ -58,7 +57,7 @@ const enigme3Data = () => ({
           location: 'Paris',
         },
       },
-    },
+    },*/
     {
       type: 'vehicle',
       slug: 'voiture',
