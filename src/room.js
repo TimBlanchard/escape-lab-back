@@ -370,9 +370,10 @@ class Room {
     this.enigme2.lastSend += 1
 
     const newPopup = this.enigme2.popups[this.enigme2.lastSend]
+    if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
     newPopup.owner = 'MainScreen'
 
-    console.log('send popups', this.enigme2.popups)
+    // console.log('send popups', this.enigme2.popups)
     return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
   }
 
