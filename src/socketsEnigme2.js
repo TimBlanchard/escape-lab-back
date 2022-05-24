@@ -6,17 +6,23 @@ const {
 const initSocketsEnigme2 = (io, socket) => {
   socket.on('sendPopups', () => {
     const dataPopups = getDataEnigme2(socket.idRoom).popups
-    console.log('dataPopups', dataPopups)
     io.to(socket.idRoom).emit('sendPopups', dataPopups)
 
     const newPopup = () => {
       const newPopups = newPopupEnigme2(socket.idRoom)
-      io.to(socket.idRoom).emit('sendPopups', newPopups)
+      io.to(socket.idRoom).emit('sendPopups', newPopups.popups)
+
+      return newPopups
     }
 
     for (let index = 0; index < dataPopups.length; index += 1) {
       setTimeout(() => {
-        newPopup()
+        const data = newPopup()
+
+        setTimeout(() => {
+          const data2 = getNewOwnerDataEnigme2(socket.idRoom, 'bottom', data.idNewPopup)
+          io.to(socket.idRoom).emit('sendPopups', data2)
+        }, 3000)
       }, 2500 * (index + 1))
     }
   })

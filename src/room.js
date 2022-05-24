@@ -48,7 +48,7 @@ class Room {
     // }
     this.enigme2 = {
       popups: POPUPS,
-      lastSend: 0,
+      lastSend: -1,
     }
   }
 
@@ -332,6 +332,7 @@ class Room {
     // console.log('RNG VAUT :: ', rng)
     // const index = id
     const currentPopup = this.enigme2.popups.filter((el) => el.id === id)[0]
+    if (!currentPopup) return this.enigme2.popups
     currentPopup.exitDirection = direction
     // console.log('CURRENT POPUP VAUT :: ', currentPopup)
 
@@ -365,12 +366,14 @@ class Room {
   }
 
   newPopup() {
-    if (this.enigme2.lastSend >= this.enigme2.popups.length - 1) return this.enigme2.popups
+    if (this.enigme2.lastSend >= this.enigme2.popups.length) return this.enigme2.popups
     this.enigme2.lastSend += 1
 
-    this.enigme2.popups[this.enigme2.lastSend].owner = 'MainScreen'
+    const newPopup = this.enigme2.popups[this.enigme2.lastSend]
+    newPopup.owner = 'MainScreen'
 
-    return this.enigme2.popups
+    console.log('send popups', this.enigme2.popups)
+    return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
   }
 
   // =============== //
