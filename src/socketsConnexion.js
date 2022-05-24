@@ -80,6 +80,15 @@ const initConnexion = (io, socket) => {
     }
   })
 
+  // is Ready For Tuto
+  socket.on('readyTutoEnigme', () => {
+    const data = setUserReady({ socketID: socket.id, idRoom: socket.idRoom })
+
+    if (data.canStart) {
+      io.to(socket.idRoom).emit('startEnigme')
+    }
+  })
+
   // setStepGame
   socket.on('setStepGame', ({ stepGame }) => {
     if (!stepGame || stepGame > STEPS_GAME.length) return
