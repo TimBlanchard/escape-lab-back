@@ -67,8 +67,14 @@ const initConnexion = (io, socket) => {
   // next Enigme
   socket.on('nextEnigme', () => {
     const data = setStepGame(socket.idRoom)
+    console.log('nextEnigme', data)
 
-    io.to(socket.idRoom).emit('buildEnigme', { stepGame: data.stepGame })
+    if (data.stepGame === 'Outro') {
+      io.to(socket.idRoom).emit('playEndIntro')
+      io.to(socket.idRoom).emit('setStepGame', { stepGame: 'Outro', stepGameNumber: 4 })
+    } else {
+      io.to(socket.idRoom).emit('buildEnigme', { stepGame: data.stepGame })
+    }
   })
 
   // is Ready new enigme
@@ -96,6 +102,10 @@ const initConnexion = (io, socket) => {
     const data = setStepGame(socket.idRoom, stepGame)
 
     io.to(socket.idRoom).emit('setStepGame', { stepGame: data.stepGame, stepGameNumber: data.stepGameNumber })
+  })
+
+  socket.on('endVideo', () => {
+    io.to(socket.idRoom).emit('endVideo')
   })
 }
 
