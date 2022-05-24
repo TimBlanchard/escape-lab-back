@@ -3,6 +3,15 @@ const { default: srtParser2 } = require('srt-parser-2')
 const fs = require('fs')
 const { convertTimeToMilis } = require('./helpers/convertTimeToMilis')
 
+function isJsonString(str) {
+  try {
+    JSON.parse(str)
+  } catch (e) {
+    return false
+  }
+  return true
+}
+
 const changeData = (data) => {
   let lastTime = 0
   data.map((d) => {
@@ -16,6 +25,7 @@ const changeData = (data) => {
     const textSplit = d.text.split(/: (.+)?/, 2)
     d.user = textSplit[0].replace(/ /g, '')
     d.message = textSplit[1].trim()
+    if(isJsonString(d.message)) d.message = JSON.parse(d.message)
     d.isWriting = textSplit[1].includes('[writing]')
 
     return d
@@ -33,3 +43,4 @@ const dataIntro = changeData(parser.fromSrt(contentIntro))
 const dataOutro = changeData(parser.fromSrt(contentOutro))
 
 module.exports = { dataIntro, dataOutro }
+
