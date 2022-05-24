@@ -8,6 +8,7 @@ const POPUPS = [
     incomingDirection: null,
     exitDirection: null,
     isSpam: false,
+    order: 0,
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ const POPUPS = [
     incomingDirection: null,
     exitDirection: null,
     isSpam: true,
+    order: 0,
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ const POPUPS = [
     incomingDirection: null,
     exitDirection: null,
     isSpam: false,
+    order: 0,
   },
   {
     id: 4,
@@ -38,6 +41,7 @@ const POPUPS = [
     incomingDirection: null,
     exitDirection: null,
     isSpam: true,
+    order: 0,
   },
   {
     id: 5,
@@ -48,6 +52,7 @@ const POPUPS = [
     incomingDirection: null,
     exitDirection: null,
     isSpam: false,
+    order: 0,
   },
   {
     id: 6,
@@ -58,6 +63,7 @@ const POPUPS = [
     incomingDirection: null,
     exitDirection: null,
     isSpam: false,
+    order: 0,
   },
 ]
 

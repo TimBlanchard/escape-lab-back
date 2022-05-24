@@ -49,6 +49,7 @@ class Room {
     this.enigme2 = {
       popups: POPUPS,
       lastSend: -1,
+      lastOrder: 0,
     }
   }
 
@@ -328,12 +329,15 @@ class Room {
   // =============== //
 
   setOwnerData(direction, id) {
+    this.enigme2.lastOrder += 1
+
     const rng = Math.floor(Math.random() * 2)
     // console.log('RNG VAUT :: ', rng)
     // const index = id
     const currentPopup = this.enigme2.popups.filter((el) => el.id === id)[0]
     if (!currentPopup) return this.enigme2.popups
     currentPopup.exitDirection = direction
+    currentPopup.order = -this.enigme2.lastOrder
     // console.log('CURRENT POPUP VAUT :: ', currentPopup)
 
     switch (currentPopup.exitDirection) {
