@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 const readline = require('readline')
 const { rooms } = require('./roomServer')
@@ -11,7 +12,11 @@ const initKeys = () => {
       process.exit()
     } else if (key.name === 'r') {
       console.log('============== ROOMS ==============')
-      console.log(rooms)
+      for (const id in rooms) {
+        if (Object.hasOwnProperty.call(rooms, id)) {
+          console.log(rooms[id])
+        }
+      }
       console.log('===================================')
     }
   })
