@@ -1,14 +1,9 @@
+/* eslint-disable no-bitwise */
 //
 // Generate UID
 //
 function generateUID() {
-  // I generate the UID from two parts here
-  // to ensure the random number provide enough bits.
-  let firstPart = Math.round(Math.random() * 46656)
-  let secondPart = Math.round(Math.random() * 46656)
-  firstPart = (`000${firstPart.toString(36)}`).slice(-3)
-  secondPart = (`000${secondPart.toString(36)}`).slice(-3)
-  return firstPart + secondPart
+  return (`${(Math.random() * 36 ** 8 << 0).toString(36).replaceAll(/(0|o|O)/g, '')}`).slice(-4)
 }
 
 module.exports = { generateUID }
