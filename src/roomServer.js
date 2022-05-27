@@ -28,7 +28,7 @@ const userConnected = (props) => {
       idRoom: room.id, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
     }
   }
-  return { error: 'Player can\'t create room' }
+  return { error: 'Ce code ne corespond à aucune partie' }
 }
 const userDisconnected = ({ socketID, idRoom }) => {
   const existingRoom = rooms[idRoom] || null
