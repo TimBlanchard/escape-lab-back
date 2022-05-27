@@ -19,7 +19,7 @@ const initConnexion = (io, socket) => {
       idRoom, isMainScreen, isPlayer, socketID: socket.id,
     })
 
-    if (dataRoom.error && idRoom !== 'DEV001') {
+    if (dataRoom.error && idRoom !== 'dev1') {
       io.to(socket.id).emit('errorInputs', dataRoom)
       return
     }
@@ -29,7 +29,7 @@ const initConnexion = (io, socket) => {
     socket.join(dataRoom.idRoom)
     io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
 
-    if (IS_DEV && dataRoom.listUsers?.length === 3 && dataRoom.idRoom === 'DEV001' && !dataRoom.stepGame) {
+    if (IS_DEV && dataRoom.listUsers?.length === 3 && dataRoom.idRoom === 'dev1' && !dataRoom.stepGame) {
       // CHANGE HERE TO GO
       setTimeout(() => {
         io.to(socket.idRoom).emit('startGame')

@@ -4,10 +4,10 @@ const { generateUID } = require('./helpers/generateUID')
 
 const { Room } = require('./room')
 
-// if dev create Room DEV001
+// if dev create Room dev1
 const IS_DEV = process.env.ENV === 'development'
 if (IS_DEV) {
-  rooms.DEV001 = new Room('DEV001')
+  rooms.dev1 = new Room('dev1')
 }
 
 const userConnected = (props) => {
@@ -41,7 +41,7 @@ const userDisconnected = ({ socketID, idRoom }) => {
     delete rooms[idRoom]
 
     if (IS_DEV && rooms.length === 0) {
-      rooms.push(new Room('DEV001'))
+      rooms.push(new Room('dev1'))
     }
   }
 
