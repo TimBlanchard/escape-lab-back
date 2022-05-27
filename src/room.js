@@ -192,6 +192,7 @@ class Room {
     this.enigme1 = {
       ..._.cloneDeep(INIT_ENIGME_1),
       recalled: true,
+      time: new Date(),
     }
   }
 
@@ -313,11 +314,15 @@ class Room {
   }
 
   enigme1End() {
+    const message = _.clone(MESSAGES_LIST[3])
+    const time = (new Date() - this.enigme1.time) / 60000
+    message.content = message.content.replace('{{time}}', (Math.round(time * 25)).toString())
+
     const messages = [
       {
         contact: MESSAGE_NAME_FACTURE,
         id: 2,
-        messages: [MESSAGES_LIST[3]],
+        messages: [message],
       },
       this.enigme1.messages,
     ]
