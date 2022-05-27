@@ -19,6 +19,11 @@ const initConnexion = (io, socket) => {
       idRoom, isMainScreen, isPlayer, socketID: socket.id,
     })
 
+    if (dataRoom.error && idRoom !== 'DEV001') {
+      io.to(socket.id).emit('errorInputs', dataRoom)
+      return
+    }
+
     // eslint-disable-next-line no-param-reassign
     socket.idRoom = dataRoom.idRoom
     socket.join(dataRoom.idRoom)
