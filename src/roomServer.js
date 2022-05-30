@@ -83,20 +83,35 @@ const setStepGame = (idRoom, step) => {
   return data
 }
 
-const getDataEnigme2 = (idRoom) => {
-  const existingRoom = rooms[idRoom] || null
-  if (!existingRoom) return { error: 'No Room' }
-
-  const data = existingRoom.enigme2
-
-  return data
-}
-
+//
+// Enigme 1
+//
 const enigme1EnteredNumber = (idRoom, v) => {
   const existingRoom = rooms[idRoom] || null
   if (!existingRoom) return { error: 'No Room' }
 
   const data = existingRoom.setNumber(v)
+
+  return data
+}
+
+const enigme1End = (idRoom, v) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.enigme1End(v)
+
+  return data
+}
+
+//
+// Enigme 2
+//
+const getDataEnigme2 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.enigme2
 
   return data
 }
@@ -117,26 +132,17 @@ const newPopupEnigme2 = (idRoom) => {
   return data
 }
 
-const enigme1End = (idRoom, v) => {
-  const existingRoom = rooms[idRoom] || null
-  if (!existingRoom) return { error: 'No Room' }
-
-  const data = existingRoom.enigme1End(v)
-
-  return data
-}
-
 module.exports = {
   rooms,
   userConnected,
   userDisconnected,
   setUserReady,
   setStepGame,
+  getStepGame,
+  setUserReadyEnigme,
+  enigme1EnteredNumber,
+  enigme1End,
   getDataEnigme2,
   getNewOwnerDataEnigme2,
   newPopupEnigme2,
-  setUserReadyEnigme,
-  getStepGame,
-  enigme1EnteredNumber,
-  enigme1End,
 }
