@@ -132,6 +132,17 @@ const newPopupEnigme2 = (idRoom) => {
   return data
 }
 
+//
+// Enigme 3
+//
+const setConfigEnigme3 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.initConfigEnigme3()
+  return data
+}
+
 module.exports = {
   rooms,
   userConnected,
@@ -145,4 +156,5 @@ module.exports = {
   getDataEnigme2,
   getNewOwnerDataEnigme2,
   newPopupEnigme2,
+  setConfigEnigme3,
 }
