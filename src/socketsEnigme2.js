@@ -7,13 +7,13 @@ const TIME_BETWEEN_POPUPS = 6000
 const TIME_AFTER_POPUPS = 12000
 
 const initSocketsEnigme2 = (io, socket) => {
-  socket.on('sendPopups', () => {
+  socket.on('enigme2-sendPopups', () => {
     const dataPopups = getDataEnigme2(socket.idRoom).popups
-    io.to(socket.idRoom).emit('sendPopups', dataPopups)
+    io.to(socket.idRoom).emit('enigme2-sendPopups', dataPopups)
 
     const newPopup = () => {
       const newPopups = newPopupEnigme2(socket.idRoom)
-      io.to(socket.idRoom).emit('sendPopups', newPopups.popups)
+      io.to(socket.idRoom).emit('enigme2-sendPopups', newPopups.popups)
 
       return newPopups
     }
@@ -25,7 +25,7 @@ const initSocketsEnigme2 = (io, socket) => {
 
         setTimeout(() => {
           const data2 = getNewOwnerDataEnigme2(socket.idRoom, 'bottom', data.idNewPopup)
-          io.to(socket.idRoom).emit('sendPopups', data2)
+          io.to(socket.idRoom).emit('enigme2-sendPopups', data2)
         }, TIME_BETWEEN_POPUPS + 500)
       }, TIME_BETWEEN_POPUPS * (index + 1))
     }
@@ -43,18 +43,9 @@ const initSocketsEnigme2 = (io, socket) => {
     }, timerEndEnigme)
   })
 
-  // socket.on('popupIsReady', () => {
-  //   console.log('popupIsReady')
-  //   io.to(socket.idRoom).emit('sendPopupToPlayer')
-  // })
-
-  // socket.on('p2pPopup', () => {
-  //   io.to(socket.idRoom).emit('popupTransfer')
-  // })
-
   socket.on('enigme2-popupOwnerChanged', ({ direction, id }) => {
     const dataPopups = getNewOwnerDataEnigme2(socket.idRoom, direction, id)
-    io.to(socket.idRoom).emit('sendPopups', dataPopups)
+    io.to(socket.idRoom).emit('enigme2-sendPopups', dataPopups)
   })
 }
 
