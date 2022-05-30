@@ -5,6 +5,11 @@ const initSocketsEnigme3 = (io, socket) => {
     const config = setConfigEnigme3(socket.idRoom)
     io.to(socket.idRoom).emit('enigme3-config', config.config)
   })
+
+  socket.on('enigme3-restart', () => {
+    const config = setConfigEnigme3(socket.idRoom)
+    io.to(socket.idRoom).emit('enigme3-restart', config.config)
+  })
 }
 
 module.exports = { initSocketsEnigme3 }
