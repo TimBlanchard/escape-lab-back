@@ -1,10 +1,16 @@
 // eslint-disable-next-line no-unused-vars, unused-imports/no-unused-vars
 const {
-  getDataEnigme2, getNewOwnerDataEnigme2, newPopupEnigme2, getStepGame,
+  getDataEnigme2,
+  getSucessEnigme2,
+  getNewOwnerDataEnigme2,
+  newPopupEnigme2,
+  getStepGame,
+  setUserReady,
+  restartEnigme2,
 } = require('./roomServer')
 
-const TIME_BETWEEN_POPUPS = 6000
-const TIME_AFTER_POPUPS = 12000
+const TIME_BETWEEN_POPUPS = 3000
+const TIME_AFTER_POPUPS = 4000
 
 const initSocketsEnigme2 = (io, socket) => {
   socket.on('enigme2-sendPopups', () => {
@@ -34,13 +40,27 @@ const initSocketsEnigme2 = (io, socket) => {
     const timerEndEnigme = TIME_BETWEEN_POPUPS * (dataPopups.length + 1) + TIME_AFTER_POPUPS
     io.to(socket.idRoom).emit('enigme2-timer', { timer: timerEndEnigme })
     setTimeout(() => {
-      io.to(socket.idRoom).emit('enigme2-endSort', getDataEnigme2(socket.idRoom).popups)
+      const { popups } = getDataEnigme2(socket.idRoom)
+      const success = getSucessEnigme2(socket.idRoom)
+      io.to(socket.idRoom).emit('enigme2-endSort', { popups, success })
 
       // next enigme
+      if (!success) return
       const stepGame = getStepGame(socket.idRoom)
 
       io.to(socket.idRoom).emit('endEnigme', { stepGame })
     }, timerEndEnigme)
+  })
+
+  socket.on('enigme2-readyRestart', () => {
+    const data = setUserReady({ socketID: socket.id, idRoom: socket.idRoom })
+    const { popups } = getDataEnigme2(socket.idRoom)
+    restartEnigme2(socket.idRoom)
+
+    if (data.canStart) {
+      // TODO : add timing ???
+      io.to(socket.idRoom).emit('enigme2-restart', popups)
+    }
   })
 
   socket.on('enigme2-popupOwnerChanged', ({ direction, id }) => {

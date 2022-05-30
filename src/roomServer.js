@@ -115,6 +115,26 @@ const getDataEnigme2 = (idRoom) => {
 
   return data
 }
+const getSucessEnigme2 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const { popups } = existingRoom.enigme2
+
+  let rightResponses = 0
+  popups.forEach(
+    (currentValue) => {
+      const rightPlayer1 = currentValue.isSpam && currentValue.owner === 'Player1'
+      const rightPlayer2 = !currentValue.isSpam && currentValue.owner === 'Player2'
+
+      if (rightPlayer1 || rightPlayer2) rightResponses += 1
+    },
+  )
+
+  const success = (rightResponses / popups.length) > 0.7
+
+  return success
+}
 
 const getNewOwnerDataEnigme2 = (idRoom, direction, id) => {
   const existingRoom = rooms[idRoom] || null
@@ -132,6 +152,13 @@ const newPopupEnigme2 = (idRoom) => {
   return data
 }
 
+const restartEnigme2 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.restartEnigme2()
+  return data
+}
 //
 // Enigme 3
 //
@@ -154,7 +181,9 @@ module.exports = {
   enigme1EnteredNumber,
   enigme1End,
   getDataEnigme2,
+  getSucessEnigme2,
   getNewOwnerDataEnigme2,
   newPopupEnigme2,
+  restartEnigme2,
   setConfigEnigme3,
 }

@@ -46,7 +46,7 @@ class Room {
 
     // enigme 2
     this.enigme2 = {
-      popups: POPUPS,
+      popups: _.cloneDeep(POPUPS),
       lastSend: -1,
       lastOrder: 0,
     }
@@ -383,11 +383,21 @@ class Room {
     this.enigme2.lastSend += 1
 
     const newPopup = this.enigme2.popups[this.enigme2.lastSend]
-    if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
+    if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup?.id }
     newPopup.owner = 'MainScreen'
 
     // console.log('send popups', this.enigme2.popups)
     return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
+  }
+
+  restartEnigme2() {
+    this.enigme2 = {
+      popups: _.cloneDeep(POPUPS),
+      lastSend: -1,
+      lastOrder: 0,
+    }
+
+    return this.enigme2
   }
 
   // =============== //
