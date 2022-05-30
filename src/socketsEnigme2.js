@@ -9,8 +9,8 @@ const {
   restartEnigme2,
 } = require('./roomServer')
 
-const TIME_BETWEEN_POPUPS = 3000
-const TIME_AFTER_POPUPS = 4000
+const TIME_BETWEEN_POPUPS = 5000
+const TIME_AFTER_POPUPS = 10000
 
 const initSocketsEnigme2 = (io, socket) => {
   socket.on('enigme2-sendPopups', () => {
