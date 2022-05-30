@@ -31,6 +31,8 @@ const initSocketsEnigme2 = (io, socket) => {
     }
 
     // send end
+    const timerEndEnigme = TIME_BETWEEN_POPUPS * (dataPopups.length + 1) + TIME_AFTER_POPUPS
+    io.to(socket.idRoom).emit('enigme2-timer', { timer: timerEndEnigme })
     setTimeout(() => {
       io.to(socket.idRoom).emit('enigme2-endSort', getDataEnigme2(socket.idRoom).popups)
 
@@ -38,7 +40,7 @@ const initSocketsEnigme2 = (io, socket) => {
       const stepGame = getStepGame(socket.idRoom)
 
       io.to(socket.idRoom).emit('endEnigme', { stepGame })
-    }, TIME_BETWEEN_POPUPS * (dataPopups.length + 1) + TIME_AFTER_POPUPS)
+    }, timerEndEnigme)
   })
 
   // socket.on('popupIsReady', () => {
