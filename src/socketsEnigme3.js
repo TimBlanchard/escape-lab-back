@@ -60,8 +60,8 @@ function generateConfig() {
 
 const initSocketsEnigme3 = (io, socket) => {
   const config = generateConfig()
-  socket.on('sendEnigme3Config', () => {
-    io.to(socket.idRoom).emit('sendEnigme3Config', config)
+  socket.on('enigme3-config', () => {
+    io.to(socket.idRoom).emit('enigme3-config', config)
   })
 }
 
