@@ -75,8 +75,11 @@ const initConnexion = (io, socket) => {
     console.log('nextEnigme', data)
 
     if (data.stepGame === 'Outro') {
-      io.to(socket.idRoom).emit('playEndIntro')
-      io.to(socket.idRoom).emit('setStepGame', { stepGame: 'Outro', stepGameNumber: 4 })
+      io.to(socket.idRoom).emit('playEndOutro')
+      io.to(socket.idRoom).emit('endEnigme', { stepGame: data.stepGame })
+      setTimeout(() => {
+        io.to(socket.idRoom).emit('setStepGame', { stepGame: 'Outro', stepGameNumber: 4 })
+      }, 500)
     } else {
       io.to(socket.idRoom).emit('buildEnigme', { stepGame: data.stepGame })
     }
