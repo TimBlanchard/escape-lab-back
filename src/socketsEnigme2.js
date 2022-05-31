@@ -11,6 +11,7 @@ const {
 
 const TIME_BETWEEN_POPUPS = 5000
 const TIME_AFTER_POPUPS = 10000
+const TIME_AFTER_SORT = 2000
 
 const initSocketsEnigme2 = (io, socket) => {
   socket.on('enigme2-sendPopups', () => {
@@ -48,7 +49,9 @@ const initSocketsEnigme2 = (io, socket) => {
       if (!success) return
       const stepGame = getStepGame(socket.idRoom)
 
-      io.to(socket.idRoom).emit('endEnigme', { stepGame })
+      setTimeout(() => {
+        io.to(socket.idRoom).emit('endEnigme', { stepGame })
+      }, TIME_AFTER_SORT)
     }, timerEndEnigme)
   })
 
