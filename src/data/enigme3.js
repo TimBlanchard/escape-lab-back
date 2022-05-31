@@ -6,8 +6,6 @@ const enigme3Data = () => ({
     { slug: 'criteria', name: 'la différence entre les caractéristiques annoncées par le vendeur et celles de l\'annonce' },
     { slug: 'availability', name: 'l\'impatience du vendeur' },
     { slug: 'profile', name: 'le profil du vendeur' },
-    { slug: 'special-characters', name: 'les caractères spéciaux affichés sur l\'annonce' },
-    { slug: 'sending', name: 'la provenance UPS du produit' },
   ],
   products: [/*{
       type: 'clothing',
