@@ -9,8 +9,8 @@ const {
   restartEnigme2,
 } = require('./roomServer')
 
-const TIME_BETWEEN_POPUPS = 5000
-const TIME_AFTER_POPUPS = 10000
+const TIME_BETWEEN_POPUPS = 2000
+const TIME_AFTER_POPUPS = 4000
 const TIME_AFTER_SORT = 2000
 
 const initSocketsEnigme2 = (io, socket) => {
@@ -62,7 +62,10 @@ const initSocketsEnigme2 = (io, socket) => {
 
     if (data.canStart) {
       // TODO : add timing ???
-      io.to(socket.idRoom).emit('enigme2-restart', popups)
+      io.to(socket.idRoom).emit('show-fader', popups)
+      setTimeout(() => {
+        io.to(socket.idRoom).emit('enigme2-restart', popups)
+      }, 1000)
     }
   })
 
