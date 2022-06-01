@@ -8,7 +8,10 @@ const initSocketsEnigme3 = (io, socket) => {
 
   socket.on('enigme3-restart', () => {
     const config = setConfigEnigme3(socket.idRoom)
-    io.to(socket.idRoom).emit('enigme3-restart', config.config)
+    io.to(socket.idRoom).emit('show-fader')
+    setTimeout(() => {
+      io.to(socket.idRoom).emit('enigme3-restart', config.config)
+    }, 1000)
   })
 }
 
