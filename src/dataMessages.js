@@ -25,7 +25,7 @@ const changeData = (data) => {
     const textSplit = d.text.split(/: (.+)?/, 2)
     d.user = textSplit[0].replace(/ /g, '')
     d.message = textSplit[1].trim()
-    if(isJsonString(d.message)) d.message = JSON.parse(d.message)
+    if (isJsonString(d.message)) d.message = JSON.parse(d.message)
     d.isWriting = textSplit[1].includes('[writing]')
 
     return d
@@ -43,4 +43,3 @@ const dataIntro = changeData(parser.fromSrt(contentIntro))
 const dataOutro = changeData(parser.fromSrt(contentOutro))
 
 module.exports = { dataIntro, dataOutro }
-

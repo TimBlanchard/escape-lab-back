@@ -8,6 +8,7 @@ const {
   ENIGME1_RESPONSES, MESSAGE_NAME_FACTURE, MESSAGES_LIST, MESSAGE_NAME,
 } = require('./data/enigme1')
 const { POPUPS } = require('./data/enigme2')
+const { generateConfig } = require('./data/enigme3-generateConfig')
 
 const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
 
@@ -43,13 +44,16 @@ class Room {
     // enigme 1
     this.enigme1 = _.cloneDeep(INIT_ENIGME_1)
 
-    // this.enigme2 = {
-    //   popups: []
-    // }
+    // enigme 2
     this.enigme2 = {
-      popups: POPUPS,
+      popups: _.cloneDeep(POPUPS),
       lastSend: -1,
       lastOrder: 0,
+    }
+
+    // enigme 3
+    this.enigme3 = {
+      config: null,
     }
   }
 
@@ -379,18 +383,32 @@ class Room {
     this.enigme2.lastSend += 1
 
     const newPopup = this.enigme2.popups[this.enigme2.lastSend]
-    if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
+    if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup?.id }
     newPopup.owner = 'MainScreen'
 
     // console.log('send popups', this.enigme2.popups)
     return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
   }
 
+  restartEnigme2() {
+    this.enigme2 = {
+      popups: _.cloneDeep(POPUPS),
+      lastSend: -1,
+      lastOrder: 0,
+    }
+
+    return this.enigme2
+  }
+
   // =============== //
   //     Enigme3     //
   // =============== //
 
-  // TODO
+  initConfigEnigme3() {
+    this.enigme3.config = generateConfig()
+
+    return this.enigme3
+  }
 }
 
 module.exports = { Room, STEPS_GAME }

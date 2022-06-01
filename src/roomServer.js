@@ -83,6 +83,30 @@ const setStepGame = (idRoom, step) => {
   return data
 }
 
+//
+// Enigme 1
+//
+const enigme1EnteredNumber = (idRoom, v) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.setNumber(v)
+
+  return data
+}
+
+const enigme1End = (idRoom, v) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.enigme1End(v)
+
+  return data
+}
+
+//
+// Enigme 2
+//
 const getDataEnigme2 = (idRoom) => {
   const existingRoom = rooms[idRoom] || null
   if (!existingRoom) return { error: 'No Room' }
@@ -91,14 +115,25 @@ const getDataEnigme2 = (idRoom) => {
 
   return data
 }
-
-const enigme1EnteredNumber = (idRoom, v) => {
+const getSucessEnigme2 = (idRoom) => {
   const existingRoom = rooms[idRoom] || null
   if (!existingRoom) return { error: 'No Room' }
 
-  const data = existingRoom.setNumber(v)
+  const { popups } = existingRoom.enigme2
 
-  return data
+  let rightResponses = 0
+  popups.forEach(
+    (currentValue) => {
+      const rightPlayer1 = currentValue.isSpam && currentValue.owner === 'Player1'
+      const rightPlayer2 = !currentValue.isSpam && currentValue.owner === 'Player2'
+
+      if (rightPlayer1 || rightPlayer2) rightResponses += 1
+    },
+  )
+
+  const success = (rightResponses / popups.length) > 0.7
+
+  return success
 }
 
 const getNewOwnerDataEnigme2 = (idRoom, direction, id) => {
@@ -117,12 +152,21 @@ const newPopupEnigme2 = (idRoom) => {
   return data
 }
 
-const enigme1End = (idRoom, v) => {
+const restartEnigme2 = (idRoom) => {
   const existingRoom = rooms[idRoom] || null
   if (!existingRoom) return { error: 'No Room' }
 
-  const data = existingRoom.enigme1End(v)
+  const data = existingRoom.restartEnigme2()
+  return data
+}
+//
+// Enigme 3
+//
+const setConfigEnigme3 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
 
+  const data = existingRoom.initConfigEnigme3()
   return data
 }
 
@@ -132,11 +176,14 @@ module.exports = {
   userDisconnected,
   setUserReady,
   setStepGame,
-  getDataEnigme2,
-  getNewOwnerDataEnigme2,
-  newPopupEnigme2,
-  setUserReadyEnigme,
   getStepGame,
+  setUserReadyEnigme,
   enigme1EnteredNumber,
   enigme1End,
+  getDataEnigme2,
+  getSucessEnigme2,
+  getNewOwnerDataEnigme2,
+  newPopupEnigme2,
+  restartEnigme2,
+  setConfigEnigme3,
 }
