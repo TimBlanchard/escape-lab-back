@@ -61,7 +61,6 @@ const initSocketsEnigme2 = (io, socket) => {
     restartEnigme2(socket.idRoom)
 
     if (data.canStart) {
-      // TODO : add timing ???
       io.to(socket.idRoom).emit('show-fader', popups)
       setTimeout(() => {
         io.to(socket.idRoom).emit('enigme2-restart', popups)
