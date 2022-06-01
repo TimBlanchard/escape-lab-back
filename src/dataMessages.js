@@ -37,7 +37,7 @@ const changeData = (data) => {
 // eslint-disable-next-line new-cap
 const parser = new srtParser2()
 const contentIntro = fs.readFileSync('./src/assets/Intro.srt').toString()
-const contentOutro = fs.readFileSync('./src/assets/Intro.srt').toString()
+const contentOutro = fs.readFileSync('./src/assets/Outro.srt').toString()
 
 const dataIntro = changeData(parser.fromSrt(contentIntro))
 const dataOutro = changeData(parser.fromSrt(contentOutro))
