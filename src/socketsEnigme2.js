@@ -9,7 +9,7 @@ const {
   restartEnigme2,
 } = require('./roomServer')
 
-const TIME_BETWEEN_POPUPS = 2000
+const TIME_BETWEEN_POPUPS = 3000
 const TIME_AFTER_POPUPS = 4000
 const TIME_AFTER_SORT = 2000
 
@@ -26,7 +26,10 @@ const initSocketsEnigme2 = (io, socket) => {
     }
 
     // send new popup each 2500ms
+    const TIME_LAST_POPUS = TIME_BETWEEN_POPUPS * (dataPopups.length + 1)
     for (let index = 0; index < dataPopups.length; index += 1) {
+      const time = 1000 + TIME_BETWEEN_POPUPS * index - (100 * index)
+
       setTimeout(() => {
         const data = newPopup()
 
@@ -34,11 +37,11 @@ const initSocketsEnigme2 = (io, socket) => {
           const data2 = getNewOwnerDataEnigme2(socket.idRoom, 'bottom', data.idNewPopup)
           io.to(socket.idRoom).emit('enigme2-sendPopups', data2)
         }, TIME_BETWEEN_POPUPS + 500)
-      }, TIME_BETWEEN_POPUPS * (index + 1))
+      }, time)
     }
 
     // send end
-    const timerEndEnigme = TIME_BETWEEN_POPUPS * (dataPopups.length + 1) + TIME_AFTER_POPUPS
+    const timerEndEnigme = TIME_LAST_POPUS + TIME_AFTER_POPUPS
     io.to(socket.idRoom).emit('enigme2-timer', { timer: timerEndEnigme })
     setTimeout(() => {
       const { popups } = getDataEnigme2(socket.idRoom)
