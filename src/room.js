@@ -63,6 +63,7 @@ class Room {
   addUser({ socketID, isMainScreen = false, isPlayer = false }) {
     if (!socketID) return { error: 'No ID room' }
     if (this.users.length >= 3) return { error: 'Room is full' }
+    if (this.stepGame >= 4) return { error: 'La partie est fini' }
 
     const RETURN = {
       idRoom: this.id,
