@@ -39,12 +39,14 @@ const initConnexion = (io, socket) => {
   })
 
   // on user disconnected
-  socket.on('disconnect', () => {
+  const disconnected = () => {
     const data = userDisconnected({ socketID: socket.id, idRoom: socket.idRoom })
 
     console.log('userDisconnected', data, socket.idRoom)
     io.to(socket.idRoom).emit('userDisconnected', data)
-  })
+  }
+  socket.on('disconnect', disconnected)
+  socket.on('leave', disconnected)
 
   // on user isReady
   socket.on('isReady', () => {
