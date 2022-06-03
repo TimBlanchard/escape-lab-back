@@ -344,10 +344,9 @@ class Room {
     const rng = Math.floor(Math.random() * 2)
     // console.log('RNG VAUT :: ', rng)
     // const index = id
-    const currentPopup = this.enigme2.popups.filter((el) => el.id === id)[0]
+    const currentPopup = this.enigme2.popups[this.enigme2.popups.findIndex((el) => el.id === id)]
     if (!currentPopup) return this.enigme2.popups
     currentPopup.exitDirection = direction
-    currentPopup.incomingDirection = direction === 'right' ? 'left' : 'right'
 
     currentPopup.order = -this.enigme2.lastOrder
     // console.log('CURRENT POPUP VAUT :: ', currentPopup)
@@ -363,6 +362,8 @@ class Room {
         } else {
           currentPopup.owner = 'Player1'
         }
+
+        currentPopup.incomingDirection = 'right'
         break
       case 'right':
         if (currentPopup.owner === 'Player1') {
@@ -370,6 +371,8 @@ class Room {
         } else {
           currentPopup.owner = 'Player1'
         }
+
+        currentPopup.incomingDirection = 'left'
         break
       default:
         break
