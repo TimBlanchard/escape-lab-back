@@ -18,8 +18,8 @@ const initSocketsEnigme2 = (io, socket) => {
     const dataPopups = getDataEnigme2(socket.idRoom).popups
     io.to(socket.idRoom).emit('enigme2-sendPopups', dataPopups)
 
-    const newPopup = () => {
-      const newPopups = newPopupEnigme2(socket.idRoom)
+    const newPopup = (duration) => {
+      const newPopups = newPopupEnigme2(socket.idRoom, duration)
       io.to(socket.idRoom).emit('enigme2-sendPopups', newPopups.popups)
 
       return newPopups
@@ -31,7 +31,7 @@ const initSocketsEnigme2 = (io, socket) => {
       const time = 1000 + TIME_BETWEEN_POPUPS * index - (100 * index)
 
       setTimeout(() => {
-        const data = newPopup()
+        const data = newPopup(TIME_BETWEEN_POPUPS + 800)
 
         setTimeout(() => {
           const data2 = getNewOwnerDataEnigme2(socket.idRoom, 'bottom', data.idNewPopup)

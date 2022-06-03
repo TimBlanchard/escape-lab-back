@@ -381,7 +381,7 @@ class Room {
     return this.enigme2.popups
   }
 
-  newPopup() {
+  newPopup(duration) {
     if (this.enigme2.lastSend >= this.enigme2.popups.length) return this.enigme2.popups
     this.enigme2.lastSend += 1
     this.enigme2.lastOrder += 1
@@ -390,6 +390,7 @@ class Room {
     if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup?.id }
     newPopup.order = -this.enigme2.lastOrder
     newPopup.owner = 'MainScreen'
+    newPopup.duration = duration
 
     // console.log('send popups', this.enigme2.popups)
     return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
