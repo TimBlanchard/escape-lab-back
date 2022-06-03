@@ -1,7 +1,5 @@
-const randomNum = (min, max) => {
-  return Math.floor(
-    Math.random() * (max - min) + min
-  )
-}
+const randomNum = (min, max) => Math.floor(
+  Math.random() * (max - min) + min,
+)
 
 module.exports = { randomNum }
