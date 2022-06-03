@@ -5,11 +5,9 @@ const { enigme3Data, pricesData } = require('./enigme3')
 const { randomNum } = require('../helpers/randomNum')
 
 function generateConfig() {
-  // CHOOSE SELLER WILL BE BOT OR NOT
-  const sellerType = Math.random() < 0.5 ? 'bot' : 'normal'
 
   // CHOOSE TRUE RULES
-  const trueRulesNumber = sellerType === 'bot' ? enigme3Data().settings.rulesToDetectBot : 2
+  const trueRulesNumber = enigme3Data().settings.rulesToDetectBot
   const trueRules = enigme3Data()
     .rules.sort(() => Math.random() - Math.random())
     .slice(0, trueRulesNumber)
@@ -54,7 +52,7 @@ function generateConfig() {
 
   // data pass as sockets
   return {
-    trueRules, sellerType, product: productGenerated, settings: enigme3Data().settings,
+    trueRules, product: productGenerated, settings: enigme3Data().settings,
   }
 }
 
