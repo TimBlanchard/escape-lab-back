@@ -347,6 +347,8 @@ class Room {
     const currentPopup = this.enigme2.popups.filter((el) => el.id === id)[0]
     if (!currentPopup) return this.enigme2.popups
     currentPopup.exitDirection = direction
+    currentPopup.incomingDirection = direction === 'right' ? 'left' : 'right'
+
     currentPopup.order = -this.enigme2.lastOrder
     // console.log('CURRENT POPUP VAUT :: ', currentPopup)
 
@@ -361,8 +363,6 @@ class Room {
         } else {
           currentPopup.owner = 'Player1'
         }
-        currentPopup.incomingDirection = 'right'
-
         break
       case 'right':
         if (currentPopup.owner === 'Player1') {
@@ -370,7 +370,6 @@ class Room {
         } else {
           currentPopup.owner = 'Player1'
         }
-        currentPopup.incomingDirection = 'left'
         break
       default:
         break
@@ -382,9 +381,11 @@ class Room {
   newPopup() {
     if (this.enigme2.lastSend >= this.enigme2.popups.length) return this.enigme2.popups
     this.enigme2.lastSend += 1
+    this.enigme2.lastOrder += 1
 
     const newPopup = this.enigme2.popups[this.enigme2.lastSend]
     if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup?.id }
+    newPopup.order = -this.enigme2.lastOrder
     newPopup.owner = 'MainScreen'
 
     // console.log('send popups', this.enigme2.popups)
