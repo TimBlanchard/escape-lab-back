@@ -144,11 +144,11 @@ const getNewOwnerDataEnigme2 = (idRoom, direction, id) => {
   return data
 }
 
-const newPopupEnigme2 = (idRoom) => {
+const newPopupEnigme2 = (idRoom, duration) => {
   const existingRoom = rooms[idRoom] || null
   if (!existingRoom) return { error: 'No Room' }
 
-  const data = existingRoom.newPopup()
+  const data = existingRoom.newPopup(duration)
   return data
 }
 
