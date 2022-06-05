@@ -5,7 +5,6 @@ const { enigme3Data, pricesData } = require('./enigme3')
 const { randomNum } = require('../helpers/randomNum')
 
 function generateConfig() {
-
   // CHOOSE TRUE RULES
   const trueRulesNumber = enigme3Data().settings.rulesToDetectBot
   const trueRules = enigme3Data()
