@@ -29,7 +29,7 @@ const MESSAGES_LIST = [
   },
   {
     isReceived: true,
-    content: 'Votre facture téléphone a été débitée de 25€. Appel surtaxé 40€/minute.',
+    content: 'Votre facture téléphone a été débitée de {{time}}€. Appel surtaxé 40/minute.',
   },
 ]
 

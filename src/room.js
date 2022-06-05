@@ -8,6 +8,7 @@ const {
   ENIGME1_RESPONSES, MESSAGE_NAME_FACTURE, MESSAGES_LIST, MESSAGE_NAME,
 } = require('./data/enigme1')
 const { POPUPS } = require('./data/enigme2')
+const { generateConfig } = require('./data/enigme3-generateConfig')
 
 const STEPS_GAME = ['Intro', 'Enigme1', 'Enigme2', 'Enigme3', 'Outro']
 
@@ -43,13 +44,16 @@ class Room {
     // enigme 1
     this.enigme1 = _.cloneDeep(INIT_ENIGME_1)
 
-    // this.enigme2 = {
-    //   popups: []
-    // }
+    // enigme 2
     this.enigme2 = {
-      popups: POPUPS,
+      popups: _.cloneDeep(POPUPS),
       lastSend: -1,
       lastOrder: 0,
+    }
+
+    // enigme 3
+    this.enigme3 = {
+      config: null,
     }
   }
 
@@ -59,6 +63,7 @@ class Room {
   addUser({ socketID, isMainScreen = false, isPlayer = false }) {
     if (!socketID) return { error: 'No ID room' }
     if (this.users.length >= 3) return { error: 'Room is full' }
+    if (this.stepGame >= 4) return { error: 'La partie est fini' }
 
     const RETURN = {
       idRoom: this.id,
@@ -192,6 +197,7 @@ class Room {
     this.enigme1 = {
       ..._.cloneDeep(INIT_ENIGME_1),
       recalled: true,
+      time: new Date(),
     }
   }
 
@@ -313,11 +319,15 @@ class Room {
   }
 
   enigme1End() {
+    const message = _.clone(MESSAGES_LIST[3])
+    const time = (new Date() - this.enigme1.time) / 60000
+    message.content = message.content.replace('{{time}}', (Math.round(time * 25)).toString())
+
     const messages = [
       {
         contact: MESSAGE_NAME_FACTURE,
         id: 2,
-        messages: [MESSAGES_LIST[3]],
+        messages: [message],
       },
       this.enigme1.messages,
     ]
@@ -334,9 +344,10 @@ class Room {
     const rng = Math.floor(Math.random() * 2)
     // console.log('RNG VAUT :: ', rng)
     // const index = id
-    const currentPopup = this.enigme2.popups.filter((el) => el.id === id)[0]
+    const currentPopup = this.enigme2.popups[this.enigme2.popups.findIndex((el) => el.id === id)]
     if (!currentPopup) return this.enigme2.popups
     currentPopup.exitDirection = direction
+
     currentPopup.order = -this.enigme2.lastOrder
     // console.log('CURRENT POPUP VAUT :: ', currentPopup)
 
@@ -351,8 +362,8 @@ class Room {
         } else {
           currentPopup.owner = 'Player1'
         }
-        currentPopup.incomingDirection = 'right'
 
+        currentPopup.incomingDirection = 'right'
         break
       case 'right':
         if (currentPopup.owner === 'Player1') {
@@ -360,6 +371,7 @@ class Room {
         } else {
           currentPopup.owner = 'Player1'
         }
+
         currentPopup.incomingDirection = 'left'
         break
       default:
@@ -369,23 +381,40 @@ class Room {
     return this.enigme2.popups
   }
 
-  newPopup() {
+  newPopup(duration) {
     if (this.enigme2.lastSend >= this.enigme2.popups.length) return this.enigme2.popups
     this.enigme2.lastSend += 1
+    this.enigme2.lastOrder += 1
 
     const newPopup = this.enigme2.popups[this.enigme2.lastSend]
-    if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
+    if (!newPopup) return { popups: this.enigme2.popups, idNewPopup: newPopup?.id }
+    newPopup.order = -this.enigme2.lastOrder
     newPopup.owner = 'MainScreen'
+    newPopup.duration = duration
 
     // console.log('send popups', this.enigme2.popups)
     return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
+  }
+
+  restartEnigme2() {
+    this.enigme2 = {
+      popups: _.cloneDeep(POPUPS),
+      lastSend: -1,
+      lastOrder: 0,
+    }
+
+    return this.enigme2
   }
 
   // =============== //
   //     Enigme3     //
   // =============== //
 
-  // TODO
+  initConfigEnigme3() {
+    this.enigme3.config = generateConfig()
+
+    return this.enigme3
+  }
 }
 
 module.exports = { Room, STEPS_GAME }

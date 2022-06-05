@@ -4,15 +4,16 @@ const { generateUID } = require('./helpers/generateUID')
 
 const { Room } = require('./room')
 
-// if dev create Room DEV001
+// if dev create Room dev1
 const IS_DEV = process.env.ENV === 'development'
 if (IS_DEV) {
-  rooms.DEV001 = new Room('DEV001')
+  rooms.dev1 = new Room('dev1')
 }
 
 const userConnected = (props) => {
   // {room, isMainScreen, isPlayer}
-  const { idRoom, socketID, isMainScreen } = props
+  const { socketID, isMainScreen } = props
+  const idRoom = props.idRoom?.toLowerCase()
 
   const existingRoom = rooms[idRoom] || null
 
@@ -27,7 +28,7 @@ const userConnected = (props) => {
       idRoom: room.id, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
     }
   }
-  return { error: 'Player can\'t create room' }
+  return { error: 'Ce code ne corespond à aucune partie' }
 }
 const userDisconnected = ({ socketID, idRoom }) => {
   const existingRoom = rooms[idRoom] || null
@@ -40,7 +41,7 @@ const userDisconnected = ({ socketID, idRoom }) => {
     delete rooms[idRoom]
 
     if (IS_DEV && rooms.length === 0) {
-      rooms.push(new Room('DEV001'))
+      rooms.push(new Room('dev1'))
     }
   }
 
@@ -82,37 +83,15 @@ const setStepGame = (idRoom, step) => {
   return data
 }
 
-const getDataEnigme2 = (idRoom) => {
-  const existingRoom = rooms[idRoom] || null
-  if (!existingRoom) return { error: 'No Room' }
-
-  const data = existingRoom.enigme2
-
-  return data
-}
-
+//
+// Enigme 1
+//
 const enigme1EnteredNumber = (idRoom, v) => {
   const existingRoom = rooms[idRoom] || null
   if (!existingRoom) return { error: 'No Room' }
 
   const data = existingRoom.setNumber(v)
 
-  return data
-}
-
-const getNewOwnerDataEnigme2 = (idRoom, direction, id) => {
-  const existingRoom = rooms[idRoom] || null
-  if (!existingRoom) return { error: 'No Room' }
-
-  const data = existingRoom.setOwnerData(direction, id)
-  return data
-}
-
-const newPopupEnigme2 = (idRoom) => {
-  const existingRoom = rooms[idRoom] || null
-  if (!existingRoom) return { error: 'No Room' }
-
-  const data = existingRoom.newPopup()
   return data
 }
 
@@ -125,17 +104,86 @@ const enigme1End = (idRoom, v) => {
   return data
 }
 
+//
+// Enigme 2
+//
+const getDataEnigme2 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.enigme2
+
+  return data
+}
+const getSucessEnigme2 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const { popups } = existingRoom.enigme2
+
+  let rightResponses = 0
+  popups.forEach(
+    (currentValue) => {
+      const rightPlayer1 = currentValue.isSpam && currentValue.owner === 'Player1'
+      const rightPlayer2 = !currentValue.isSpam && currentValue.owner === 'Player2'
+
+      if (rightPlayer1 || rightPlayer2) rightResponses += 1
+    },
+  )
+
+  const success = (rightResponses / popups.length) > 0.7
+
+  return success
+}
+
+const getNewOwnerDataEnigme2 = (idRoom, direction, id) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.setOwnerData(direction, id)
+  return data
+}
+
+const newPopupEnigme2 = (idRoom, duration) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.newPopup(duration)
+  return data
+}
+
+const restartEnigme2 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.restartEnigme2()
+  return data
+}
+//
+// Enigme 3
+//
+const setConfigEnigme3 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.initConfigEnigme3()
+  return data
+}
+
 module.exports = {
   rooms,
   userConnected,
   userDisconnected,
   setUserReady,
   setStepGame,
-  getDataEnigme2,
-  getNewOwnerDataEnigme2,
-  newPopupEnigme2,
-  setUserReadyEnigme,
   getStepGame,
+  setUserReadyEnigme,
   enigme1EnteredNumber,
   enigme1End,
+  getDataEnigme2,
+  getSucessEnigme2,
+  getNewOwnerDataEnigme2,
+  newPopupEnigme2,
+  restartEnigme2,
+  setConfigEnigme3,
 }

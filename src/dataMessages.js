@@ -25,7 +25,7 @@ const changeData = (data) => {
     const textSplit = d.text.split(/: (.+)?/, 2)
     d.user = textSplit[0].replace(/ /g, '')
     d.message = textSplit[1].trim()
-    if(isJsonString(d.message)) d.message = JSON.parse(d.message)
+    if (isJsonString(d.message)) d.message = JSON.parse(d.message)
     d.isWriting = textSplit[1].includes('[writing]')
 
     return d
@@ -37,10 +37,9 @@ const changeData = (data) => {
 // eslint-disable-next-line new-cap
 const parser = new srtParser2()
 const contentIntro = fs.readFileSync('./src/assets/Intro.srt').toString()
-const contentOutro = fs.readFileSync('./src/assets/Intro.srt').toString()
+const contentOutro = fs.readFileSync('./src/assets/Outro.srt').toString()
 
 const dataIntro = changeData(parser.fromSrt(contentIntro))
 const dataOutro = changeData(parser.fromSrt(contentOutro))
 
 module.exports = { dataIntro, dataOutro }
-

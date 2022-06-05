@@ -1,16 +1,20 @@
 1
-00:00:00,000 --> 00:00:00,800
-Player1: [writing]
+00:00:00,000 --> 00:00:02,520
+Player1 : Putain je bade de ouf en vrai
 
 2
-00:00:01,040 --> 00:00:03,520
-Player1 : Hello ! Je suis le joueur 1
+00:00:02,520 --> 00:00:06,160
+Player2 : Ouais carrément c’est chaud ce qui s’est passé …
 
 3
-00:00:03,600 --> 00:00:04,640
-Player2 : [writing]
+00:00:06,160 --> 00:00:11,360
+Player1: J’ai checké un peu sur internet et apparemment c’est pas la première fois genre
 
 4
-00:00:04,760 --> 00:00:07,800
-Player2 : Hello je suis le joueur superbe joueur 2
+00:00:11,360 --> 00:00:12,280
+Player2: Jure ?
+
+5
+00:00:12,280 --> 00:00:14,600
+Player1: Ouais regarde ça, c’est chaud
 

@@ -12,7 +12,7 @@ Player2 : Ah mais de ouf ! T’as contacté le vendeur ? Faut pas le louper il e
 
 4
 00:00:08,040 --> 00:00:08,800
-Player 1 : Yes grave !! Il propose un rendez vous chez lui à 16h
+Player 1 : Yes grave !! Il propose un rendez vous chez lui à 15h30
 
 5
 00:00:08,800 --> 00:00:11,880

@@ -19,12 +19,17 @@ const initConnexion = (io, socket) => {
       idRoom, isMainScreen, isPlayer, socketID: socket.id,
     })
 
+    if (dataRoom.error && idRoom !== 'dev1') {
+      io.to(socket.id).emit('errorInputs', dataRoom)
+      return
+    }
+
     // eslint-disable-next-line no-param-reassign
     socket.idRoom = dataRoom.idRoom
     socket.join(dataRoom.idRoom)
     io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
 
-    if (IS_DEV && dataRoom.listUsers?.length === 3 && dataRoom.idRoom === 'DEV001' && !dataRoom.stepGame) {
+    if (IS_DEV && dataRoom.listUsers?.length === 3 && dataRoom.idRoom === 'dev1' && !dataRoom.stepGame) {
       // CHANGE HERE TO GO
       setTimeout(() => {
         io.to(socket.idRoom).emit('startGame')
@@ -34,12 +39,14 @@ const initConnexion = (io, socket) => {
   })
 
   // on user disconnected
-  socket.on('disconnect', () => {
+  const disconnected = () => {
     const data = userDisconnected({ socketID: socket.id, idRoom: socket.idRoom })
 
     console.log('userDisconnected', data, socket.idRoom)
     io.to(socket.idRoom).emit('userDisconnected', data)
-  })
+  }
+  socket.on('disconnect', disconnected)
+  socket.on('leave', disconnected)
 
   // on user isReady
   socket.on('isReady', () => {
@@ -70,8 +77,11 @@ const initConnexion = (io, socket) => {
     console.log('nextEnigme', data)
 
     if (data.stepGame === 'Outro') {
-      io.to(socket.idRoom).emit('playEndIntro')
-      io.to(socket.idRoom).emit('setStepGame', { stepGame: 'Outro', stepGameNumber: 4 })
+      io.to(socket.idRoom).emit('playEndOutro')
+      io.to(socket.idRoom).emit('endEnigme', { stepGame: data.stepGame })
+      setTimeout(() => {
+        io.to(socket.idRoom).emit('setStepGame', { stepGame: 'Outro', stepGameNumber: 4 })
+      }, 500)
     } else {
       io.to(socket.idRoom).emit('buildEnigme', { stepGame: data.stepGame })
     }
