@@ -13,7 +13,7 @@ if (IS_DEV) {
 const userConnected = (props) => {
   // {room, isMainScreen, isPlayer}
   const { socketID, isMainScreen } = props
-  const idRoom = props.idRoom.toLowerCase()
+  const idRoom = props.idRoom?.toLowerCase()
 
   const existingRoom = rooms[idRoom] || null
 
