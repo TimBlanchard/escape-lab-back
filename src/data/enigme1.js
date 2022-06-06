@@ -3,8 +3,8 @@ const ENIGME1_RESPONSES = [
   '2', // 0-wrong
   '12563', // 1-0 -> code client
   '12563', // '1-wrongCode' -> same before
-  '3568', // 1-1 -> code double auth
-  '3568', // '1-wrongCode -> same before
+  '2568', // 1-1 -> code double auth
+  '2568', // '1-wrongCode -> same before
   '1', // 1-2
   '1', // '1-3-wrong'
   '36743', // 2-0 -> code porte
