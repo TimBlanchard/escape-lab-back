@@ -11,7 +11,7 @@ const {
 
 const TIME_BETWEEN_POPUPS = 4200
 const TIME_AFTER_POPUPS = 4000
-const TIME_AFTER_SORT = 2000
+const TIME_AFTER_SORT = 5000
 
 const initSocketsEnigme2 = (io, socket) => {
   socket.on('enigme2-sendPopups', () => {
