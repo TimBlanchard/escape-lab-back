@@ -345,19 +345,28 @@ class Room {
   setOwnerData(direction, id) {
     this.enigme2.lastOrder += 1
 
-    const rng = Math.floor(Math.random() * 2)
-    // console.log('RNG VAUT :: ', rng)
-    // const index = id
     const currentPopup = this.enigme2.popups[this.enigme2.popups.findIndex((el) => el.id === id)]
+    const rng = () => {
+      // first popup on wrong screen
+      if (id === 1) {
+        return true
+      } if (id === 2) {
+        return false
+      }
+
+      // Plus de chance de l'envoyer sur le mauvais écran
+      const random = Math.random()
+      return currentPopup.isSpam ? random < 0.4 : random > 0.4
+    }
+
     if (!currentPopup) return this.enigme2.popups
     currentPopup.exitDirection = direction
 
     currentPopup.order = -this.enigme2.lastOrder
-    // console.log('CURRENT POPUP VAUT :: ', currentPopup)
 
     switch (currentPopup.exitDirection) {
       case 'bottom':
-        currentPopup.owner = rng ? 'Player1' : 'Player2'
+        currentPopup.owner = rng() ? 'Player1' : 'Player2'
         currentPopup.incomingDirection = 'top'
         break
       case 'left':
