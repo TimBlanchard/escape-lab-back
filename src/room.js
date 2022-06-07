@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-restricted-syntax */
 //
 // ROOM
@@ -16,6 +17,7 @@ const INIT_ENIGME_1 = {
   recalled: false,
   step: 0,
   numbersEntered: [],
+  lastIndexNumbers: -1,
   messages: {
     contact: MESSAGE_NAME,
     id: 1,
@@ -204,14 +206,11 @@ class Room {
   setNumber(num) {
     this.enigme1.numbersEntered.push(num)
 
-    // s'il n'y a pas de message
     const CURRENT_RESPONSE = ENIGME1_RESPONSES[this.enigme1.step]
     if (!CURRENT_RESPONSE) return { send: false }
+    const CURRENT_RESPONSE_LENGTH = CURRENT_RESPONSE.length
 
-    // s'il n'y a pas de
-    if (CURRENT_RESPONSE.length !== this.enigme1.numbersEntered.length) return { send: false }
-
-    if (CURRENT_RESPONSE === this.enigme1.numbersEntered.join('')) {
+    if (CURRENT_RESPONSE === this.enigme1.numbersEntered.slice(-CURRENT_RESPONSE_LENGTH).join('')) {
       switch (this.enigme1.step) {
         case 0: // 0-intro
           this.enigme1.step = 2
@@ -263,59 +262,64 @@ class Room {
           break
       }
 
-      this.enigme1.numbersEntered = []
+      this.enigme1.lastIndexNumbers = _.clone(this.enigme1.numbersEntered.length)
+
+      // eslint-disable-next-line consistent-return
+      return { send: true, step: this.enigme1.step, messages: this.enigme1.messages }
+    } if (
+      (this.enigme1.numbersEntered.length - this.enigme1.lastIndexNumbers)
+      % CURRENT_RESPONSE_LENGTH === 0
+    ) {
+      switch (this.enigme1.step) {
+        case 0: // 0-intro
+          this.enigme1.step = 1
+          // this.enigme1.messages.messages.push(MESSAGES_LIST[0])
+          break
+        case 1: // 0-wrong
+          this.enigme1.step = 1
+          break
+        case 2: // 1-0
+          this.enigme1.step = 3
+          break
+        case 3: // 1 wrongcode
+          this.enigme1.step = 3
+          break
+        case 4: // 1-1
+          this.enigme1.step = 5
+          break
+        case 5: // '1-wrongCode
+          this.enigme1.step = 5
+          break
+        case 6: // 1-2
+          this.enigme1.step = 7
+          break
+        case 7: // '1-3-wrong'
+          this.enigme1.step = 8
+          this.enigme1.messages.messages.push(MESSAGES_LIST[2])
+          break
+        case 8: // 2-0
+          this.enigme1.step = 9
+          break
+        case 9: // 2-1
+          this.enigme1.step = 9
+          break
+        case 10: // 2-1
+          this.enigme1.step = 11
+          break
+        case 11: // 2-2-end
+          break
+
+        default:
+          console.error('ERROR 2 : set Number')
+          this.enigme1.step += 1
+          break
+      }
+
+      this.enigme1.lastIndexNumbers = _.clone(this.enigme1.numbersEntered.length)
 
       return { send: true, step: this.enigme1.step, messages: this.enigme1.messages }
     }
-
-    switch (this.enigme1.step) {
-      case 0: // 0-intro
-        this.enigme1.step = 1
-        // this.enigme1.messages.messages.push(MESSAGES_LIST[0])
-        break
-      case 1: // 0-wrong
-        this.enigme1.step = 1
-        break
-      case 2: // 1-0
-        this.enigme1.step = 3
-        break
-      case 3: // 1 wrongcode
-        this.enigme1.step = 3
-        break
-      case 4: // 1-1
-        this.enigme1.step = 5
-        break
-      case 5: // '1-wrongCode
-        this.enigme1.step = 5
-        break
-      case 6: // 1-2
-        this.enigme1.step = 7
-        break
-      case 7: // '1-3-wrong'
-        this.enigme1.step = 8
-        this.enigme1.messages.messages.push(MESSAGES_LIST[2])
-        break
-      case 8: // 2-0
-        this.enigme1.step = 9
-        break
-      case 9: // 2-1
-        this.enigme1.step = 9
-        break
-      case 10: // 2-1
-        this.enigme1.step = 11
-        break
-      case 11: // 2-2-end
-        break
-
-      default:
-        console.error('ERROR 2 : set Number')
-        this.enigme1.step += 1
-        break
-    }
-
-    this.enigme1.numbersEntered = []
-
-    return { send: true, step: this.enigme1.step, messages: this.enigme1.messages }
+    return { send: false }
   }
 
   enigme1End() {
@@ -341,19 +345,28 @@ class Room {
   setOwnerData(direction, id) {
     this.enigme2.lastOrder += 1
 
-    const rng = Math.floor(Math.random() * 2)
-    // console.log('RNG VAUT :: ', rng)
-    // const index = id
     const currentPopup = this.enigme2.popups[this.enigme2.popups.findIndex((el) => el.id === id)]
+    const rng = () => {
+      // first popup on wrong screen
+      if (id === 1) {
+        return true
+      } if (id === 2) {
+        return false
+      }
+
+      // Plus de chance de l'envoyer sur le mauvais écran
+      const random = Math.random()
+      return currentPopup.isSpam ? random < 0.4 : random > 0.4
+    }
+
     if (!currentPopup) return this.enigme2.popups
     currentPopup.exitDirection = direction
 
     currentPopup.order = -this.enigme2.lastOrder
-    // console.log('CURRENT POPUP VAUT :: ', currentPopup)
 
     switch (currentPopup.exitDirection) {
       case 'bottom':
-        currentPopup.owner = rng ? 'Player1' : 'Player2'
+        currentPopup.owner = rng() ? 'Player1' : 'Player2'
         currentPopup.incomingDirection = 'top'
         break
       case 'left':
