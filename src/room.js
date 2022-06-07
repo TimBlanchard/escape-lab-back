@@ -207,8 +207,8 @@ class Room {
     this.enigme1.numbersEntered.push(num)
 
     const CURRENT_RESPONSE = ENIGME1_RESPONSES[this.enigme1.step]
+    if (!CURRENT_RESPONSE) return { send: false }
     const CURRENT_RESPONSE_LENGTH = CURRENT_RESPONSE.length
-    if (!CURRENT_RESPONSE) return
 
     if (CURRENT_RESPONSE === this.enigme1.numbersEntered.slice(-CURRENT_RESPONSE_LENGTH).join('')) {
       switch (this.enigme1.step) {
