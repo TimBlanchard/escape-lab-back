@@ -21,7 +21,7 @@ const MESSAGES_LIST = [
   },
   {
     isReceived: true,
-    content: 'Votre code de double auth est 3568',
+    content: 'Votre code de double auth est 2568',
   },
   {
     isReceived: true,
