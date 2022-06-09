@@ -31,7 +31,7 @@ const initSocketsEnigme1 = (io, socket) => {
       const stepGame = getStepGame(socket.idRoom)
 
       io.to(socket.idRoom).emit('endEnigme', { stepGame })
-    }, 4000)
+    }, 7000)
   })
 
   socket.on('enigme1-endNotRecall', () => {
@@ -41,7 +41,7 @@ const initSocketsEnigme1 = (io, socket) => {
       const stepGame = getStepGame(socket.idRoom)
 
       io.to(socket.idRoom).emit('endEnigme', { stepGame })
-    }, 2000)
+    }, 4000)
   })
 }
 
