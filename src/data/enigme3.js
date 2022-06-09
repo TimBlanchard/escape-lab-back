@@ -123,7 +123,7 @@ const pricesData = {
     },
     less: {
       min: 4000,
-      max: 20000,
+      max: 13000,
     },
   },
   housing: {
