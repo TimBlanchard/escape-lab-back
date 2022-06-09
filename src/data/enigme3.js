@@ -119,11 +119,11 @@ const pricesData = {
   vehicle: {
     more: {
       min: 800,
-      max: 50000,
+      max: 5000,
     },
     less: {
-      min: 1000,
-      max: 70000,
+      min: 4000,
+      max: 20000,
     },
   },
   housing: {
