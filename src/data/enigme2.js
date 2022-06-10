@@ -36,7 +36,7 @@ const POPUPS = [
     id: 4,
     from: 'Cristiano Ronaldo (cr7.lejoueurdefoot@gmail.com)',
     subject: 'Aide moi à sauver le foot',
-    text: 'Bonjour. C’est moi Cristiano Ronaldo, célèbre footballeur international. Je suis bloqué à l’aéroport parce que j’ai perdu ma carte de crédit. Peux-tu m’envoyer 300€ en carte Amazon ? ',
+    text: 'Bonjour. C’est moi Cristiano Ronaldo, célèbre footballeur international. Je suis bloqué à l’aéroport parce que j’ai perdu ma carte de crédit. Peux-tu m’envoyer 300€ ? ',
     owner: null,
     incomingDirection: null,
     exitDirection: null,
