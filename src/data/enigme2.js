@@ -13,8 +13,8 @@ const POPUPS = [
   {
     id: 2,
     from: 'mail@e.cudo.com.au',
-    subject: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ',
-    text: 'ʀÉᴄᴜᴘÉʀᴇᴢ ᴠᴏᴛʀᴇ ʀÉᴄᴏᴍᴘᴇɴꜱᴇ ɪᴘʜᴏɴᴇ 13 ᴏꜰꜰᴇʀᴛ.',
+    subject: 'rÉcupÉrez votre rÉcompense iphone 13 oFFert',
+    text: 'rÉcupÉrez votre rÉcompense iphone 13 offert.',
     owner: null,
     incomingDirection: null,
     exitDirection: null,
