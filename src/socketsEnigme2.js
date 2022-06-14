@@ -9,7 +9,7 @@ const {
   restartEnigme2,
 } = require('./roomServer')
 
-const TIME_BETWEEN_POPUPS = 4200
+const TIME_BETWEEN_POPUPS = 4800
 const TIME_AFTER_POPUPS = 4000
 const TIME_AFTER_SORT = 5000
 
