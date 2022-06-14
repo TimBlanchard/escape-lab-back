@@ -1,7 +1,8 @@
 const { STEPS_GAME } = require('./room')
 const {
-  userConnected, userDisconnected, setUserReady, setUserReadyEnigme, getStepGame, setStepGame,
+  userConnected, userDisconnected, setUserReady, setUserReadyEnigme, getStepGame, setStepGame, restartEnigme2,
 } = require('./roomServer')
+const { setConfigEnigme3 } = require('./roomServer')
 
 const IS_DEV = process.env.ENV === 'development'
 
@@ -29,6 +30,43 @@ const initConnexion = (io, socket) => {
     socket.join(dataRoom.idRoom)
     io.to(dataRoom.idRoom).emit('userConnected', dataRoom)
 
+    //
+    // If is reconnexion
+    //
+    if (dataRoom.isStart && dataRoom.stepGameNumber > 0 && dataRoom.stepGameNumber < 4) {
+      console.log('RESTART GAME', dataRoom.stepGame)
+      switch (dataRoom.stepGameNumber) {
+        case 1:
+          // TODO : restart enigme 1
+          break
+
+        case 2:
+          io.to(socket.idRoom).emit('show-fader')
+          restartEnigme2(socket.idRoom)
+
+          setTimeout(() => {
+            io.to(socket.idRoom).emit('enigme2-restart')
+          }, 1000)
+          break
+
+        case 3:
+          // eslint-disable-next-line no-case-declarations
+          const config = setConfigEnigme3(socket.idRoom)
+          io.to(socket.idRoom).emit('show-fader')
+          setTimeout(() => {
+            io.to(socket.idRoom).emit('enigme3-restart', config.config)
+          }, 1000)
+          break
+
+        default:
+          console.log('Error restart on reconnexion')
+          break
+      }
+    }
+
+    //
+    // DEV
+    //
     if (IS_DEV && dataRoom.listUsers?.length === 3 && dataRoom.idRoom === 'dev1' && !dataRoom.stepGame) {
       // CHANGE HERE TO GO
       setTimeout(() => {

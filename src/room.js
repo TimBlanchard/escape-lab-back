@@ -51,6 +51,7 @@ class Room {
       popups: _.cloneDeep(POPUPS),
       lastSend: -1,
       lastOrder: 0,
+      setTimeouts: [],
     }
 
     // enigme 3
@@ -72,6 +73,7 @@ class Room {
       listUsers: this.users,
       isStart: this.isStart,
       stepGame: STEPS_GAME[this.stepGame],
+      stepGameNumber: this.stepGame,
     }
 
     if (!this.users.mainScreen && isMainScreen) {
@@ -409,11 +411,21 @@ class Room {
     return { popups: this.enigme2.popups, idNewPopup: newPopup.id }
   }
 
+  setSettimeoutEnigme2(array) {
+    this.enigme2.setTimeouts = array
+  }
+
   restartEnigme2() {
+    console.log('restartEnigme2', this.enigme2.setTimeouts)
+    for (const st of this.enigme2.setTimeouts) {
+      clearTimeout(st)
+    }
+
     this.enigme2 = {
       popups: _.cloneDeep(POPUPS),
       lastSend: -1,
       lastOrder: 0,
+      setTimeouts: [],
     }
 
     return this.enigme2
