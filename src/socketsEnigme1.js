@@ -41,7 +41,7 @@ const initSocketsEnigme1 = (io, socket) => {
       const stepGame = getStepGame(socket.idRoom)
 
       io.to(socket.idRoom).emit('endEnigme', { stepGame })
-    }, 4000)
+    }, 5000)
   })
 }
 

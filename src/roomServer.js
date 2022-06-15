@@ -25,7 +25,7 @@ const userConnected = (props) => {
     rooms[idNewRoom] = room
 
     return {
-      idRoom: room.id, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart,
+      idRoom: room.id, listUsers: room.users, newUser: { type: 'mainScreen', socketID }, isStart: room.isStart, stepGame: room.stepGame,
     }
   }
   return { error: 'Ce code ne corespond à aucune partie' }
@@ -104,6 +104,14 @@ const enigme1End = (idRoom, v) => {
   return data
 }
 
+const restartEnigme1 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.restartEnigme1()
+  return data
+}
+
 //
 // Enigme 2
 //
@@ -159,6 +167,15 @@ const restartEnigme2 = (idRoom) => {
   const data = existingRoom.restartEnigme2()
   return data
 }
+const setSettimeoutEnigme2 = (idRoom, array) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.setSettimeoutEnigme2(array)
+
+  return data
+}
+
 //
 // Enigme 3
 //
@@ -180,10 +197,12 @@ module.exports = {
   setUserReadyEnigme,
   enigme1EnteredNumber,
   enigme1End,
+  restartEnigme1,
   getDataEnigme2,
   getSucessEnigme2,
   getNewOwnerDataEnigme2,
   newPopupEnigme2,
   restartEnigme2,
+  setSettimeoutEnigme2,
   setConfigEnigme3,
 }

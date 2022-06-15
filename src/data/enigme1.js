@@ -21,11 +21,11 @@ const MESSAGES_LIST = [
   },
   {
     isReceived: true,
-    content: 'Votre code de double auth est 2568',
+    content: 'Votre code de double authentification est 2568',
   },
   {
     isReceived: true,
-    content: 'Votre code de triple auth est 36743',
+    content: 'Votre code de triple authentification est 36743',
   },
   {
     isReceived: true,
@@ -35,7 +35,7 @@ const MESSAGES_LIST = [
 
 const MESSAGE_NOT_RECALL = {
   contact: MESSAGE_NAME_FACTURE,
-  message: 'Après une rapide analyse le numéro + 00 8 34 87 18 31 serait un appel suspect. Nous vons déconseillons de le rappeler.',
+  message: 'Après une rapide analyse, le numéro +00 8 34 87 18 31 serait un appel suspect. Nous vous déconseillons de le rappeler.',
 }
 
 module.exports = {
