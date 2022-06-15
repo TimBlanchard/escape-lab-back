@@ -104,6 +104,14 @@ const enigme1End = (idRoom, v) => {
   return data
 }
 
+const restartEnigme1 = (idRoom) => {
+  const existingRoom = rooms[idRoom] || null
+  if (!existingRoom) return { error: 'No Room' }
+
+  const data = existingRoom.restartEnigme1()
+  return data
+}
+
 //
 // Enigme 2
 //
@@ -189,6 +197,7 @@ module.exports = {
   setUserReadyEnigme,
   enigme1EnteredNumber,
   enigme1End,
+  restartEnigme1,
   getDataEnigme2,
   getSucessEnigme2,
   getNewOwnerDataEnigme2,

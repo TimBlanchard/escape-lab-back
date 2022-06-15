@@ -1,6 +1,6 @@
 const { STEPS_GAME } = require('./room')
 const {
-  userConnected, userDisconnected, setUserReady, setUserReadyEnigme, getStepGame, setStepGame, restartEnigme2,
+  userConnected, userDisconnected, setUserReady, setUserReadyEnigme, getStepGame, setStepGame, restartEnigme2, restartEnigme1,
 } = require('./roomServer')
 const { setConfigEnigme3 } = require('./roomServer')
 
@@ -34,10 +34,14 @@ const initConnexion = (io, socket) => {
     // If is reconnexion
     //
     if (dataRoom.isStart && dataRoom.stepGameNumber > 0 && dataRoom.stepGameNumber < 4) {
-      console.log('RESTART GAME', dataRoom.stepGame)
       switch (dataRoom.stepGameNumber) {
         case 1:
-          // TODO : restart enigme 1
+          io.to(socket.idRoom).emit('show-fader')
+          restartEnigme1(socket.idRoom)
+
+          setTimeout(() => {
+            io.to(socket.idRoom).emit('enigme1-restart')
+          }, 1000)
           break
 
         case 2:

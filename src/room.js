@@ -340,6 +340,10 @@ class Room {
     return { messages }
   }
 
+  restartEnigme1() {
+    this.enigme1 = _.cloneDeep(INIT_ENIGME_1)
+  }
+
   // =============== //
   //     Enigme2     //
   // =============== //
