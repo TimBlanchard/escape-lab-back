@@ -18,7 +18,7 @@ const initSocketsEnigme2 = (io, socket) => {
   socket.on('enigme2-getPopups', () => {
     const dataPopups = getDataEnigme2(socket.idRoom).popups
 
-    return dataPopups
+    io.to(socket.idRoom).emit('enigme2-getPopups', dataPopups)
   })
 
   socket.on('enigme2-sendPopups', () => {
