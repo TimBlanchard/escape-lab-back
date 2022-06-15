@@ -15,6 +15,12 @@ const TIME_AFTER_POPUPS = 4000
 const TIME_AFTER_SORT = 5000
 
 const initSocketsEnigme2 = (io, socket) => {
+  socket.on('enigme2-getPopups', () => {
+    const dataPopups = getDataEnigme2(socket.idRoom).popups
+
+    return dataPopups
+  })
+
   socket.on('enigme2-sendPopups', () => {
     const dataPopups = getDataEnigme2(socket.idRoom).popups
     io.to(socket.idRoom).emit('enigme2-sendPopups', dataPopups)
