@@ -23,9 +23,9 @@ const POPUPS = [
   },
   {
     id: 3,
-    from: 'Caf de Paris (noreply@emailing.caf.fr)',
-    subject: 'Votre CAF vous informe - Déclarez vos revenus trimestriels',
-    text: 'Pour lire ce message en ligne, rendez-vous sur cette page. Ceci est un message automatique, merci de ne pas y répondre. …',
+    from: 'Île-de-France Mobilités',
+    subject: 'Travaux d\'été 2022 dans vos transports',
+    text: 'Nous avons bien conscience que ces travaux vont perturber votre quotidien. Pour limiter les désagréments retrouvez les dates des travaux sur ratp.fr',
     owner: null,
     incomingDirection: null,
     exitDirection: null,
