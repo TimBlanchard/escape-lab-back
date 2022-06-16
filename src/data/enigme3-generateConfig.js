@@ -19,23 +19,24 @@ function generateConfig() {
 
   // generate product subtype
   const subtype = enigme3Data().settings.product[product.type]
+  let val
   let subtypeText
   let subtypeInterval
   if (product.type === 'clothing') {
     // select random value in marque array
-    const val = subtype.value[randomNum(0, subtype.value.length)]
+    val = subtype.value[randomNum(0, subtype.value.length)]
     subtypeText = subtype.name + val
     subtypeInterval = pricesData[product.type][val]
   } else {
     // choose randomly if will be value more or less
     if (Math.random() < 0.5) {
       // more than val
-      const val = subtype.value + randomNum(1, subtype.value * 0.4)
+      val = subtype.value + randomNum(1, subtype.value * 0.4)
       subtypeText = subtype.name + val.toString() + subtype.unit
       subtypeInterval = pricesData[product.type].more
     } else {
       // less than value
-      const val = subtype.value - randomNum(1, subtype.value * 0.4)
+      val = subtype.value - randomNum(1, subtype.value * 0.4)
       subtypeText = subtype.name + val.toString() + subtype.unit
       subtypeInterval = pricesData[product.type].less
     }
@@ -45,7 +46,7 @@ function generateConfig() {
     description: product.description,
     img: image,
     type: product.type,
-    subtype: { text: subtypeText, interval: subtypeInterval },
+    subtype: { text: subtypeText, interval: subtypeInterval, val: val + subtype.unit },
     criteria: product.criteria,
   }
 
