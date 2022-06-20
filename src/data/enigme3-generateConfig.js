@@ -6,10 +6,12 @@ const { randomNum } = require('../helpers/randomNum')
 
 function generateConfig() {
   // CHOOSE TRUE RULES
-  const trueRulesNumber = enigme3Data().settings.rulesToDetectBot
-  const trueRules = enigme3Data()
+  // RANDOM RULES SELECTION
+  /* const trueRulesNumber = enigme3Data().settings.rulesToDetectBot
+   const trueRules = enigme3Data()
     .rules.sort(() => Math.random() - Math.random())
-    .slice(0, trueRulesNumber)
+    .slice(0, trueRulesNumber) */
+  const trueRules = [{ slug: 'stock', name: 'l\'image du produit' }, { slug: 'price', name: 'le prix du produit' }, { slug: 'payment', name: 'le moyen de paiment' }]
 
   // CHOOSE RANDOM PRODUCT
   const product = enigme3Data().products[randomNum(0, enigme3Data().products.length)]
