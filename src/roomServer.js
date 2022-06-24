@@ -139,7 +139,7 @@ const getSucessEnigme2 = (idRoom) => {
     },
   )
 
-  const success = (rightResponses / popups.length) > 0.3
+  const success = (rightResponses / popups.length) > 0.95
 
   return success
 }
